@@ -1,0 +1,143 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhqtvre8l8ekq"]
+
+[ext_resource type="Script" uid="uid://b8wfxyew7amaq" path="res://user_interface/multiple_property_settings.gd" id="1_gyspp"]
+
+[node name="JiggleBoneParameters" type="VBoxContainer"]
+offset_right = 244.0
+offset_bottom = 295.0
+alignment = 1
+script = ExtResource("1_gyspp")
+metadata/jiggle_bone = false
+
+[node name="Start" type="HBoxContainer" parent="."]
+layout_mode = 2
+tooltip_text = "WARNING: Leaving this blank will cause the physics not to be included in the compile! If the bone is above the renamed pelvis area, this value will be left null and fail to compile"
+
+[node name="Label" type="Label" parent="Start"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Start bone"
+
+[node name="OptionButton" type="OptionButton" parent="Start"]
+custom_minimum_size = Vector2(123, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+clip_text = true
+
+[node name="End" type="HBoxContainer" parent="."]
+layout_mode = 2
+tooltip_text = "WARNING: Leaving this blank will cause the physics not to be included in the compile! If the bone is above the renamed pelvis area, this value will be left null and fail to compile"
+
+[node name="Label" type="Label" parent="End"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "End bone"
+
+[node name="OptionButton" type="OptionButton" parent="End"]
+custom_minimum_size = Vector2(123, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+clip_text = true
+
+[node name="YawStiffness" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="YawStiffness"]
+layout_mode = 2
+text = "Yaw stiffness"
+
+[node name="SpinBox" type="SpinBox" parent="YawStiffness"]
+custom_minimum_size = Vector2(123, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+step = 0.01
+value = 100.0
+allow_greater = true
+
+[node name="YawDamping" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="YawDamping"]
+layout_mode = 2
+text = "Yaw damping"
+
+[node name="SpinBox" type="SpinBox" parent="YawDamping"]
+custom_minimum_size = Vector2(123, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+step = 0.01
+value = 14.0
+allow_greater = true
+
+[node name="PitchStiffness" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PitchStiffness"]
+layout_mode = 2
+text = "Pitch stiffness"
+
+[node name="SpinBox" type="SpinBox" parent="PitchStiffness"]
+custom_minimum_size = Vector2(123, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+step = 0.01
+value = 100.0
+allow_greater = true
+
+[node name="PitchDamping" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="PitchDamping"]
+layout_mode = 2
+text = "Pitch damping"
+
+[node name="SpinBox" type="SpinBox" parent="PitchDamping"]
+custom_minimum_size = Vector2(123, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+step = 0.01
+value = 14.0
+allow_greater = true
+
+[node name="AlongStiffness" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="AlongStiffness"]
+layout_mode = 2
+text = "Along stiffness"
+
+[node name="SpinBox" type="SpinBox" parent="AlongStiffness"]
+custom_minimum_size = Vector2(123, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+step = 0.01
+value = 100.0
+allow_greater = true
+
+[node name="AlongDamping" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="AlongDamping"]
+layout_mode = 2
+text = "Along damping"
+
+[node name="SpinBox" type="SpinBox" parent="AlongDamping"]
+custom_minimum_size = Vector2(123, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+step = 0.01
+allow_greater = true
+
+[node name="TipMass" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TipMass"]
+layout_mode = 2
+text = "Tip mass"
+
+[node name="SpinBox" type="SpinBox" parent="TipMass"]
+custom_minimum_size = Vector2(123, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+step = 0.01
+allow_greater = true

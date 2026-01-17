@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bk0xrfu40sjj3"]
+
+[ext_resource type="Shader" uid="uid://1yg6qs1e6fha" path="res://collisions/collision_wireframe.gdshader" id="1_7o4em"]
+
+[resource]
+render_priority = 1
+shader = ExtResource("1_7o4em")
+shader_parameter/albedo = Color(0, 0.5666666, 1, 1)
+shader_parameter/outline_width = 0.0

@@ -1,0 +1,4066 @@
+[gd_scene load_steps=26 format=3 uid="uid://nhkkyvcan3so"]
+
+[ext_resource type="Script" uid="uid://dyl5vto8pedvv" path="res://view_camera.gd" id="1_16jkr"]
+[ext_resource type="Script" uid="uid://dk5e60841igq0" path="res://user_interface/model_editor.gd" id="1_if0bs"]
+[ext_resource type="Script" uid="uid://7ee5brbsddgk" path="res://user_interface/skeleton.gd" id="3_arc6n"]
+[ext_resource type="PackedScene" uid="uid://tw0dyldw0ed1" path="res://male07_ref.glb" id="3_sdunm"]
+[ext_resource type="Theme" uid="uid://b4lcu0m3by7tw" path="res://user_interface/themes/amaxivermis_theme.tres" id="4_iopv7"]
+[ext_resource type="Script" uid="uid://d2yx12vcihlkk" path="res://application_setting.gd" id="4_lan5r"]
+[ext_resource type="Texture2D" uid="uid://dj82bw3i2ojle" path="res://user_interface/icons/folder.svg" id="5_iopv7"]
+[ext_resource type="Script" uid="uid://ctjr1nmsqy3jj" path="res://user_interface/mesh/mesh.gd" id="5_tv22w"]
+[ext_resource type="Script" uid="uid://6pkomhoj3ybn" path="res://user_interface/materials/materials.gd" id="6_h06fm"]
+[ext_resource type="Script" uid="uid://e3f1ox6y6cvg" path="res://addons/Gizmo3DScript/gizmo3D.gd" id="7_lmiwe"]
+[ext_resource type="Script" uid="uid://ddctqq1km8m8w" path="res://user_interface/property_setting.gd" id="8_lan5r"]
+[ext_resource type="Script" uid="uid://c5b468ok2wjvv" path="res://collisions/collisions.gd" id="8_lmiwe"]
+[ext_resource type="Script" uid="uid://dan1m2kt2b55d" path="res://collisions/CollisionGenerator.cs" id="9_qchcq"]
+[ext_resource type="Script" uid="uid://wmugp0y6u46r" path="res://user_interface/mesh/bodygroups.gd" id="10_lan5r"]
+[ext_resource type="Script" uid="uid://cpr4gmn0sc2l4" path="res://user_interface/mesh/jigglebones.gd" id="11_iopv7"]
+[ext_resource type="Theme" uid="uid://to6sapq07fj" path="res://user_interface/themes/editor.tres" id="12_jx6jd"]
+[ext_resource type="Script" uid="uid://bs5fvoqy4gpk6" path="res://user_interface/options.gd" id="13_yp505"]
+[ext_resource type="Script" uid="uid://vob5gaa4k4p4" path="res://view.gd" id="14_lan5r"]
+[ext_resource type="Script" uid="uid://bfwqnlivm84l7" path="res://user_interface/materials/groups.gd" id="16_iopv7"]
+[ext_resource type="Texture2D" uid="uid://dqe46enaw0840" path="res://user_interface/icons/material_icon.png" id="17_lan5r"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sdunm"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 0.26666665, 0, 0.1882353)
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_lfd62"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5qyes"]
+sky_top_color = Color(0.224, 0.39733335, 0.64, 1)
+sky_horizon_color = Color(0.5612, 0.77648, 0.92, 1)
+ground_bottom_color = Color(0, 0, 0, 1)
+ground_curve = 0.0022531315
+
+[sub_resource type="Sky" id="Sky_lmiwe"]
+sky_material = SubResource("ProceduralSkyMaterial_5qyes")
+
+[sub_resource type="Environment" id="Environment_5qyes"]
+background_mode = 2
+sky = SubResource("Sky_lmiwe")
+tonemap_mode = 1
+
+[node name="ModelEditor" type="Node"]
+script = ExtResource("1_if0bs")
+
+[node name="reference_male2" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0928857, 1.1920929e-07, -3.1500914)
+
+[node name="reference_male" type="Node3D" parent="reference_male2"]
+
+[node name="Skeleton3D" type="Skeleton3D" parent="reference_male2/reference_male"]
+bones/0/name = "ValveBiped.Bip01_Pelvis"
+bones/0/parent = -1
+bones/0/rest = Transform3D(1, 0, 7.152535e-07, 0, 1, 0, -7.152535e-07, 0, 1, -5.8725007e-05, 0.96417296, 0.013281526)
+bones/0/enabled = true
+bones/0/position = Vector3(-5.8725007e-05, 0.96417296, 0.013281526)
+bones/0/rotation = Quaternion(0, 3.5762676e-07, 0, 1)
+bones/0/scale = Vector3(1, 1, 1)
+bones/1/name = "ValveBiped.Bip01_Spine"
+bones/1/parent = 0
+bones/1/rest = Transform3D(5.722045e-06, -1.1324875e-06, 0.9999998, 0.9962783, 0.086194225, -5.603135e-06, -0.08619424, 0.9962781, 1.62148e-06, 1.2499491e-07, 0.08362818, -0.07454748)
+bones/1/enabled = true
+bones/1/position = Vector3(1.2499491e-07, 0.08362818, -0.07454748)
+bones/1/rotation = Quaternion(0.47796702, 0.5211015, 0.47796488, 0.521105)
+bones/1/scale = Vector3(0.9999999, 0.9999997, 0.9999998)
+bones/2/name = "ValveBiped.Bip01_Spine1"
+bones/2/parent = 1
+bones/2/rest = Transform3D(0.9995731, 0.029216796, 1.4653119e-06, -0.029216796, 0.9995731, 2.4483575e-07, -1.457533e-06, -2.8754295e-07, 1, 0.10045833, 7.301877e-07, -1.5210404e-08)
+bones/2/enabled = true
+bones/2/position = Vector3(0.10045833, 7.301877e-07, -1.5210404e-08)
+bones/2/rotation = Quaternion(-1.3310888e-07, 7.307893e-07, -0.014609958, 0.99989325)
+bones/2/scale = Vector3(1, 1, 1)
+bones/3/name = "ValveBiped.Bip01_Spine2"
+bones/3/parent = 2
+bones/3/rest = Transform3D(0.99497145, -0.10015866, -4.410635e-05, 0.10015866, 0.99497145, -4.269663e-06, 4.43122e-05, -1.6944023e-07, 1, 0.08796368, -2.9053493e-07, -3.5898182e-09)
+bones/3/enabled = true
+bones/3/position = Vector3(0.08796368, -2.9053493e-07, -3.5898182e-09)
+bones/3/rotation = Quaternion(1.0263467e-06, -2.2132479e-05, 0.050142407, 0.9987421)
+bones/3/scale = Vector3(0.99999994, 0.99999994, 1)
+bones/4/name = "ValveBiped.Bip01_Spine4"
+bones/4/parent = 3
+bones/4/rest = Transform3D(0.9812208, -0.19288802, 5.314641e-05, 0.19288804, 0.9812207, 8.784739e-08, -5.216531e-05, 1.01651085e-05, 1, 0.22356607, -1.4895349e-07, -2.5966784e-08)
+bones/4/enabled = true
+bones/4/position = Vector3(0.22356607, -1.4895349e-07, -2.5966784e-08)
+bones/4/rotation = Quaternion(2.5312277e-06, 2.6452413e-05, 0.09690003, 0.9952941)
+bones/4/scale = Vector3(1, 0.99999994, 1)
+bones/5/name = "ValveBiped.Bip01_Neck1"
+bones/5/parent = 4
+bones/5/rest = Transform3D(0.93124956, 0.36437893, 2.0233561e-05, 0.36437857, -0.9312505, 3.1143202e-06, 1.9977288e-05, 4.4724716e-06, -0.99999994, 0.082681924, -4.9171996e-07, 6.723873e-09)
+bones/5/enabled = true
+bones/5/position = Vector3(0.082681924, -4.9171996e-07, 6.723873e-09)
+bones/5/rotation = Quaternion(0.9826624, 0.18540399, 1.02300855e-05, 3.455287e-07)
+bones/5/scale = Vector3(0.99999875, 0.99999976, 0.99999994)
+bones/6/name = "ValveBiped.Bip01_Head1"
+bones/6/parent = 5
+bones/6/rest = Transform3D(0.9545231, -0.29813695, 1.1429332e-05, 0.29813695, 0.9545231, 8.196854e-06, -1.3353346e-05, -4.41658e-06, 1, 0.089842856, -9.705782e-07, 2.069217e-08)
+bones/6/enabled = true
+bones/6/position = Vector3(0.089842856, -9.705782e-07, 2.069217e-08)
+bones/6/rotation = Quaternion(-3.189833e-06, 6.267334e-06, 0.15079273, 0.9885654)
+bones/6/scale = Vector3(1, 1, 1)
+bones/7/name = "ValveBiped.forward"
+bones/7/parent = 6
+bones/7/rest = Transform3D(2.8967861e-05, -0.24656595, 0.96912605, 0, 0.96912616, 0.24656592, -1.0000001, -7.1424874e-06, 2.8073506e-05, 0.049997833, -0.074999854, -1.6703154e-09)
+bones/7/enabled = true
+bones/7/position = Vector3(0.049997833, -0.074999854, -1.6703154e-09)
+bones/7/rotation = Quaternion(-0.08785623, 0.7016176, 0.08785369, 0.7016379)
+bones/7/scale = Vector3(1.0000001, 1.0000001, 1)
+bones/8/name = "ValveBiped.Bip01_R_Clavicle"
+bones/8/parent = 4
+bones/8/rest = Transform3D(-0.4304761, 0.88492304, -0.17776714, 0.07921736, -0.15914863, -0.98407125, -0.89911884, -0.43770137, -0.0015915828, 0.05083414, 0.025018968, -0.04844023)
+bones/8/enabled = true
+bones/8/position = Vector3(0.05083414, 0.025018968, -0.04844023)
+bones/8/rotation = Quaternion(-0.4272775, -0.5641186, 0.63008595, -0.31968096)
+bones/8/scale = Vector3(0.9999999, 0.99999976, 0.99999994)
+bones/9/name = "ValveBiped.Bip01_R_UpperArm"
+bones/9/parent = 8
+bones/9/rest = Transform3D(0.8981699, -0.0036829174, 0.43963313, 0.4396329, -0.0009418537, -0.8981769, 0.0037219822, 0.9999927, 0.000773187, 0.15070368, 2.1373853e-07, -3.4895493e-08)
+bones/9/enabled = true
+bones/9/position = Vector3(0.15070368, 2.1373853e-07, -3.4895493e-08)
+bones/9/rotation = Quaternion(0.68890107, 0.15820487, 0.1608922, 0.6888398)
+bones/9/scale = Vector3(1, 0.99999994, 0.9999998)
+bones/10/name = "ValveBiped.Bip01_R_Forearm"
+bones/10/parent = 9
+bones/10/rest = Transform3D(1, -9.802575e-13, -1.0311353e-06, 4.3557719e-10, 0.99999994, 0.00042147422, 1.0311353e-06, -0.00042147422, 0.99999994, 0.2923139, 2.339948e-08, 9.987707e-08)
+bones/10/enabled = true
+bones/10/position = Vector3(0.2923139, 2.339948e-08, 9.987707e-08)
+bones/10/rotation = Quaternion(-0.00021073711, -5.1556765e-07, 1.0913935e-10, 1)
+bones/10/scale = Vector3(1, 1, 1)
+bones/11/name = "ValveBiped.Bip01_R_Hand"
+bones/11/parent = 10
+bones/11/rest = Transform3D(0.98592275, -0.10621507, -0.12913002, 0.12915118, -0.006708028, 0.99160224, -0.1061893, -0.99432045, 0.007104207, 0.2870424, -6.267801e-07, 4.3968612e-08)
+bones/11/enabled = true
+bones/11/position = Vector3(0.2870424, -6.267801e-07, 4.3968612e-08)
+bones/11/rotation = Quaternion(-0.7045436, -0.00813865, 0.08350063, 0.70468414)
+bones/11/scale = Vector3(0.99999994, 0.9999999, 1)
+bones/12/name = "ValveBiped.Anim_Attachment_RH"
+bones/12/parent = 11
+bones/12/rest = Transform3D(-0.985415, 0.13110578, 0.10848351, 0.108331814, -0.008310198, 0.99408, 0.13123117, 0.99133354, -0.006013934, 0.066901915, -0.042811863, 5.6810677e-08)
+bones/12/enabled = true
+bones/12/position = Vector3(0.066901915, -0.042811863, 5.6810677e-08)
+bones/12/rotation = Quaternion(0.085013516, 0.70411617, 0.7049311, -0.008076664)
+bones/12/scale = Vector3(1, 1, 0.99999994)
+bones/13/name = "ValveBiped.Bip01_R_Finger4"
+bones/13/parent = 11
+bones/13/rest = Transform3D(0.7915246, 0.59063333, -0.15697475, -0.5939642, 0.6830097, -0.42509317, -0.14385894, 0.42970905, 0.8914341, 0.09649185, -0.0033153296, 0.02982773)
+bones/13/enabled = true
+bones/13/position = Vector3(0.09649185, -0.0033153296, 0.02982773)
+bones/13/rotation = Quaternion(0.23295964, -0.003574461, -0.3228389, 0.9173288)
+bones/13/scale = Vector3(1, 0.9999999, 1)
+bones/14/name = "ValveBiped.Bip01_R_Finger41"
+bones/14/parent = 13
+bones/14/rest = Transform3D(0.86299056, 0.41507286, -0.28803077, -0.4297823, 0.9028339, 0.013344943, 0.26558307, 0.11227398, 0.9575281, 0.03281389, -2.8312206e-07, -5.2154064e-08)
+bones/14/enabled = true
+bones/14/position = Vector3(0.03281389, -2.8312206e-07, -5.2154064e-08)
+bones/14/rotation = Quaternion(0.025634607, -0.14345309, -0.21891987, 0.9647995)
+bones/14/scale = Vector3(0.99999994, 0.99999994, 0.99999994)
+bones/15/name = "ValveBiped.Bip01_R_Finger42"
+bones/15/parent = 14
+bones/15/rest = Transform3D(0.97029364, 0.2418571, -0.005953951, -0.2418526, 0.9703119, 0.0014758257, 0.006134128, 7.994298e-06, 0.99998116, 0.018234108, 3.2410026e-07, 1.7136335e-07)
+bones/15/enabled = true
+bones/15/position = Vector3(0.018234108, 3.2410026e-07, 1.7136335e-07)
+bones/15/rotation = Quaternion(-0.0003697139, -0.0030447163, -0.12183564, 0.99254555)
+bones/15/scale = Vector3(1, 1, 0.99999994)
+bones/16/name = "ValveBiped.Bip01_R_Finger3"
+bones/16/parent = 11
+bones/16/rest = Transform3D(0.75410056, 0.6552124, 0.045045976, -0.6381455, 0.7472163, -0.18557544, -0.1552504, 0.11119666, 0.981597, 0.09855734, 0.0012572708, 0.01077617)
+bones/16/enabled = true
+bones/16/position = Vector3(0.09855734, 0.0012572708, 0.01077617)
+bones/16/rotation = Quaternion(0.07950999, 0.0536626, -0.34651124, 0.9331283)
+bones/16/scale = Vector3(1, 1.0000001, 1)
+bones/17/name = "ValveBiped.Bip01_R_Finger31"
+bones/17/parent = 16
+bones/17/rest = Transform3D(0.855134, 0.4956469, -0.15192015, -0.500751, 0.86557484, 0.0053331377, 0.13414161, 0.07151362, 0.9883784, 0.038477417, 6.891787e-08, 7.450581e-09)
+bones/17/enabled = true
+bones/17/position = Vector3(0.038477417, 6.891787e-08, 7.450581e-09)
+bones/17/rotation = Quaternion(0.017181711, -0.074267074, -0.25868386, 0.9629496)
+bones/17/scale = Vector3(0.9999998, 0.9999999, 1)
+bones/18/name = "ValveBiped.Bip01_R_Finger32"
+bones/18/parent = 17
+bones/18/rest = Transform3D(0.90860045, 0.41757417, -0.008779635, -0.4175547, 0.9086429, 0.0040313704, 0.00966095, 3.0727222e-06, 0.99995327, 0.029908277, 1.2293458e-07, -2.2351742e-08)
+bones/18/enabled = true
+bones/18/position = Vector3(0.029908277, 1.2293458e-07, -2.2351742e-08)
+bones/18/rotation = Quaternion(-0.0010309066, -0.0047192443, -0.213723, 0.97688234)
+bones/18/scale = Vector3(1, 1, 0.99999994)
+bones/19/name = "ValveBiped.Bip01_R_Finger2"
+bones/19/parent = 11
+bones/19/rest = Transform3D(0.74671704, 0.6331234, 0.20388307, -0.6485037, 0.7611232, 0.01159463, -0.1478393, -0.14087686, 0.97892654, 0.0970914, -0.0012594638, -0.01077605)
+bones/19/enabled = true
+bones/19/position = Vector3(0.0970914, -0.0012594638, -0.01077605)
+bones/19/rotation = Quaternion(-0.04082698, 0.09417999, -0.34317866, 0.9336443)
+bones/19/scale = Vector3(0.99999994, 1, 0.99999994)
+bones/20/name = "ValveBiped.Bip01_R_Finger21"
+bones/20/parent = 19
+bones/20/rest = Transform3D(0.8768597, 0.48072317, -0.004734989, -0.48061553, 0.876348, -0.031981576, -0.011224788, 0.030319057, 0.9994774, 0.0429896, 2.7613714e-07, -3.7252903e-08)
+bones/20/enabled = true
+bones/20/position = Vector3(0.0429896, 2.7613714e-07, -3.7252903e-08)
+bones/20/rotation = Quaternion(0.016080199, 0.001675059, -0.24812777, 0.9685924)
+bones/20/scale = Vector3(1.0000001, 0.9999999, 1.0000001)
+bones/21/name = "ValveBiped.Bip01_R_Finger22"
+bones/21/parent = 20
+bones/21/rest = Transform3D(0.9766784, 0.21466345, -0.0043553035, -0.21466129, 0.9766882, 0.00095778, 0.0044593737, -5.2797037e-07, 0.99999, 0.030229356, -6.519258e-08, -2.514571e-08)
+bones/21/enabled = true
+bones/21/position = Vector3(0.030229356, -6.519258e-08, -2.514571e-08)
+bones/21/rotation = Quaternion(-0.00024098616, -0.002216631, -0.10796248, 0.9941525)
+bones/21/scale = Vector3(1, 1.0000001, 0.99999994)
+bones/22/name = "ValveBiped.Bip01_R_Finger1"
+bones/22/parent = 11
+bones/22/rest = Transform3D(0.75441533, 0.56335473, 0.33688116, -0.6459961, 0.72822225, 0.22886983, -0.11638946, -0.39028683, 0.913307, 0.09649579, -0.0037245979, -0.033281997)
+bones/22/enabled = true
+bones/22/position = Vector3(0.09649579, -0.0037245979, -0.033281997)
+bones/22/rotation = Quaternion(-0.16799264, 0.12298362, -0.32812703, 0.9214044)
+bones/22/scale = Vector3(1, 1, 1)
+bones/23/name = "ValveBiped.Bip01_R_Finger11"
+bones/23/parent = 22
+bones/23/rest = Transform3D(0.87486, 0.4619451, 0.14569393, -0.46078715, 0.8864362, -0.043657586, -0.14931577, -0.028939612, 0.98836595, 0.04298565, 1.5739352e-07, -1.6391277e-07)
+bones/23/enabled = true
+bones/23/position = Vector3(0.04298565, 1.5739352e-07, -1.6391277e-07)
+bones/23/rotation = Quaternion(0.0038003356, 0.07617461, -0.23825917, 0.96820223)
+bones/23/scale = Vector3(1, 0.99999994, 0.99999994)
+bones/24/name = "ValveBiped.Bip01_R_Finger12"
+bones/24/parent = 23
+bones/24/rest = Transform3D(0.9702943, 0.2418938, -0.00407908, -0.2418917, 0.9703027, 0.0010160594, 0.004203722, 8.1902107e-07, 0.9999912, 0.027491646, 1.1827797e-07, -1.1175871e-08)
+bones/24/enabled = true
+bones/24/position = Vector3(0.027491646, 1.1827797e-07, -1.1175871e-08)
+bones/24/rotation = Quaternion(-0.0002557163, -0.002086252, -0.121854715, 0.9925457)
+bones/24/scale = Vector3(1.0000001, 0.99999994, 1)
+bones/25/name = "ValveBiped.Bip01_R_Finger0"
+bones/25/parent = 11
+bones/25/rest = Transform3D(0.5879306, 0.6126589, -0.5281918, -0.16826826, -0.5460538, -0.82067716, -0.79121625, 0.57137907, -0.21795076, 0.0201503, -0.008996368, -0.032958318)
+bones/25/enabled = true
+bones/25/position = Vector3(0.0201503, -0.008996368, -0.032958318)
+bones/25/rotation = Quaternion(0.76680106, 0.14488462, -0.4301664, 0.45385182)
+bones/25/scale = Vector3(0.9999999, 0.9999999, 1)
+bones/26/name = "ValveBiped.Bip01_R_Finger01"
+bones/26/parent = 25
+bones/26/rest = Transform3D(0.7773639, -0.41284305, 0.4746221, 0.51758176, 0.84858584, -0.10959548, -0.35751197, 0.33085126, 0.8733399, 0.04474467, 2.3283064e-08, 1.6018748e-07)
+bones/26/enabled = true
+bones/26/position = Vector3(0.04474467, 2.3283064e-08, 1.6018748e-07)
+bones/26/rotation = Quaternion(0.11772629, 0.22241975, 0.24869172, 0.9353194)
+bones/26/scale = Vector3(1.0000001, 0.99999994, 0.99999994)
+bones/27/name = "ValveBiped.Bip01_R_Finger02"
+bones/27/parent = 26
+bones/27/rest = Transform3D(0.93483335, -0.35497257, -0.009000445, 0.35495627, 0.93487656, -0.0034030266, 0.009622286, -1.3501573e-05, 0.9999536, 0.030175177, -3.017485e-07, -2.0675361e-07)
+bones/27/enabled = true
+bones/27/position = Vector3(0.030175177, -3.017485e-07, -2.0675361e-07)
+bones/27/rotation = Quaternion(0.00086153374, -0.0047334386, 0.1804464, 0.9835731)
+bones/27/scale = Vector3(0.99999994, 0.9999998, 0.9999999)
+bones/28/name = "ValveBiped.Bip01_L_Clavicle"
+bones/28/parent = 4
+bones/28/rest = Transform3D(-0.43277732, 0.8840759, 0.17638797, 0.074990764, -0.15967767, 0.9843166, 0.8983761, 0.4392173, 0.0028073534, 0.050833903, 0.025018882, 0.04844149)
+bones/28/enabled = true
+bones/28/position = Vector3(0.050833903, 0.025018882, 0.04844149)
+bones/28/rotation = Quaternion(0.4254683, 0.5635362, 0.6315185, -0.3202937)
+bones/28/scale = Vector3(0.9999997, 0.99999946, 0.9999999)
+bones/29/name = "ValveBiped.Bip01_L_UpperArm"
+bones/29/parent = 28
+bones/29/rest = Transform3D(0.8974385, 0.001642704, -0.44113654, 0.44113907, -0.0018134117, 0.897437, 0.00067427754, -0.999997, -0.0023521185, 0.15070176, 1.0530857e-07, 3.661262e-08)
+bones/29/enabled = true
+bones/29/position = Vector3(0.15070176, 1.0530857e-07, 3.661262e-08)
+bones/29/rotation = Quaternion(-0.6894933, -0.1605461, 0.15970504, 0.6879813)
+bones/29/scale = Vector3(1, 1, 1)
+bones/30/name = "ValveBiped.Bip01_L_Forearm"
+bones/30/parent = 29
+bones/30/rest = Transform3D(1, 7.035219e-06, -1.1179826e-06, -7.035029e-06, 0.9999999, 0.00017083455, 1.1191844e-06, -0.00017083452, 1, 0.2923142, 7.6182187e-07, 3.6762503e-07)
+bones/30/enabled = true
+bones/30/position = Vector3(0.2923142, 7.6182187e-07, 3.6762503e-07)
+bones/30/rotation = Quaternion(-8.541727e-05, -5.592917e-07, -3.5175622e-06, 1)
+bones/30/scale = Vector3(1, 0.9999999, 1)
+bones/31/name = "ValveBiped.Bip01_L_Hand"
+bones/31/parent = 30
+bones/31/rest = Transform3D(0.9852732, -0.10521733, 0.13478126, 0.13373673, -0.016952872, -0.99087185, 0.10654182, 0.99430466, -0.0026317888, 0.287042, 2.1196902e-06, -3.7918653e-07)
+bones/31/enabled = true
+bones/31/position = Vector3(0.287042, 2.1196902e-06, -3.7918653e-07)
+bones/31/rotation = Quaternion(0.7079651, 0.010070918, 0.08521718, 0.70101506)
+bones/31/scale = Vector3(0.99999994, 0.9999999, 0.99999994)
+bones/32/name = "ValveBiped.Anim_Attachment_LH"
+bones/32/parent = 31
+bones/32/rest = Transform3D(0.98475635, 0.13592526, 0.10853316, -0.10731808, -0.016257286, 0.9940919, 0.13688667, -0.9905856, -0.0014222289, 0.06690194, -0.042811565, -2.514571e-08)
+bones/32/enabled = true
+bones/32/position = Vector3(0.06690194, -0.042811565, -2.514571e-08)
+bones/32/rotation = Quaternion(-0.70753723, -0.010108023, -0.08671621, 0.7012626)
+bones/32/scale = Vector3(1.0000001, 0.99999994, 1.0000001)
+bones/33/name = "ValveBiped.Bip01_L_Finger4"
+bones/33/parent = 31
+bones/33/rest = Transform3D(0.78603375, 0.59901863, 0.15273425, -0.59939295, 0.6780593, 0.42539853, 0.15125877, -0.42592537, 0.892025, 0.09648876, -0.0035606134, -0.029799482)
+bones/33/enabled = true
+bones/33/position = Vector3(0.09648876, -0.0035606134, -0.029799482)
+bones/33/rotation = Quaternion(-0.23235188, 0.00040271188, -0.32708257, 0.9159855)
+bones/33/scale = Vector3(1.0000001, 1, 1.0000001)
+bones/34/name = "ValveBiped.Bip01_L_Finger41"
+bones/34/parent = 33
+bones/34/rest = Transform3D(0.8908602, 0.37365967, 0.2583533, -0.38666815, 0.9222188, -0.00049803656, -0.23844436, -0.09945332, 0.9660503, 0.03281039, -2.2351742e-07, -4.4703484e-08)
+bones/34/enabled = true
+bones/34/position = Vector3(0.03281039, -2.2351742e-07, -4.4703484e-08)
+bones/34/rotation = Quaternion(-0.025451487, 0.1277773, -0.19555774, 0.97199917)
+bones/34/scale = Vector3(0.99999994, 1, 0.99999994)
+bones/35/name = "ValveBiped.Bip01_L_Finger42"
+bones/35/parent = 34
+bones/35/rest = Transform3D(0.97029555, 0.2418743, 0.004833019, -0.24187139, 0.9703076, -0.0011910949, -0.0049776104, -1.3254932e-05, 0.9999876, 0.01823034, -1.7508864e-07, 8.195639e-08)
+bones/35/enabled = true
+bones/35/position = Vector3(0.01823034, -1.7508864e-07, 8.195639e-08)
+bones/35/rotation = Quaternion(0.00029667135, 0.0024710766, -0.12184465, 0.9925461)
+bones/35/scale = Vector3(1, 1, 1)
+bones/36/name = "ValveBiped.Bip01_L_Finger3"
+bones/36/parent = 31
+bones/36/rest = Transform3D(0.7612668, 0.64602983, -0.05584434, -0.6261992, 0.75478727, 0.19537377, 0.16836789, -0.11376188, 0.9791376, 0.09855428, 0.001168719, -0.0107860565)
+bones/36/enabled = true
+bones/36/position = Vector3(0.09855428, 0.001168719, -0.0107860565)
+bones/36/rotation = Quaternion(-0.08267679, -0.059964437, -0.34025127, 0.9347716)
+bones/36/scale = Vector3(1.0000001, 1, 0.99999994)
+bones/37/name = "ValveBiped.Bip01_L_Finger31"
+bones/37/parent = 36
+bones/37/rest = Transform3D(0.8390553, 0.517335, 0.1683765, -0.52365035, 0.8518958, -0.007981908, -0.14756857, -0.08147314, 0.9856905, 0.03847356, 2.8312206e-07, -4.0978193e-08)
+bones/37/enabled = true
+bones/37/position = Vector3(0.03847356, 2.8312206e-07, -4.0978193e-08)
+bones/37/rotation = Quaternion(-0.019163724, 0.082386486, -0.27144945, 0.95872855)
+bones/37/scale = Vector3(1, 0.9999999, 1)
+bones/38/name = "ValveBiped.Bip01_L_Finger32"
+bones/38/parent = 37
+bones/38/rest = Transform3D(0.908598, 0.4176184, 0.006683674, -0.41760707, 0.9086227, -0.00307114, -0.007355503, -7.1753175e-07, 0.9999728, 0.029904446, -1.5646219e-07, 1.4901161e-08)
+bones/38/enabled = true
+bones/38/position = Vector3(0.029904446, -1.5646219e-07, 1.4901161e-08)
+bones/38/rotation = Quaternion(0.00078577123, 0.003592854, -0.21374777, 0.976882)
+bones/38/scale = Vector3(1, 1.0000001, 0.9999999)
+bones/39/name = "ValveBiped.Bip01_L_Finger2"
+bones/39/parent = 31
+bones/39/rest = Transform3D(0.7447528, 0.6299093, -0.22035818, -0.6481407, 0.7613909, -0.014056149, 0.15892462, 0.15329146, 0.9753178, 0.09708838, -0.0011700003, 0.010786069)
+bones/39/enabled = true
+bones/39/position = Vector3(0.09708838, -0.0011700003, 0.010786069)
+bones/39/rotation = Quaternion(0.044844456, -0.10163713, -0.34248143, 0.93293375)
+bones/39/scale = Vector3(1, 1, 1)
+bones/40/name = "ValveBiped.Bip01_L_Finger21"
+bones/40/parent = 39
+bones/40/rest = Transform3D(0.87427884, 0.48539743, 0.00507492, -0.48528388, 0.87372756, 0.03315964, 0.01166151, -0.03145355, 0.99943703, 0.042985596, -2.3748726e-08, -7.450581e-09)
+bones/40/enabled = true
+bones/40/position = Vector3(0.042985596, -2.3748726e-08, -7.450581e-09)
+bones/40/rotation = Quaternion(-0.016688745, -0.0017012303, -0.25071433, 0.9679158)
+bones/40/scale = Vector3(0.99999994, 0.9999999, 0.9999998)
+bones/41/name = "ValveBiped.Bip01_L_Finger22"
+bones/41/parent = 40
+bones/41/rest = Transform3D(0.97667545, 0.21469995, 0.0030048748, -0.21469891, 0.9766802, -0.00066131307, -0.0030767852, 7.4495154e-07, 0.99999523, 0.030225698, 5.217735e-07, 1.1175871e-08)
+bones/41/enabled = true
+bones/41/position = Vector3(0.030225698, 5.217735e-07, 1.1175871e-08)
+bones/41/rotation = Quaternion(0.00016648819, 0.0015293591, -0.107981205, 0.9941518)
+bones/41/scale = Vector3(1, 1.0000001, 0.99999994)
+bones/42/name = "ValveBiped.Bip01_L_Finger1"
+bones/42/parent = 31
+bones/42/rest = Transform3D(0.7419976, 0.5737797, -0.34672245, -0.66007435, 0.71570534, -0.22818366, 0.117223956, 0.39817432, 0.90978885, 0.09649258, -0.0034492635, 0.03331169)
+bones/42/enabled = true
+bones/42/position = Vector3(0.09649258, -0.0034492635, 0.03331169)
+bones/42/rotation = Quaternion(0.17066298, -0.1264109, -0.3361867, 0.9175363)
+bones/42/scale = Vector3(1, 1, 1)
+bones/43/name = "ValveBiped.Bip01_L_Finger11"
+bones/43/parent = 42
+bones/43/rest = Transform3D(0.87555534, 0.45645466, -0.15827747, -0.45592973, 0.8890347, 0.04177651, 0.15978324, 0.035585754, 0.9865104, 0.042982005, -5.6717545e-07, -5.029142e-08)
+bones/43/enabled = true
+bones/43/position = Vector3(0.042982005, -5.6717545e-07, -5.029142e-08)
+bones/43/rotation = Quaternion(-0.0015982124, -0.08211088, -0.2355421, 0.96838796)
+bones/43/scale = Vector3(0.9999999, 0.99999994, 0.9999999)
+bones/44/name = "ValveBiped.Bip01_L_Finger12"
+bones/44/parent = 43
+bones/44/rest = Transform3D(0.9702998, 0.2418932, 0.0025152199, -0.24189243, 0.9703029, -0.00062828994, -0.0025925047, 1.2169298e-06, 0.9999966, 0.027487744, 3.0454248e-07, -2.2351742e-08)
+bones/44/enabled = true
+bones/44/position = Vector3(0.027487744, 3.0454248e-07, -2.2351742e-08)
+bones/44/rotation = Quaternion(0.00015855843, 0.0012865193, -0.12185456, 0.99254715)
+bones/44/scale = Vector3(1.0000001, 1, 0.99999994)
+bones/45/name = "ValveBiped.Bip01_L_Finger0"
+bones/45/parent = 31
+bones/45/rest = Transform3D(0.57123375, 0.7537652, 0.32485393, -0.15841031, -0.28709754, 0.9447123, 0.805356, -0.59111166, -0.044595633, 0.020147262, -0.008723121, 0.033031557)
+bones/45/enabled = true
+bones/45/position = Vector3(0.020147262, -0.008723121, 0.033031557)
+bones/45/rotation = Quaternion(-0.6897331, -0.21579178, -0.4096548, 0.5566733)
+bones/45/scale = Vector3(1, 1, 1)
+bones/46/name = "ValveBiped.Bip01_L_Finger01"
+bones/46/parent = 45
+bones/46/rest = Transform3D(0.7992876, -0.5322995, -0.27892008, 0.5724376, 0.81565654, 0.083782814, 0.18290545, -0.22663094, 0.95665246, 0.044740904, -1.2479722e-07, 7.986091e-08)
+bones/46/enabled = true
+bones/46/position = Vector3(0.044740904, -1.2479722e-07, 7.986091e-08)
+bones/46/rotation = Quaternion(-0.08212583, -0.12218469, 0.29227912, 0.9449334)
+bones/46/scale = Vector3(0.99999994, 0.99999994, 0.99999994)
+bones/47/name = "ValveBiped.Bip01_L_Finger02"
+bones/47/parent = 46
+bones/47/rest = Transform3D(0.9348249, -0.35495263, 0.01053402, 0.3549302, 0.9348843, 0.003988861, -0.011263947, 9.954754e-06, 0.99993646, 0.030171193, -1.5366822e-07, 1.44355e-07)
+bones/47/enabled = true
+bones/47/position = Vector3(0.030171193, -1.5366822e-07, 1.44355e-07)
+bones/47/rotation = Quaternion(-0.0010113424, 0.0055405195, 0.18043514, 0.98357075)
+bones/47/scale = Vector3(0.99999994, 1, 0.9999999)
+bones/48/name = "ValveBiped.Bip01_R_Thigh"
+bones/48/parent = 0
+bones/48/rest = Transform3D(-0.00011098385, 0.00025850532, 1, -0.99997467, 0.007119506, -0.00011282148, -0.0071195364, -0.9999745, 0.00025770869, -0.097261295, 1.7881393e-07, 1.7905464e-07)
+bones/48/enabled = true
+bones/48/position = Vector3(-0.097261295, 1.7881393e-07, 1.7905464e-07)
+bones/48/rotation = Quaternion(-0.4981244, 0.50174016, -0.49830943, 0.5018133)
+bones/48/scale = Vector3(1, 0.9999999, 1)
+bones/49/name = "ValveBiped.Bip01_R_Calf"
+bones/49/parent = 48
+bones/49/rest = Transform3D(1, -3.538032e-10, -2.2341767e-06, -1.0540146e-08, 0.99998814, -0.004876043, 2.2341521e-06, 0.0048760436, 0.9999881, 0.4462046, -1.7841085e-06, 2.9495368e-08)
+bones/49/enabled = true
+bones/49/position = Vector3(0.4462046, -1.7841085e-06, 2.9495368e-08)
+bones/49/rotation = Quaternion(0.002438029, -1.1170856e-06, -2.5465932e-09, 0.999997)
+bones/49/scale = Vector3(1, 1, 0.99999994)
+bones/50/name = "ValveBiped.Bip01_R_Foot"
+bones/50/parent = 49
+bones/50/rest = Transform3D(0.5382862, 0.84271747, -0.008672224, -0.84253776, 0.5383519, 0.01753193, 0.019443171, -0.0021305196, 0.99980867, 0.41313156, -1.6132835e-06, 3.7860445e-08)
+bones/50/enabled = true
+bones/50/position = Vector3(0.41313156, -1.6132835e-06, 3.7860445e-08)
+bones/50/rotation = Quaternion(-0.005605094, -0.008014742, -0.48040885, 0.87699014)
+bones/50/scale = Vector3(0.99999994, 1, 1)
+bones/51/name = "ValveBiped.Bip01_R_Toe0"
+bones/51/parent = 50
+bones/51/rest = Transform3D(0.8493305, 0.52650994, 0.037753135, -0.5278218, 0.8479714, 0.048464753, -0.0064964024, -0.061089497, 0.9981113, 0.17198636, -5.42419e-07, -3.3163815e-08)
+bones/51/enabled = true
+bones/51/position = Vector3(0.17198636, -5.42419e-07, -3.3163815e-08)
+bones/51/rotation = Quaternion(-0.028494937, 0.011509254, -0.2742305, 0.9611728)
+bones/51/scale = Vector3(1.0000001, 1, 1.0000001)
+bones/52/name = "ValveBiped.Bip01_L_Thigh"
+bones/52/parent = 0
+bones/52/rest = Transform3D(0.00011014939, -0.00027966496, 1, -0.99997467, 0.0071195643, 0.0001121377, -0.0071195965, -0.9999745, -0.00027887372, 0.09726132, 1.1920929e-07, -1.1953398e-07)
+bones/52/enabled = true
+bones/52/position = Vector3(0.09726132, 1.1920929e-07, -1.1953398e-07)
+bones/52/rotation = Quaternion(-0.4983145, 0.5018188, -0.4981193, 0.50173473)
+bones/52/scale = Vector3(1, 0.9999999, 1)
+bones/53/name = "ValveBiped.Bip01_L_Calf"
+bones/53/parent = 52
+bones/53/rest = Transform3D(1, 1.2780915e-10, -1.483992e-07, 6.0393324e-10, 0.99998784, 0.004930895, 1.4839803e-07, -0.004930895, 0.99998784, 0.44620445, -1.8020455e-06, -2.7045644e-08)
+bones/53/enabled = true
+bones/53/position = Vector3(0.44620445, -1.8020455e-06, -2.7045644e-08)
+bones/53/rotation = Quaternion(-0.002465455, -7.4199534e-08, 1.190314e-10, 0.99999696)
+bones/53/scale = Vector3(1, 1, 1)
+bones/54/name = "ValveBiped.Bip01_L_Foot"
+bones/54/parent = 53
+bones/54/rest = Transform3D(0.5381795, 0.8428283, 0.0018348926, -0.84265494, 0.5381108, -0.019218434, -0.017185215, 0.008796788, 0.99981356, 0.41313133, -1.6727718e-06, -2.800698e-08)
+bones/54/enabled = true
+bones/54/position = Vector3(0.41313133, -1.6727718e-06, -2.800698e-08)
+bones/54/rotation = Quaternion(0.00798663, 0.0054222867, -0.48050064, 0.87694126)
+bones/54/scale = Vector3(0.9999999, 1, 0.99999994)
+bones/55/name = "ValveBiped.Bip01_L_Toe0"
+bones/55/parent = 54
+bones/55/rest = Transform3D(0.8497011, 0.527259, -0.0024101236, -0.52725303, 0.8497038, 0.002730085, 0.003487354, -0.0010490115, 0.99999326, 0.1719862, -3.4592813e-07, -5.3823896e-09)
+bones/55/enabled = true
+bones/55/position = Vector3(0.1719862, -3.4592813e-07, -5.3823896e-09)
+bones/55/rotation = Quaternion(-0.0009824093, -0.0015331011, -0.2741297, 0.961691)
+bones/55/scale = Vector3(0.99999994, 0.9999998, 0.9999999)
+
+[node name="male_07_reference2" parent="." instance=ExtResource("3_sdunm")]
+transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, 0, 0, 0)
+
+[node name="Skeleton3D" parent="male_07_reference2/male_07_reference_skeleton" index="0"]
+bones/9/rotation = Quaternion(0.70054656, 0.0847502, 0.09926718, 0.7015682)
+bones/9/scale = Vector3(1.0000002, 1.0000004, 1.0000002)
+bones/35/rotation = Quaternion(-0.70054656, -0.09165578, 0.092928946, 0.70156825)
+bones/35/scale = Vector3(1.0000001, 0.9999999, 0.9999996)
+
+[node name="male_07_reference" parent="male_07_reference2/male_07_reference_skeleton/Skeleton3D" index="0"]
+material_override = SubResource("StandardMaterial3D_sdunm")
+
+[node name="SkeletonIK3D" type="SkeletonIK3D" parent="male_07_reference2/male_07_reference_skeleton/Skeleton3D" index="1"]
+
+[node name="SpringBoneSimulator3D" type="SpringBoneSimulator3D" parent="male_07_reference2/male_07_reference_skeleton/Skeleton3D" index="2"]
+setting_count = 2
+settings/0/root_bone_name = ""
+settings/0/root_bone = -1
+settings/0/end_bone_name = ""
+settings/0/end_bone = -1
+settings/0/extend_end_bone = false
+settings/0/center_from = 0
+settings/0/individual_config = false
+settings/0/rotation_axis = 3
+settings/0/radius/value = 0.02
+settings/0/radius/damping_curve = null
+settings/0/stiffness/value = 1.0
+settings/0/stiffness/damping_curve = null
+settings/0/drag/value = 0.4
+settings/0/drag/damping_curve = null
+settings/0/gravity/value = 0.0
+settings/0/gravity/damping_curve = null
+settings/0/gravity/direction = Vector3(0, -1, 0)
+settings/0/enable_all_child_collisions = true
+settings/0/exclude_collision_count = 0
+settings/1/root_bone_name = ""
+settings/1/root_bone = -1
+settings/1/end_bone_name = ""
+settings/1/end_bone = -1
+settings/1/extend_end_bone = false
+settings/1/center_from = 0
+settings/1/individual_config = false
+settings/1/rotation_axis = 3
+settings/1/radius/value = 0.02
+settings/1/radius/damping_curve = null
+settings/1/stiffness/value = 1.0
+settings/1/stiffness/damping_curve = null
+settings/1/drag/value = 0.4
+settings/1/drag/damping_curve = null
+settings/1/gravity/value = 0.0
+settings/1/gravity/damping_curve = null
+settings/1/gravity/direction = Vector3(0, -1, 0)
+settings/1/enable_all_child_collisions = true
+settings/1/exclude_collision_count = 0
+
+[node name="ErrorDialog" type="AcceptDialog" parent="."]
+oversampling_override = 1.0
+title = "Error"
+initial_position = 1
+size = Vector2i(400, 106)
+unresizable = true
+extend_to_title = true
+force_native = true
+min_size = Vector2i(400, 106)
+max_size = Vector2i(400, 32768)
+dialog_autowrap = true
+
+[node name="Label" type="Label" parent="ErrorDialog"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 392.0
+offset_bottom = 59.0
+autowrap_mode = 3
+
+[node name="ModelSearch" type="FileDialog" parent="."]
+oversampling_override = 1.0
+title = "Open a File"
+position = Vector2i(0, 36)
+size = Vector2i(779, 360)
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.glb", "*.gltf", "*.gmp")
+use_native_dialog = true
+
+[node name="Settings" type="Window" parent="."]
+oversampling_override = 1.0
+title = "Editor Settings"
+initial_position = 2
+size = Vector2i(600, 300)
+visible = false
+force_native = true
+
+[node name="TabContainer" type="TabContainer" parent="Settings"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 0
+
+[node name="Paths" type="ScrollContainer" parent="Settings/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings/TabContainer/Paths"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="GmodPath" type="HBoxContainer" parent="Settings/TabContainer/Paths/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("4_lan5r")
+
+[node name="Label" type="Label" parent="Settings/TabContainer/Paths/VBoxContainer/GmodPath"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Garry's Mod Path"
+
+[node name="LineEdit" type="LineEdit" parent="Settings/TabContainer/Paths/VBoxContainer/GmodPath"]
+custom_minimum_size = Vector2(88, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Load" type="Button" parent="Settings/TabContainer/Paths/VBoxContainer/GmodPath"]
+custom_minimum_size = Vector2(31, 0)
+layout_mode = 2
+icon = ExtResource("5_iopv7")
+expand_icon = true
+metadata/directory = false
+
+[node name="StudioMDLPath" type="HBoxContainer" parent="Settings/TabContainer/Paths/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("4_lan5r")
+
+[node name="Label" type="Label" parent="Settings/TabContainer/Paths/VBoxContainer/StudioMDLPath"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "StudioMDL Path"
+
+[node name="LineEdit" type="LineEdit" parent="Settings/TabContainer/Paths/VBoxContainer/StudioMDLPath"]
+custom_minimum_size = Vector2(88, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Load" type="Button" parent="Settings/TabContainer/Paths/VBoxContainer/StudioMDLPath"]
+custom_minimum_size = Vector2(31, 0)
+layout_mode = 2
+icon = ExtResource("5_iopv7")
+expand_icon = true
+
+[node name="GmadPath" type="HBoxContainer" parent="Settings/TabContainer/Paths/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("4_lan5r")
+
+[node name="Label" type="Label" parent="Settings/TabContainer/Paths/VBoxContainer/GmadPath"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "GMAD Path"
+
+[node name="LineEdit" type="LineEdit" parent="Settings/TabContainer/Paths/VBoxContainer/GmadPath"]
+custom_minimum_size = Vector2(88, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Load" type="Button" parent="Settings/TabContainer/Paths/VBoxContainer/GmadPath"]
+custom_minimum_size = Vector2(31, 0)
+layout_mode = 2
+icon = ExtResource("5_iopv7")
+expand_icon = true
+
+[node name="VTFEditPath" type="HBoxContainer" parent="Settings/TabContainer/Paths/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("4_lan5r")
+
+[node name="Label" type="Label" parent="Settings/TabContainer/Paths/VBoxContainer/VTFEditPath"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VTFCmd Path"
+
+[node name="LineEdit" type="LineEdit" parent="Settings/TabContainer/Paths/VBoxContainer/VTFEditPath"]
+custom_minimum_size = Vector2(88, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Load" type="Button" parent="Settings/TabContainer/Paths/VBoxContainer/VTFEditPath"]
+custom_minimum_size = Vector2(31, 0)
+layout_mode = 2
+icon = ExtResource("5_iopv7")
+expand_icon = true
+
+[node name="ExportProgress" type="Window" parent="."]
+oversampling_override = 1.0
+initial_position = 2
+size = Vector2i(300, 150)
+visible = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ExportProgress"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_right = -12.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Action" type="Label" parent="ExportProgress/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "Exporting model..."
+horizontal_alignment = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="ExportProgress/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="Background" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.06666667, 0.06666667, 0.06666667, 1)
+
+[node name="Panels" type="HBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="Panels"]
+custom_minimum_size = Vector2(314, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="TabContainer" type="TabContainer" parent="Panels/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 0
+
+[node name="Skeleton" type="ScrollContainer" parent="Panels/Control/TabContainer"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+metadata/_tab_index = 0
+
+[node name="Skeleton" type="VBoxContainer" parent="Panels/Control/TabContainer/Skeleton"]
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 0
+script = ExtResource("3_arc6n")
+
+[node name="Gizmo3D" type="Node3D" parent="Panels/Control/TabContainer/Skeleton/Skeleton"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3161557, 0)
+visible = false
+script = ExtResource("7_lmiwe")
+mode = 2
+use_local_space = true
+metadata/_custom_type_script = "uid://e3f1ox6y6cvg"
+
+[node name="Bones" type="FoldableContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton"]
+layout_mode = 2
+title = "Bones"
+
+[node name="Tree" type="Tree" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Bones"]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+allow_reselect = true
+hide_root = true
+
+[node name="Renaming" type="FoldableContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton"]
+layout_mode = 2
+title = "Bone Posing and Naming"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming"]
+layout_mode = 2
+
+[node name="Rename" type="HBoxContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "The application will analyse the armature and try to rename the bones to the Valve Biped structure. This is an important action to do.
+
+This is estimated to work 90% of the time, the spine bones are more likely to require some renaming. Some armatures with unusual naming or structures may not work with this method
+
+Some armatures that have bones parented in a way that the head doesn't lead up to the pelvis bone by going up may require manual ordering here"
+
+[node name="Label" type="Label" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming/VBoxContainer/Rename"]
+layout_mode = 2
+text = "Rename Automatically"
+
+[node name="Button" type="Button" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming/VBoxContainer/Rename"]
+custom_minimum_size = Vector2(123, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Rename"
+
+[node name="Repose" type="HBoxContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "This automatically will make your character T-Pose, which is important for reason other than 'memes' in Gmod. Only do this action once the bones have been renamed
+
+-This doesn't correct the arm rotation nor the finger poses, you need to rotate them manually if you have fingers and make sure they are as intended"
+
+[node name="Label" type="Label" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming/VBoxContainer/Repose"]
+layout_mode = 2
+text = "T-Pose Automatically"
+
+[node name="Button" type="Button" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming/VBoxContainer/Repose"]
+custom_minimum_size = Vector2(123, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Repose"
+
+[node name="HasThumbs" type="HBoxContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "Turning this on means that the player has thumbs, and the bone will be renamed as such, turn this off if your player has no thumbs"
+script = ExtResource("8_lan5r")
+
+[node name="Label" type="Label" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming/VBoxContainer/HasThumbs"]
+layout_mode = 2
+text = "Has Thumbs"
+
+[node name="CheckBox" type="CheckBox" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming/VBoxContainer/HasThumbs"]
+custom_minimum_size = Vector2(123, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+button_pressed = true
+text = "Yes"
+
+[node name="Editing" type="FoldableContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton"]
+layout_mode = 2
+title = "Bone Editing Settings"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing"]
+layout_mode = 2
+
+[node name="RotationSnap" type="HBoxContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("8_lan5r")
+
+[node name="Label" type="Label" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer/RotationSnap"]
+layout_mode = 2
+text = "Rotation Snapping"
+
+[node name="SpinBox" type="SpinBox" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer/RotationSnap"]
+custom_minimum_size = Vector2(123, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+max_value = 90.0
+step = 0.1
+value = 10.0
+allow_greater = true
+suffix = "degrees"
+
+[node name="MirrorBone" type="HBoxContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "Mirror the bone rotations
+
+-This setting may be a bit buggy on some models with unusual orientations or bone structures, especially with relative rotations on"
+script = ExtResource("8_lan5r")
+
+[node name="Label" type="Label" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer/MirrorBone"]
+layout_mode = 2
+text = "Mirror bone rotations"
+
+[node name="CheckBox" type="CheckBox" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer/MirrorBone"]
+custom_minimum_size = Vector2(123, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+button_pressed = true
+text = "On"
+
+[node name="RelativeRotationEditing" type="HBoxContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "If one, the gizmo will be based on the bone orientation, it be global, useful to turn off when some bones don't function as intended when it comes to rotating with this setting"
+script = ExtResource("8_lan5r")
+
+[node name="Label" type="Label" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer/RelativeRotationEditing"]
+layout_mode = 2
+text = "Relative rotations"
+
+[node name="CheckBox" type="CheckBox" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer/RelativeRotationEditing"]
+custom_minimum_size = Vector2(123, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+button_pressed = true
+text = "On"
+
+[node name="PickBone" type="HBoxContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer"]
+visible = false
+layout_mode = 2
+tooltip_text = "The model will be compiled into a .GMA file instead of being a folder"
+script = ExtResource("8_lan5r")
+
+[node name="Label" type="Label" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer/PickBone"]
+layout_mode = 2
+text = "Pick bone in 3D"
+
+[node name="CheckBox" type="CheckBox" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer/PickBone"]
+custom_minimum_size = Vector2(123, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+text = "On"
+
+[node name="Mesh" type="ScrollContainer" parent="Panels/Control/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Mesh" type="VBoxContainer" parent="Panels/Control/TabContainer/Mesh"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("5_tv22w")
+
+[node name="Offsets" type="FoldableContainer" parent="Panels/Control/TabContainer/Mesh/Mesh"]
+layout_mode = 2
+title = "Scale and Offsets"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panels/Control/TabContainer/Mesh/Mesh/Offsets"]
+layout_mode = 2
+
+[node name="Scale" type="HBoxContainer" parent="Panels/Control/TabContainer/Mesh/Mesh/Offsets/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("8_lan5r")
+
+[node name="Label" type="Label" parent="Panels/Control/TabContainer/Mesh/Mesh/Offsets/VBoxContainer/Scale"]
+layout_mode = 2
+text = "Scale"
+
+[node name="SpinBox" type="SpinBox" parent="Panels/Control/TabContainer/Mesh/Mesh/Offsets/VBoxContainer/Scale"]
+custom_minimum_size = Vector2(123, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+step = 0.01
+value = 1.0
+
+[node name="YOffset" type="HBoxContainer" parent="Panels/Control/TabContainer/Mesh/Mesh/Offsets/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("8_lan5r")
+
+[node name="Label" type="Label" parent="Panels/Control/TabContainer/Mesh/Mesh/Offsets/VBoxContainer/YOffset"]
+layout_mode = 2
+text = "Height Offset"
+
+[node name="SpinBox" type="SpinBox" parent="Panels/Control/TabContainer/Mesh/Mesh/Offsets/VBoxContainer/YOffset"]
+custom_minimum_size = Vector2(123, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+min_value = -200.0
+step = 0.01
+allow_greater = true
+allow_lesser = true
+suffix = "m"
+
+[node name="Bodygroups" type="FoldableContainer" parent="Panels/Control/TabContainer/Mesh/Mesh"]
+layout_mode = 2
+title = "Bodygroups"
+script = ExtResource("10_lan5r")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups"]
+layout_mode = 2
+
+[node name="Controls" type="HBoxContainer" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Add" type="Button" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer/Controls"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Add"
+
+[node name="Remove" type="Button" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer/Controls"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Remove"
+
+[node name="AddName" type="AcceptDialog" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer/Controls"]
+oversampling_override = 1.0
+title = "Rename bone"
+size = Vector2i(300, 100)
+force_native = true
+
+[node name="LineEdit" type="LineEdit" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer/Controls/AddName"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 292.0
+offset_bottom = 53.0
+theme = ExtResource("4_iopv7")
+placeholder_text = "Bodygroup name"
+
+[node name="Rename" type="ConfirmationDialog" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer/Controls"]
+oversampling_override = 1.0
+size = Vector2i(300, 100)
+force_native = true
+
+[node name="LineEdit" type="LineEdit" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer/Controls/Rename"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 292.0
+offset_bottom = 53.0
+theme = ExtResource("4_iopv7")
+placeholder_text = "Bodygroup name"
+
+[node name="GroupList" type="ItemList" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+allow_reselect = true
+item_count = 1
+max_columns = 3
+fixed_column_width = 100
+item_0/text = "Body"
+
+[node name="BodyGroupAmount" type="HBoxContainer" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "The amount of options a bodygroup has
+
+-If you have no mesh set to the last index, it allows the bodygroup to be disabled"
+script = ExtResource("8_lan5r")
+
+[node name="Label" type="Label" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer/BodyGroupAmount"]
+layout_mode = 2
+text = "Mesh option count"
+
+[node name="SpinBox" type="SpinBox" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer/BodyGroupAmount"]
+custom_minimum_size = Vector2(123, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+min_value = 1.0
+value = 1.0
+allow_greater = true
+
+[node name="Tree" type="Tree" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+columns = 3
+hide_root = true
+
+[node name="Jigglebones" type="FoldableContainer" parent="Panels/Control/TabContainer/Mesh/Mesh"]
+layout_mode = 2
+title = "Jiggle bones"
+script = ExtResource("11_iopv7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panels/Control/TabContainer/Mesh/Mesh/Jigglebones"]
+layout_mode = 2
+
+[node name="Elements" type="VBoxContainer" parent="Panels/Control/TabContainer/Mesh/Mesh/Jigglebones/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Add" type="Button" parent="Panels/Control/TabContainer/Mesh/Mesh/Jigglebones/VBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+theme = ExtResource("12_jx6jd")
+text = "Add Element"
+
+[node name="Collisions" type="ScrollContainer" parent="Panels/Control/TabContainer"]
+visible = false
+layout_mode = 2
+horizontal_scroll_mode = 0
+metadata/_tab_index = 2
+
+[node name="Collisions" type="VBoxContainer" parent="Panels/Control/TabContainer/Collisions"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("8_lmiwe")
+
+[node name="GenerateCollisions" type="HBoxContainer" parent="Panels/Control/TabContainer/Collisions/Collisions"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panels/Control/TabContainer/Collisions/Collisions/GenerateCollisions"]
+layout_mode = 2
+text = "Generate Collisions"
+
+[node name="Button" type="Button" parent="Panels/Control/TabContainer/Collisions/Collisions/GenerateCollisions"]
+custom_minimum_size = Vector2(123, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+text = "Generate"
+
+[node name="Inclusion" type="FoldableContainer" parent="Panels/Control/TabContainer/Collisions/Collisions"]
+layout_mode = 2
+title = "Bones to include with Generation"
+
+[node name="SelectedBones" type="Tree" parent="Panels/Control/TabContainer/Collisions/Collisions/Inclusion"]
+custom_minimum_size = Vector2(0, 300)
+layout_mode = 2
+columns = 2
+hide_root = true
+
+[node name="RagdollPhysics" type="FoldableContainer" parent="Panels/Control/TabContainer/Collisions/Collisions"]
+layout_mode = 2
+title = "Ragdoll Physics Parameters"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics"]
+layout_mode = 2
+
+[node name="Mass" type="HBoxContainer" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer"]
+layout_mode = 2
+tooltip_text = "If this value is set to zero or less, the mass will be computed automatically"
+script = ExtResource("8_lan5r")
+
+[node name="Label" type="Label" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer/Mass"]
+layout_mode = 2
+text = "Mass"
+
+[node name="SpinBox" type="SpinBox" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer/Mass"]
+custom_minimum_size = Vector2(123, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+step = 0.0
+value = 90.0
+allow_greater = true
+custom_arrow_step = 0.01
+
+[node name="Inertia" type="HBoxContainer" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("8_lan5r")
+
+[node name="Label" type="Label" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer/Inertia"]
+layout_mode = 2
+text = "Inertia"
+
+[node name="SpinBox" type="SpinBox" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer/Inertia"]
+custom_minimum_size = Vector2(123, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+step = 0.0
+value = 10.0
+allow_greater = true
+custom_arrow_step = 0.01
+
+[node name="Damping" type="HBoxContainer" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("8_lan5r")
+
+[node name="Label" type="Label" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer/Damping"]
+layout_mode = 2
+text = "Damping"
+
+[node name="SpinBox" type="SpinBox" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer/Damping"]
+custom_minimum_size = Vector2(123, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+step = 0.0
+value = 0.01
+allow_greater = true
+custom_arrow_step = 0.01
+
+[node name="RotationDamping" type="HBoxContainer" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("8_lan5r")
+
+[node name="Label" type="Label" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer/RotationDamping"]
+layout_mode = 2
+text = "Rotation Damping"
+
+[node name="SpinBox" type="SpinBox" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer/RotationDamping"]
+custom_minimum_size = Vector2(123, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+step = 0.0
+allow_greater = true
+custom_arrow_step = 0.01
+
+[node name="MeshGen" type="Node" parent="Panels/Control/TabContainer/Collisions/Collisions"]
+script = ExtResource("9_qchcq")
+
+[node name="View" type="SubViewportContainer" parent="Panels"]
+layout_mode = 2
+size_flags_horizontal = 3
+stretch = true
+script = ExtResource("14_lan5r")
+
+[node name="SubViewport" type="SubViewport" parent="Panels/View"]
+handle_input_locally = false
+gui_embed_subwindows = true
+size = Vector2i(598, 681)
+render_target_update_mode = 4
+
+[node name="View Camera" type="Camera3D" parent="Panels/View/SubViewport"]
+current = true
+script = ExtResource("1_16jkr")
+
+[node name="ModelData2" type="Control" parent="Panels"]
+custom_minimum_size = Vector2(360, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="TabContainer" type="TabContainer" parent="Panels/ModelData2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 1
+
+[node name="Info" type="ScrollContainer" parent="Panels/ModelData2/TabContainer"]
+visible = false
+layout_mode = 2
+horizontal_scroll_mode = 0
+metadata/_tab_index = 0
+
+[node name="Info" type="VBoxContainer" parent="Panels/ModelData2/TabContainer/Info"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ModelInfo" type="FoldableContainer" parent="Panels/ModelData2/TabContainer/Info/Info"]
+layout_mode = 2
+title = "Model Information"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panels/ModelData2/TabContainer/Info/Info/ModelInfo"]
+layout_mode = 2
+
+[node name="CompileGMA" type="HBoxContainer" parent="Panels/ModelData2/TabContainer/Info/Info/ModelInfo/VBoxContainer"]
+visible = false
+layout_mode = 2
+tooltip_text = "The model will be compiled into a .GMA file instead of being a folder"
+script = ExtResource("8_lan5r")
+
+[node name="Label" type="Label" parent="Panels/ModelData2/TabContainer/Info/Info/ModelInfo/VBoxContainer/CompileGMA"]
+layout_mode = 2
+text = "Compile as GMA"
+
+[node name="CheckBox" type="CheckBox" parent="Panels/ModelData2/TabContainer/Info/Info/ModelInfo/VBoxContainer/CompileGMA"]
+custom_minimum_size = Vector2(123, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+text = "On"
+
+[node name="ModelName" type="HBoxContainer" parent="Panels/ModelData2/TabContainer/Info/Info/ModelInfo/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("8_lan5r")
+
+[node name="Label" type="Label" parent="Panels/ModelData2/TabContainer/Info/Info/ModelInfo/VBoxContainer/ModelName"]
+layout_mode = 2
+text = "Model Name"
+
+[node name="LineEdit" type="LineEdit" parent="Panels/ModelData2/TabContainer/Info/Info/ModelInfo/VBoxContainer/ModelName"]
+custom_minimum_size = Vector2(123, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+text = "GMP"
+
+[node name="AuthorName" type="HBoxContainer" parent="Panels/ModelData2/TabContainer/Info/Info/ModelInfo/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("8_lan5r")
+
+[node name="Label" type="Label" parent="Panels/ModelData2/TabContainer/Info/Info/ModelInfo/VBoxContainer/AuthorName"]
+layout_mode = 2
+text = "Author"
+
+[node name="LineEdit" type="LineEdit" parent="Panels/ModelData2/TabContainer/Info/Info/ModelInfo/VBoxContainer/AuthorName"]
+custom_minimum_size = Vector2(123, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+text = "GMP"
+
+[node name="CharacterInfo" type="FoldableContainer" parent="Panels/ModelData2/TabContainer/Info/Info"]
+layout_mode = 2
+title = "Character Info"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panels/ModelData2/TabContainer/Info/Info/CharacterInfo"]
+layout_mode = 2
+
+[node name="AnimationGender" type="HBoxContainer" parent="Panels/ModelData2/TabContainer/Info/Info/CharacterInfo/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("8_lan5r")
+
+[node name="Label" type="Label" parent="Panels/ModelData2/TabContainer/Info/Info/CharacterInfo/VBoxContainer/AnimationGender"]
+layout_mode = 2
+text = "Animation Gender"
+
+[node name="OptionButton" type="OptionButton" parent="Panels/ModelData2/TabContainer/Info/Info/CharacterInfo/VBoxContainer/AnimationGender"]
+custom_minimum_size = Vector2(123, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+selected = 0
+item_count = 2
+popup/item_0/text = "Male"
+popup/item_0/id = 0
+popup/item_1/text = "Female"
+popup/item_1/id = 1
+
+[node name="SurfaceMaterial" type="HBoxContainer" parent="Panels/ModelData2/TabContainer/Info/Info/CharacterInfo/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("8_lan5r")
+
+[node name="Label" type="Label" parent="Panels/ModelData2/TabContainer/Info/Info/CharacterInfo/VBoxContainer/SurfaceMaterial"]
+layout_mode = 2
+text = "Surface Material"
+
+[node name="OptionButton" type="OptionButton" parent="Panels/ModelData2/TabContainer/Info/Info/CharacterInfo/VBoxContainer/SurfaceMaterial"]
+custom_minimum_size = Vector2(123, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+selected = 0
+item_count = 2
+popup/item_0/text = "Flesh"
+popup/item_0/id = 0
+popup/item_1/text = "Metal"
+popup/item_1/id = 1
+
+[node name="Materials" type="ScrollContainer" parent="Panels/ModelData2/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Materials" type="VBoxContainer" parent="Panels/ModelData2/TabContainer/Materials"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("6_h06fm")
+
+[node name="Groups" type="FoldableContainer" parent="Panels/ModelData2/TabContainer/Materials/Materials"]
+layout_mode = 2
+title = "Texture Groups"
+script = ExtResource("16_iopv7")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panels/ModelData2/TabContainer/Materials/Materials/Groups"]
+layout_mode = 2
+
+[node name="Controls" type="HBoxContainer" parent="Panels/ModelData2/TabContainer/Materials/Materials/Groups/VBoxContainer"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+
+[node name="Add" type="Button" parent="Panels/ModelData2/TabContainer/Materials/Materials/Groups/VBoxContainer/Controls"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Add"
+
+[node name="Remove" type="Button" parent="Panels/ModelData2/TabContainer/Materials/Materials/Groups/VBoxContainer/Controls"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Remove"
+
+[node name="Skins" type="ItemList" parent="Panels/ModelData2/TabContainer/Materials/Materials/Groups/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+item_count = 1
+max_columns = 3
+same_column_width = true
+fixed_icon_size = Vector2i(32, 32)
+item_0/text = "Base"
+item_0/icon = ExtResource("17_lan5r")
+
+[node name="Settings" type="FoldableContainer" parent="Panels/ModelData2/TabContainer/Materials/Materials"]
+layout_mode = 2
+title = "Material Settings"
+
+[node name="Panel" type="Panel" parent="Panels/ModelData2/TabContainer/Materials/Materials/Settings"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panels/ModelData2/TabContainer/Materials/Materials/Settings"]
+layout_mode = 2
+
+[node name="ShaderMode" type="HBoxContainer" parent="Panels/ModelData2/TabContainer/Materials/Materials/Settings/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panels/ModelData2/TabContainer/Materials/Materials/Settings/VBoxContainer/ShaderMode"]
+layout_mode = 2
+text = "Shader Type"
+
+[node name="OptionButton" type="OptionButton" parent="Panels/ModelData2/TabContainer/Materials/Materials/Settings/VBoxContainer/ShaderMode"]
+custom_minimum_size = Vector2(123, 0)
+layout_mode = 2
+size_flags_horizontal = 10
+selected = 0
+item_count = 2
+popup/item_0/text = "Vertex Lit"
+popup/item_0/id = 0
+popup/item_1/text = "Unlit"
+popup/item_1/id = 1
+
+[node name="MaterialList" type="ItemList" parent="Panels/ModelData2/TabContainer/Materials/Materials/Settings/VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="Settings" type="VBoxContainer" parent="Panels/ModelData2/TabContainer/Materials/Materials/Settings/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10.345)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="Control" type="Control" parent="Panels/ModelData2/TabContainer/Materials/Materials"]
+visible = false
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Panels/ModelData2/TabContainer/Materials/Materials/Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "A worm"
+
+[node name="Button" type="Button" parent="Panels/ModelData2/TabContainer/Materials/Materials/Control"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -65.0
+grow_horizontal = 0
+grow_vertical = 2
+icon = SubResource("CompressedTexture2D_lfd62")
+expand_icon = true
+
+[node name="Toolbar" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="Options" type="HBoxContainer" parent="Toolbar"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("13_yp505")
+
+[node name="Editor" type="MenuButton" parent="Toolbar/Options"]
+layout_mode = 2
+text = "Editor"
+item_count = 4
+popup/item_0/text = "Settings"
+popup/item_0/id = 0
+popup/item_1/id = 0
+popup/item_1/separator = true
+popup/item_2/text = "Undo"
+popup/item_2/id = 1
+popup/item_3/text = "Redo"
+popup/item_3/id = 2
+
+[node name="Model" type="MenuButton" parent="Toolbar/Options"]
+layout_mode = 2
+text = "Model"
+item_count = 3
+popup/item_0/text = "Import"
+popup/item_0/id = 0
+popup/item_1/id = 0
+popup/item_1/separator = true
+popup/item_2/text = "Compile"
+popup/item_2/id = 1
+
+[node name="Help" type="MenuButton" parent="Toolbar/Options"]
+layout_mode = 2
+text = "Help"
+item_count = 4
+popup/item_0/text = "Guide"
+popup/item_0/id = 1
+popup/item_1/text = "Troubleshooting"
+popup/item_1/id = 2
+popup/item_2/id = 1
+popup/item_2/separator = true
+popup/item_3/text = "Licences"
+popup/item_3/id = 3
+
+[node name="Troubleshooting" type="Window" parent="Toolbar/Options/Help"]
+oversampling_override = 1.0
+title = "Common problems"
+position = Vector2i(0, 36)
+size = Vector2i(700, 400)
+visible = false
+force_native = true
+
+[node name="TabContainer" type="TabContainer" parent="Toolbar/Options/Help/Troubleshooting"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 2
+
+[node name="Editor" type="ScrollContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Editor"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="FoldableContainer2" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Editor/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+folded = true
+title = "I got a warning saying the bones weren't renamed"
+title_text_overrun_behavior = 1
+
+[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Editor/VBoxContainer/FoldableContainer2"]
+visible = false
+layout_mode = 2
+text = "This is because the amount of bones that have a name that match a certain body part may be too much or too little, if too little you may need to make some changes to your armature, if too many the easiest way is to just rename some of the bones in the area to a gibberish name such as \"feiadwfg\" that doesn't include what the body part is"
+autowrap_mode = 3
+
+[node name="FoldableContainer10" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Editor/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+folded = true
+title = "I reposed the character, but the results are a bit weird"
+title_text_overrun_behavior = 1
+
+[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Editor/VBoxContainer/FoldableContainer10"]
+visible = false
+layout_mode = 2
+text = "You can manually recorrect the rotations, but the repose tool may not work well on all models, especially ones that don't follow normal conventions"
+autowrap_mode = 3
+
+[node name="FoldableContainer3" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Editor/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+folded = true
+title = "The character when I import is sideways or not up"
+title_text_overrun_behavior = 1
+
+[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Editor/VBoxContainer/FoldableContainer3"]
+visible = false
+layout_mode = 2
+text = "This tends to happen if you are using someone else's character, if this is happening you need to make sure the model is already facing up and the rotations have been applied or you will run into bugs"
+autowrap_mode = 3
+
+[node name="Compilation" type="ScrollContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Compilation"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="FoldableContainer" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Compilation/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+folded = true
+title = "When I hit compile, VTFEdit opens up, and then crashes..."
+title_text_overrun_behavior = 1
+
+[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Compilation/VBoxContainer/FoldableContainer"]
+visible = false
+layout_mode = 2
+text = "If this is happening, you most likely set the VTFCmd path to VTFEdit instead of VTFCmd, make sure you are setting the path to VTFCmd instead, that is very important, if you did set VTFCmd, I don't know what happened"
+autowrap_mode = 3
+
+[node name="FoldableContainer5" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Compilation/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+folded = true
+title = "I got \"ERROR: Rotation constraint on bone X which has no parent!!!\" when I compiled"
+title_text_overrun_behavior = 1
+
+[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Compilation/VBoxContainer/FoldableContainer5"]
+visible = false
+layout_mode = 2
+text = "If you character has two pelvis bones, this is most likely the reason why this error is happening, make sure the top one which isn't really the pelvis bone is renamed to something gibberish and rename the bones again"
+autowrap_mode = 3
+
+[node name="FoldableContainer7" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Compilation/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+folded = true
+title = "I get an error saying a folder wasn't deleted"
+title_text_overrun_behavior = 1
+
+[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Compilation/VBoxContainer/FoldableContainer7"]
+visible = false
+layout_mode = 2
+text = "This is because of an existing folder in your addons folder, if this is the case there may be file permission issues, but the easiest way to fix this for your current session is to delete the folder and recompile the addon"
+autowrap_mode = 3
+
+[node name="FoldableContainer4" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Compilation/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+folded = true
+title = "I got an error about the jigglebones being in the incorrect order"
+title_text_overrun_behavior = 1
+
+[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Compilation/VBoxContainer/FoldableContainer4"]
+visible = false
+layout_mode = 2
+text = "The start index should be a child reachable somewhere as the final index"
+autowrap_mode = 3
+
+[node name="FoldableContainer6" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Compilation/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+folded = true
+title = "The addons folder is missing the models folder, but when I check"
+title_text_overrun_behavior = 1
+
+[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Compilation/VBoxContainer/FoldableContainer6"]
+visible = false
+layout_mode = 2
+text = "The start index should be a child reachable somewhere as the final index"
+autowrap_mode = 3
+
+[node name="Model" type="ScrollContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Model"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="FoldableContainer5" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Model/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+folded = true
+title = "The fingers look very terrible and buggy"
+title_text_overrun_behavior = 1
+
+[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Model/VBoxContainer/FoldableContainer5"]
+visible = false
+layout_mode = 2
+text = "This is likely because of how your model is rotated, make it so the palm is facing downwards and the fingers should try to match the rotation of the reference model as close as possible
+
+If it looks worse in first person than in third person, it may require a custom arms model which has been adjusted, which is currently not supported"
+autowrap_mode = 3
+
+[node name="FoldableContainer13" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Model/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+folded = true
+title = "My character's arms/legs/body part look so weird"
+title_text_overrun_behavior = 1
+
+[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Model/VBoxContainer/FoldableContainer13"]
+visible = false
+layout_mode = 2
+text = "There are likely two reasons for this
+
+1: You forgot to name some bones or some bones aren't named properly, check them again
+
+2: The default pose you have is not correct, keep in mind that the application expects a T-Pose, not for the funnies, given that's the best way for the model to work as intended in the game"
+autowrap_mode = 3
+
+[node name="FoldableContainer14" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Model/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+folded = true
+title = "My character's feet sink into the ground sometimes"
+title_text_overrun_behavior = 1
+
+[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Model/VBoxContainer/FoldableContainer14"]
+visible = false
+layout_mode = 2
+text = "This tends to happen if your character has a pretty different armature when it comes to legs, the best fix would be to make the bones match the reference, although this is not always possible to do on some models"
+autowrap_mode = 3
+
+[node name="FoldableContainer15" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Model/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+folded = true
+title = "My character deforms oddly in game"
+title_text_overrun_behavior = 1
+
+[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Model/VBoxContainer/FoldableContainer15"]
+visible = false
+layout_mode = 2
+text = "This can happen if for example your character has very few spine bones, and the spine is very short, so you can try adding bones without any weights before in reasonable spots to try to make it look better"
+autowrap_mode = 3
+
+[node name="Physics" type="ScrollContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Physics"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 0
+
+[node name="FoldableContainer9" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Physics/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+folded = true
+title = "The jigglebone physics look weird"
+title_text_overrun_behavior = 1
+
+[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Physics/VBoxContainer/FoldableContainer9"]
+visible = false
+layout_mode = 2
+text = "The parameters are based off what is exactly in the compile file, but these require some knowledge to work with, although the length parameter is calculated automatically for you"
+autowrap_mode = 3
+
+[node name="FoldableContainer7" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Physics/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+folded = true
+title = "The character looks buggy as a ragdoll"
+title_text_overrun_behavior = 1
+
+[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Physics/VBoxContainer/FoldableContainer7"]
+visible = false
+layout_mode = 2
+text = "The bone naming scheme is most likely not correct, you should double check it to make sure it is correct"
+autowrap_mode = 3
+
+[node name="FoldableContainer8" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Physics/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+folded = true
+title = "The character doesn't have a ragdoll"
+title_text_overrun_behavior = 1
+
+[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Physics/VBoxContainer/FoldableContainer8"]
+visible = false
+layout_mode = 2
+text = "You likely did not create collisiosn for the character"
+autowrap_mode = 3
+
+[node name="Licenses" type="Window" parent="Toolbar/Options/Help"]
+oversampling_override = 1.0
+title = "Licenses"
+position = Vector2i(0, 36)
+size = Vector2i(600, 400)
+visible = false
+force_native = true
+
+[node name="ColorRect" type="ColorRect" parent="Toolbar/Options/Help/Licenses"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.09, 0.09, 0.09, 1)
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Toolbar/Options/Help/Licenses"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_scroll_mode = 0
+
+[node name="Label" type="Label" parent="Toolbar/Options/Help/Licenses/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "(c) 2026 Amaxivermis
+
+Files: MIConvexHull/*
+Comment: MIConvexHull
+Copyright: Copyright (c) 2010 David Sehnal, Matthew Campbell
+License: MIT
+
+Files: godotvmf/*
+Comment: GodotVMF
+Copyright: Copyright (c) 2024 Radik Khamatdi
+License: MIT
+
+Files: *
+Comment: Godot Engine
+Copyright: 2014-present, Godot Engine contributors
+ 2007-2014, Juan Linietsky, Ariel Manzur
+License: Expat
+
+Files: icon.png
+ icon.svg
+ logo.png
+ logo.svg
+Comment: Godot Engine logo
+Copyright: 2017, Andrea Calabró
+License: CC-BY-4.0
+
+Files: core/math/convex_hull.cpp
+ core/math/convex_hull.h
+Comment: Bullet Continuous Collision Detection and Physics Library
+Copyright: 2011, Ole Kniemeyer, MAXON, www.maxon.net
+ 2014-present, Godot Engine contributors
+ 2007-2014, Juan Linietsky, Ariel Manzur
+License: Expat and Zlib
+
+Files: misc/dist/linux/org.godotengine.Godot.appdata.xml
+Comment: Linux AppStream Metadata File
+Copyright: 2017-2022, Rémi Verschelde
+License: CC0-1.0
+
+Files: modules/betsy/alpha_stitch.glsl
+ modules/betsy/bc1.glsl
+ modules/betsy/bc4.glsl
+ modules/betsy/bc6h.glsl
+Comment: Betsy
+Copyright: 2020-2022, Matias N. Goldberg
+License: Expat
+
+Files: modules/godot_physics_2d/godot_joints_2d.cpp
+Comment: Chipmunk2D Joint Constraints
+Copyright: 2007, Scott Lembcke
+License: Expat
+
+Files: modules/godot_physics_3d/gjk_epa.cpp
+ modules/godot_physics_3d/joints/godot_generic_6dof_joint_3d.cpp
+ modules/godot_physics_3d/joints/godot_generic_6dof_joint_3d.h
+ modules/godot_physics_3d/joints/godot_hinge_joint_3d.cpp
+ modules/godot_physics_3d/joints/godot_hinge_joint_3d.h
+ modules/godot_physics_3d/joints/godot_jacobian_entry_3d.h
+ modules/godot_physics_3d/joints/godot_pin_joint_3d.cpp
+ modules/godot_physics_3d/joints/godot_pin_joint_3d.h
+ modules/godot_physics_3d/joints/godot_slider_joint_3d.cpp
+ modules/godot_physics_3d/joints/godot_slider_joint_3d.h
+ modules/godot_physics_3d/godot_soft_body_3d.cpp
+ modules/godot_physics_3d/godot_soft_body_3d.h
+ modules/godot_physics_3d/godot_shape_3d.cpp
+ modules/godot_physics_3d/godot_shape_3d.h
+Comment: Bullet Continuous Collision Detection and Physics Library
+Copyright: 2003-2008, Erwin Coumans
+ 2014-present, Godot Engine contributors
+ 2007-2014, Juan Linietsky, Ariel Manzur
+License: Expat and Zlib
+
+Files: modules/godot_physics_3d/godot_collision_solver_3d_sat.cpp
+Comment: Open Dynamics Engine
+Copyright: 2001-2003, Russell L. Smith, Alen Ladavac, Nguyen Binh
+License: BSD-3-clause
+
+Files: modules/godot_physics_3d/joints/godot_cone_twist_joint_3d.cpp
+ modules/godot_physics_3d/joints/godot_cone_twist_joint_3d.h
+Comment: Bullet Continuous Collision Detection and Physics Library
+Copyright: 2007, Starbreeze Studios
+ 2014-present, Godot Engine contributors
+ 2007-2014, Juan Linietsky, Ariel Manzur
+License: Expat and Zlib
+
+Files: modules/jolt_physics/spaces/jolt_temp_allocator.cpp
+Comment: Jolt Physics
+Copyright: 2021, Jorrit Rouwe
+ 2014-present, Godot Engine contributors
+ 2007-2014, Juan Linietsky, Ariel Manzur
+License: Expat
+
+Files: modules/lightmapper_rd/lm_compute.glsl
+Comment: Joint Non-Local Means (JNLM) denoiser
+Copyright: 2020, Manuel Prandini
+ 2014-present, Godot Engine contributors
+ 2007-2014, Juan Linietsky, Ariel Manzur
+License: Expat
+
+Files: platform/android/java/editor/src/main/java/com/android/*
+ platform/android/java/lib/src/main/aidl/com/android/*
+ platform/android/java/lib/src/main/res/layout/status_bar_ongoing_event_progress_bar.xml
+ platform/android/java/lib/src/main/java/com/google/android/*
+Comment: The Android Open Source Project
+Copyright: 2008-2016, The Android Open Source Project
+ 2002, Google, Inc.
+License: Apache-2.0
+
+Files: platform/android/java/lib/src/main/java/org/godotengine/godot/utils/ProcessPhoenix.java
+Comment: ProcessPhoenix
+Copyright: 2015, Jake Wharton
+License: Apache-2.0
+
+Files: scene/animation/easing_equations.h
+Comment: Robert Penner's Easing Functions
+Copyright: 2001, Robert Penner
+ 2014-present, Godot Engine contributors
+ 2007-2014, Juan Linietsky, Ariel Manzur
+License: Expat
+
+Files: servers/audio/effects/audio_effect_pitch_shift.cpp
+Copyright: 2014-present Godot Engine contributors
+ 2007-2014 Juan Linietsky, Ariel Manzur
+ 1999-2015 Stephan M. Bernsee <s.bernsee [AT] zynaptiq [DOT] com>
+License: Expat and WOL
+
+Files: servers/rendering/renderer_rd/shaders/effects/tonemap.glsl
+Comment: NVidia's FXAA 3.11, simplified by Simon Rodriguez
+Copyright: 2014-2015, NVIDIA CORPORATION
+ 2017 Simon Rodriguez
+License: BSD-3-clause and Expat
+
+Files: servers/rendering/renderer_rd/shaders/effects/ss_effects_downsample.glsl
+ servers/rendering/renderer_rd/shaders/effects/ssao_blur.glsl
+ servers/rendering/renderer_rd/shaders/effects/ssao_importance_map.glsl
+ servers/rendering/renderer_rd/shaders/effects/ssao_interleave.glsl
+ servers/rendering/renderer_rd/shaders/effects/ssao.glsl
+ servers/rendering/renderer_rd/shaders/effects/ssil_blur.glsl
+ servers/rendering/renderer_rd/shaders/effects/ssil_importance_map.glsl
+ servers/rendering/renderer_rd/shaders/effects/ssil_interleave.glsl
+ servers/rendering/renderer_rd/shaders/effects/ssil.glsl
+Comment: Intel ASSAO and related files
+Copyright: 2016, Intel Corporation
+License: Expat
+
+Files: servers/rendering/renderer_rd/shaders/effects/taa_resolve.glsl
+Comment: Temporal Anti-Aliasing resolve implementation
+Copyright: 2016, Panos Karabelas
+License: Expat
+
+Files: servers/rendering/renderer_rd/shaders/effects/smaa_blending.glsl
+ servers/rendering/renderer_rd/shaders/effects/smaa_weight_calculation.glsl
+ servers/rendering/renderer_rd/shaders/effects/smaa_edge_detection.glsl
+ thirdparty/smaa/*
+Comment: Subpixel Morphological Antialiasing
+Copyright: 2013, Jorge Jimenez
+ 2013, Jose I. Echevarria
+ 2013, Belen Masia
+ 2013, Fernando Navarro
+ 2013, Diego Gutierrez
+License: Expat
+
+Files: thirdparty/accesskit/*
+Comment: AccessKit
+Copyright: 2023, The AccessKit Authors.
+License: Expat
+
+Files: thirdparty/amd-fsr/*
+Comment: AMD FidelityFX Super Resolution
+Copyright: 2021, Advanced Micro Devices, Inc.
+License: Expat
+
+Files: thirdparty/amd-fsr2/*
+Comment: AMD FidelityFX Super Resolution 2
+Copyright: 2022-2023, Advanced Micro Devices, Inc.
+License: Expat
+
+Files: thirdparty/angle/*
+Comment: ANGLE
+Copyright: 2018, The ANGLE Project Authors.
+License: BSD-3-clause
+
+Files: thirdparty/astcenc/*
+Comment: Arm ASTC Encoder
+Copyright: 2011-2025, Arm Limited
+License: Apache-2.0
+
+Files: thirdparty/basis_universal/*
+Comment: Basis Universal
+Copyright: 2019-2025, Binomial LLC.
+License: Apache-2.0
+
+Files: thirdparty/brotli/*
+Comment: Brotli
+Copyright: 2009, 2010, 2013-2016 by the Brotli Authors.
+License: Expat
+
+Files: thirdparty/certs/ca-bundle.crt
+Comment: CA certificates
+Copyright: Mozilla Contributors
+License: MPL-2.0
+
+Files: thirdparty/clipper2/*
+Comment: Clipper2
+Copyright: 2010-2025, Angus Johnson
+License: BSL-1.0
+
+Files: thirdparty/cvtt/*
+Comment: Convection Texture Tools Stand-Alone Kernels
+Copyright: 2018, Eric Lasota
+ 2018, Microsoft Corp.
+License: Expat
+
+Files: thirdparty/d3d12ma/*
+Comment: D3D12 Memory Allocator
+Copyright: 2019-2022 Advanced Micro Devices, Inc.
+License: Expat
+
+Files: thirdparty/directx_headers/*
+Comment: DirectX Headers
+Copyright: Microsoft Corporation
+License: Expat
+
+Files: thirdparty/doctest/*
+Comment: doctest
+Copyright: 2016-2023, Viktor Kirilov
+License: Expat
+
+Files: thirdparty/dr_libs/*
+Comment: dr_libs
+Copyright: 2020, David Reid
+License: Unlicense or MIT-0
+
+Files: thirdparty/embree/*
+Comment: Embree
+Copyright: 2009-2021 Intel Corporation
+License: Apache-2.0
+
+Files: thirdparty/enet/*
+Comment: ENet
+Copyright: 2002-2024, Lee Salzman
+License: Expat
+
+Files: thirdparty/etcpak/*
+Comment: etcpak
+Copyright: 2013-2022, Bartosz Taudul
+License: BSD-3-clause
+
+Files: thirdparty/fonts/DroidSans*.woff2
+Comment: DroidSans font
+Copyright: 2008, The Android Open Source Project
+License: Apache-2.0
+
+Files: thirdparty/fonts/Inter*.woff2
+Comment: Inter font
+Copyright: 2016, The Inter Project Authors
+License: OFL-1.1
+
+Files: thirdparty/fonts/JetBrainsMono_Regular.woff2
+Comment: JetBrains Mono font
+Copyright: 2020, JetBrains s.r.o.
+License: OFL-1.1
+
+Files: thirdparty/fonts/NotoSans*.woff2
+Comment: Noto Sans font
+Copyright: 2012, Google Inc.
+License: OFL-1.1
+
+Files: thirdparty/fonts/OpenSans*.woff2
+Comment: Open Sans font
+Copyright: 2020, The Open Sans Project Authors
+License: OFL-1.1
+
+Files: thirdparty/fonts/Vazirmatn*.woff2
+Comment: Vazirmatn font
+Copyright: 2015, The Vazirmatn Project Authors.
+License: OFL-1.1
+
+Files: thirdparty/freetype/*
+Comment: The FreeType Project
+Copyright: 1996-2025, David Turner, Robert Wilhelm, and Werner Lemberg.
+License: FTL
+
+Files: thirdparty/glad/*
+Comment: glad
+Copyright: 2013-2022, David Herberth
+ 2013-2020, The Khronos Group Inc.
+License: CC0-1.0 and Apache-2.0
+
+Files: thirdparty/glslang/*
+Comment: glslang
+Copyright: 2015-2020, Google, Inc.
+  2014-2020, The Khronos Group Inc
+  2002, NVIDIA Corporation.
+License: glslang
+
+Files: thirdparty/graphite/*
+Comment: Graphite engine
+Copyright: 2010, SIL International
+License: Expat
+
+Files: thirdparty/grisu2/*
+Comment: Grisu2 float serialization algorithm
+Copyright: 2009, Florian Loitsch
+ 2018-2023, The simdjson authors
+License: Expat and Apache-2.0
+
+Files: thirdparty/harfbuzz/*
+Comment: HarfBuzz text shaping library
+Copyright: 2010-2022, Google, Inc.
+ 2015-2020, Ebrahim Byagowi
+ 2019,2020, Facebook, Inc.
+ 2012, 2015, Mozilla Foundation
+ 2011, Codethink Limited
+ 2008, 2010, Nokia Corporation and/or its subsidiary(-ies)
+ 2009, Keith Stribley
+ 2011, Martin Hosken and SIL International
+ 2007, Chris Wilson
+ 2005-2006, 2020-2023, Behdad Esfahbod
+ 2004, 2007-2010, 2013, 2021-2023, Red Hat, Inc.
+ 1998-2005, David Turner and Werner Lemberg
+ 2016, Igalia, S.L.
+ 2022, Matthias Clasen
+ 2018, 2021, Khaled Hosny
+ 2018-2020, Adobe, Inc.
+ 2013-2015, Alexei Podtelezhnikov
+License: HarfBuzz
+
+Files: thirdparty/icu4c/*
+Comment: International Components for Unicode
+Copyright: 2016-2024, Unicode, Inc.
+License: Unicode
+
+Files: thirdparty/jolt_physics/*
+Comment: Jolt Physics
+Copyright: 2021, Jorrit Rouwe
+License: Expat
+
+Files: thirdparty/libbacktrace/*
+Comment: libbacktrace
+Copyright: 2012-2021, Free Software Foundation, Inc.
+License: BSD-3-clause
+
+Files: thirdparty/libjpeg-turbo/*
+Comment: libjpeg-turbo
+Copyright: 2009-2025, D. R. Commander
+ 2015, Viktor Szathmáry.
+ 1991-2020, Thomas G. Lane, Guido Vollbeding
+License: BSD-3-clause and IJG
+
+Files: thirdparty/libktx/*
+Comment: KTX
+Copyright: 2013-2020, Mark Callow
+ 2010-2020 The Khronos Group, Inc.
+License: Apache-2.0
+
+Files: thirdparty/libogg/*
+Comment: OggVorbis
+Copyright: 2002, Xiph.org Foundation
+License: BSD-3-clause
+
+Files: thirdparty/libpng/*
+Comment: libpng
+Copyright: 1995-2025, The PNG Reference Library Authors.
+ 2018-2025, Cosmin Truta.
+ 2000-2002, 2004, 2006-2018 Glenn Randers-Pehrson.
+ 1996-1997, Andreas Dilger.
+ 1995-1996, Guy Eric Schalnat, Group 42, Inc.
+License: Zlib
+
+Files: thirdparty/libtheora/*
+Comment: OggTheora
+Copyright: 2002-2009, Xiph.org Foundation
+License: BSD-3-clause
+
+Files: thirdparty/libvorbis/*
+Comment: OggVorbis
+Copyright: 2002-2015, Xiph.org Foundation
+License: BSD-3-clause
+
+Files: thirdparty/libwebp/*
+Comment: WebP codec
+Copyright: 2010, Google Inc.
+License: BSD-3-clause
+
+Files: thirdparty/manifold/*
+Comment: Manifold
+Copyright: 2020-2025, The Manifold Authors
+License: Apache-2.0
+
+Files: thirdparty/mbedtls/*
+Comment: Mbed TLS
+Copyright: The Mbed TLS Contributors
+License: Apache-2.0
+
+Files: thirdparty/meshoptimizer/*
+Comment: meshoptimizer
+Copyright: 2016-2024, Arseny Kapoulkine
+License: Expat
+
+Files: thirdparty/mingw-std-threads/*
+Comment: mingw-std-threads
+Copyright: 2016, Mega Limited
+License: BSD-2-clause
+
+Files: thirdparty/miniupnpc/*
+Comment: MiniUPnP Project
+Copyright: 2005-2025, Thomas Bernard
+License: BSD-3-clause
+
+Files: thirdparty/minizip/*
+Comment: MiniZip
+Copyright: 1998-2010, Gilles Vollant
+ 2007-2008, Even Rouault
+ 2009-2010, Mathias Svensson
+License: Zlib
+
+Files: thirdparty/misc/bcdec.h
+Comment: bcdec
+Copyright: 2022, Sergii Kudlai
+License: Expat
+
+Files: thirdparty/misc/cubemap_coeffs.h
+Comment: Fast Filtering of Reflection Probes
+Copyright: 2016, Activision Publishing, Inc.
+License: Expat
+
+Files: thirdparty/misc/fastlz.c
+ thirdparty/misc/fastlz.h
+Comment: FastLZ
+Copyright: 2005-2020, Ariya Hidayat
+License: Expat
+
+Files: thirdparty/misc/FastNoiseLite.h
+Comment: FastNoise Lite
+Copyright: 2023, Jordan Peck and contributors
+License: Expat
+
+Files: thirdparty/misc/ifaddrs-android.cc
+ thirdparty/misc/ifaddrs-android.h
+Comment: libjingle
+Copyright: 2012-2013, Google Inc.
+License: BSD-3-clause
+
+Files: thirdparty/misc/mikktspace.c
+ thirdparty/misc/mikktspace.h
+Comment: Tangent Space Normal Maps implementation
+Copyright: 2011, Morten S. Mikkelsen
+License: Zlib
+
+Files: thirdparty/misc/nvapi_minimal.h
+Comment: NVIDIA NVAPI (minimal excerpt)
+Copyright: 2019-2022, NVIDIA Corporation
+License: Expat
+
+Files: thirdparty/misc/ok_color.h
+ thirdparty/misc/ok_color_shader.h
+Comment: OK Lab color space
+Copyright: 2021, Björn Ottosson
+License: Expat
+
+Files: thirdparty/misc/pcg.cpp
+ thirdparty/misc/pcg.h
+Comment: Minimal PCG32 implementation
+Copyright: 2014, M.E. O'Neill
+License: Apache-2.0
+
+Files: thirdparty/misc/polypartition.cpp
+ thirdparty/misc/polypartition.h
+Comment: PolyPartition / Triangulator
+Copyright: 2011-2021, Ivan Fratric and contributors
+License: Expat
+
+Files: thirdparty/misc/qoa.h
+Comment: Quite OK Audio Format
+Copyright: 2023, Dominic Szablewski
+License: Expat
+
+Files: thirdparty/misc/r128.c
+ thirdparty/misc/r128.h
+Comment: r128 library
+Copyright: Alan Hickman
+License: Unlicense
+
+Files: thirdparty/misc/smaz.c
+ thirdparty/misc/smaz.h
+Comment: SMAZ
+Copyright: 2006-2009, Salvatore Sanfilippo
+License: BSD-3-clause
+
+Files: thirdparty/misc/smolv.cpp
+ thirdparty/misc/smolv.h
+Comment: SMOL-V
+Copyright: 2016-2024, Aras Pranckevicius
+License: Unlicense or Expat
+
+Files: thirdparty/misc/stb_rect_pack.h
+Comment: stb libraries
+Copyright: Sean Barrett
+License: Unlicense or Expat
+
+Files: thirdparty/misc/yuv2rgb.h
+Comment: YUV2RGB
+Copyright: 2008-2011, Robin Watts
+License: BSD-2-clause
+
+Files: thirdparty/msdfgen/*
+Comment: Multi-channel signed distance field generator
+Copyright: 2014-2025, Viktor Chlumsky
+License: Expat
+
+Files: thirdparty/openxr/*
+Comment: OpenXR Loader
+Copyright: 2020-2025, The Khronos Group Inc.
+License: Apache-2.0
+
+Files: thirdparty/pcre2/*
+Comment: PCRE2
+Copyright: 1997-2024, University of Cambridge
+ 2009-2024, Zoltan Herczeg
+License: BSD-3-clause
+
+Files: thirdparty/recastnavigation/*
+Comment: Recast
+Copyright: 2009, Mikko Mononen
+License: Zlib
+
+Files: thirdparty/rvo2/*
+Comment: RVO2
+Copyright: 2016, University of North Carolina at Chapel Hill
+License: Apache-2.0
+
+Files: thirdparty/sdl/*
+Comment: SDL
+Copyright: 1997-2025, Sam Lantinga
+License: Zlib
+
+Files: thirdparty/sdl/hidapi/*
+Comment: hidapi
+Copyright: 2010, Alan Ott, Signal 11 Software
+License: BSD-3-clause
+
+Files: thirdparty/spirv-cross/*
+Comment: SPIRV-Cross
+Copyright: 2015-2021, Arm Limited
+License: Apache-2.0 or Expat
+
+Files: thirdparty/spirv-reflect/*
+Comment: SPIRV-Reflect
+Copyright: 2017-2022, Google Inc.
+License: Apache-2.0
+
+Files: thirdparty/swappy-frame-pacing/*
+Comment: Swappy
+Copyright: 2019, The Android Open Source Project
+License: Apache-2.0
+
+Files: thirdparty/thorvg/*
+Comment: ThorVG
+Copyright: 2020-2024, The ThorVG Project
+License: Expat
+
+Files: thirdparty/tinyexr/*
+Comment: TinyEXR
+Copyright: 2014-2021, Syoyo Fujita
+  2002, Industrial Light & Magic, a division of Lucas Digital Ltd. LLC
+License: BSD-3-clause
+
+Files: thirdparty/ufbx/*
+Comment: ufbx
+Copyright: 2020, Samuli Raivio
+License: Expat
+
+Files: thirdparty/vhacd/*
+Comment: V-HACD
+Copyright: 2011, Khaled Mamou
+  2003-2009, Erwin Coumans
+License: BSD-3-clause
+
+Files: thirdparty/volk/*
+Comment: volk
+Copyright: 2018-2024, Arseny Kapoulkine
+License: Expat
+
+Files: thirdparty/vulkan/*
+Comment: Vulkan Headers
+Copyright: 2014-2024, The Khronos Group Inc.
+  2014-2024, Valve Corporation
+  2014-2024, LunarG, Inc.
+License: Apache-2.0
+
+Files: thirdparty/vulkan/vk_mem_alloc.h
+Comment: Vulkan Memory Allocator
+Copyright: 2017-2024, Advanced Micro Devices, Inc.
+License: Expat
+
+Files: thirdparty/wayland/*
+Comment: Wayland core protocol
+Copyright: 2008-2012, Kristian Høgsberg
+  2010-2012, Intel Corporation
+  2011, Benjamin Franzke
+  2012, Collabora, Ltd.
+License: Expat
+
+Files: thirdparty/wayland-protocols/*
+Comment: Wayland protocols
+Copyright: 2008-2013, Kristian Høgsberg
+  2010-2013, Intel Corporation
+  2013, Rafael Antognolli
+  2013, Jasper St. Pierre
+  2014, Jonas Ådahl
+  2014, Jason Ekstrand
+  2014-2015, Collabora, Ltd.
+  2015, Red Hat Inc.
+License: Expat
+
+Files: thirdparty/wayland-protocols/mesa/wayland-drm.xml
+Comment: Mesa Wayland protocols
+Copyright: 2008-2011, Kristian Høgsberg
+  2010-2011, Intel Corporation
+License: X11
+
+Files: thirdparty/wslay/*
+Comment: Wslay
+Copyright: 2011, 2012, 2015, Tatsuhiro Tsujikawa
+License: Expat
+
+Files: thirdparty/xatlas/*
+Comment: xatlas
+Copyright: 2018-2020, Jonathan Young
+  2013, Thekla, Inc
+  2006, NVIDIA Corporation, Ignacio Castano
+License: Expat
+
+Files: thirdparty/zlib/*
+Comment: zlib
+Copyright: 1995-2025, Jean-loup Gailly and Mark Adler
+License: Zlib
+
+Files: thirdparty/zstd/*
+Comment: Zstandard
+Copyright: Meta Platforms, Inc. and affiliates.
+License: BSD-3-clause
+
+
+
+License: Apache-2.0
+                               Apache License
+                         Version 2.0, January 2004
+                      http://www.apache.org/licenses/
+ .
+ TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION
+ .
+ 1. Definitions.
+ .
+    \"License\" shall mean the terms and conditions for use, reproduction,
+    and distribution as defined by Sections 1 through 9 of this document.
+ .
+    \"Licensor\" shall mean the copyright owner or entity authorized by
+    the copyright owner that is granting the License.
+ .
+    \"Legal Entity\" shall mean the union of the acting entity and all
+    other entities that control, are controlled by, or are under common
+    control with that entity. For the purposes of this definition,
+    \"control\" means (i) the power, direct or indirect, to cause the
+    direction or management of such entity, whether by contract or
+    otherwise, or (ii) ownership of fifty percent (50%) or more of the
+    outstanding shares, or (iii) beneficial ownership of such entity.
+ .
+    \"You\" (or \"Your\") shall mean an individual or Legal Entity
+    exercising permissions granted by this License.
+ .
+    \"Source\" form shall mean the preferred form for making modifications,
+    including but not limited to software source code, documentation
+    source, and configuration files.
+ .
+    \"Object\" form shall mean any form resulting from mechanical
+    transformation or translation of a Source form, including but
+    not limited to compiled object code, generated documentation,
+    and conversions to other media types.
+ .
+    \"Work\" shall mean the work of authorship, whether in Source or
+    Object form, made available under the License, as indicated by a
+    copyright notice that is included in or attached to the work
+    (an example is provided in the Appendix below).
+ .
+    \"Derivative Works\" shall mean any work, whether in Source or Object
+    form, that is based on (or derived from) the Work and for which the
+    editorial revisions, annotations, elaborations, or other modifications
+    represent, as a whole, an original work of authorship. For the purposes
+    of this License, Derivative Works shall not include works that remain
+    separable from, or merely link (or bind by name) to the interfaces of,
+    the Work and Derivative Works thereof.
+ .
+    \"Contribution\" shall mean any work of authorship, including
+    the original version of the Work and any modifications or additions
+    to that Work or Derivative Works thereof, that is intentionally
+    submitted to Licensor for inclusion in the Work by the copyright owner
+    or by an individual or Legal Entity authorized to submit on behalf of
+    the copyright owner. For the purposes of this definition, \"submitted\"
+    means any form of electronic, verbal, or written communication sent
+    to the Licensor or its representatives, including but not limited to
+    communication on electronic mailing lists, source code control systems,
+    and issue tracking systems that are managed by, or on behalf of, the
+    Licensor for the purpose of discussing and improving the Work, but
+    excluding communication that is conspicuously marked or otherwise
+    designated in writing by the copyright owner as \"Not a Contribution.\"
+ .
+    \"Contributor\" shall mean Licensor and any individual or Legal Entity
+    on behalf of whom a Contribution has been received by Licensor and
+    subsequently incorporated within the Work.
+ .
+ 2. Grant of Copyright License. Subject to the terms and conditions of
+    this License, each Contributor hereby grants to You a perpetual,
+    worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+    copyright license to reproduce, prepare Derivative Works of,
+    publicly display, publicly perform, sublicense, and distribute the
+    Work and such Derivative Works in Source or Object form.
+ .
+ 3. Grant of Patent License. Subject to the terms and conditions of
+    this License, each Contributor hereby grants to You a perpetual,
+    worldwide, non-exclusive, no-charge, royalty-free, irrevocable
+    (except as stated in this section) patent license to make, have made,
+    use, offer to sell, sell, import, and otherwise transfer the Work,
+    where such license applies only to those patent claims licensable
+    by such Contributor that are necessarily infringed by their
+    Contribution(s) alone or by combination of their Contribution(s)
+    with the Work to which such Contribution(s) was submitted. If You
+    institute patent litigation against any entity (including a
+    cross-claim or counterclaim in a lawsuit) alleging that the Work
+    or a Contribution incorporated within the Work constitutes direct
+    or contributory patent infringement, then any patent licenses
+    granted to You under this License for that Work shall terminate
+    as of the date such litigation is filed.
+ .
+ 4. Redistribution. You may reproduce and distribute copies of the
+    Work or Derivative Works thereof in any medium, with or without
+    modifications, and in Source or Object form, provided that You
+    meet the following conditions:
+ .
+ (a) You must give any other recipients of the Work or
+     Derivative Works a copy of this License; and
+ .
+ (b) You must cause any modified files to carry prominent notices
+     stating that You changed the files; and
+ .
+ (c) You must retain, in the Source form of any Derivative Works
+     that You distribute, all copyright, patent, trademark, and
+     attribution notices from the Source form of the Work,
+     excluding those notices that do not pertain to any part of
+     the Derivative Works; and
+ .
+ (d) If the Work includes a \"NOTICE\" text file as part of its
+     distribution, then any Derivative Works that You distribute must
+     include a readable copy of the attribution notices contained
+     within such NOTICE file, excluding those notices that do not
+     pertain to any part of the Derivative Works, in at least one
+     of the following places: within a NOTICE text file distributed
+     as part of the Derivative Works; within the Source form or
+     documentation, if provided along with the Derivative Works; or,
+     within a display generated by the Derivative Works, if and
+     wherever such third-party notices normally appear. The contents
+     of the NOTICE file are for informational purposes only and
+     do not modify the License. You may add Your own attribution
+     notices within Derivative Works that You distribute, alongside
+     or as an addendum to the NOTICE text from the Work, provided
+     that such additional attribution notices cannot be construed
+     as modifying the License.
+ .
+ You may add Your own copyright statement to Your modifications and
+ may provide additional or different license terms and conditions
+ for use, reproduction, or distribution of Your modifications, or
+ for any such Derivative Works as a whole, provided Your use,
+ reproduction, and distribution of the Work otherwise complies with
+ the conditions stated in this License.
+ .
+ 5. Submission of Contributions. Unless You explicitly state otherwise,
+    any Contribution intentionally submitted for inclusion in the Work
+    by You to the Licensor shall be under the terms and conditions of
+    this License, without any additional terms or conditions.
+    Notwithstanding the above, nothing herein shall supersede or modify
+    the terms of any separate license agreement you may have executed
+    with Licensor regarding such Contributions.
+ .
+ 6. Trademarks. This License does not grant permission to use the trade
+    names, trademarks, service marks, or product names of the Licensor,
+    except as required for reasonable and customary use in describing the
+    origin of the Work and reproducing the content of the NOTICE file.
+ .
+ 7. Disclaimer of Warranty. Unless required by applicable law or
+    agreed to in writing, Licensor provides the Work (and each
+    Contributor provides its Contributions) on an \"AS IS\" BASIS,
+    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or
+    implied, including, without limitation, any warranties or conditions
+    of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A
+    PARTICULAR PURPOSE. You are solely responsible for determining the
+    appropriateness of using or redistributing the Work and assume any
+    risks associated with Your exercise of permissions under this License.
+ .
+ 8. Limitation of Liability. In no event and under no legal theory,
+    whether in tort (including negligence), contract, or otherwise,
+    unless required by applicable law (such as deliberate and grossly
+    negligent acts) or agreed to in writing, shall any Contributor be
+    liable to You for damages, including any direct, indirect, special,
+    incidental, or consequential damages of any character arising as a
+    result of this License or out of the use or inability to use the
+    Work (including but not limited to damages for loss of goodwill,
+    work stoppage, computer failure or malfunction, or any and all
+    other commercial damages or losses), even if such Contributor
+    has been advised of the possibility of such damages.
+ .
+ 9. Accepting Warranty or Additional Liability. While redistributing
+    the Work or Derivative Works thereof, You may choose to offer,
+    and charge a fee for, acceptance of support, warranty, indemnity,
+    or other liability obligations and/or rights consistent with this
+    License. However, in accepting such obligations, You may act only
+    on Your own behalf and on Your sole responsibility, not on behalf
+    of any other Contributor, and only if You agree to indemnify,
+    defend, and hold each Contributor harmless for any liability
+    incurred by, or claims asserted against, such Contributor by reason
+    of your accepting any such warranty or additional liability.
+ .
+ END OF TERMS AND CONDITIONS
+ .
+ APPENDIX: How to apply the Apache License to your work.
+ .
+    To apply the Apache License to your work, attach the following
+    boilerplate notice, with the fields enclosed by brackets \"[]\"
+    replaced with your own identifying information. (Don't include
+    the brackets!)  The text should be enclosed in the appropriate
+    comment syntax for the file format. We also recommend that a
+    file or class name and description of purpose be included on the
+    same \"printed page\" as the copyright notice for easier
+    identification within third-party archives.
+ .
+ Copyright [yyyy] [name of copyright owner]
+ .
+ Licensed under the Apache License, Version 2.0 (the \"License\");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+ .
+     http://www.apache.org/licenses/LICENSE-2.0
+ .
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an \"AS IS\" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+
+License: BSD-2-clause
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions are met:
+ .
+ * Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+ .
+ * Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+ .
+ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS \"AS IS\" AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+ FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+ SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+ OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+License: BSD-3-clause
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions
+ are met:
+ .
+ 1. Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+ .
+ 2. Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in the
+    documentation and/or other materials provided with the distribution.
+ .
+ 3. Neither the name of the copyright holder nor the names of its
+    contributors may be used to endorse or promote products derived from
+    this software without specific prior written permission.
+ .
+ THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+ FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ SUCH DAMAGE.
+
+License: BSL-1.0
+ Boost Software License - Version 1.0 - August 17th, 2003
+ .
+ Permission is hereby granted, free of charge, to any person or organization
+ obtaining a copy of the software and accompanying documentation covered by
+ this license (the \"Software\") to use, reproduce, display, distribute,
+ execute, and transmit the Software, and to prepare derivative works of the
+ Software, and to permit third-parties to whom the Software is furnished to
+ do so, all subject to the following:
+ .
+ The copyright notices in the Software and this entire statement, including
+ the above license grant, this restriction and the following disclaimer,
+ must be included in all copies of the Software, in whole or in part, and
+ all derivative works of the Software, unless such copies or derivative
+ works are solely in the form of machine-executable object code generated by
+ a source language processor.
+ .
+ THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE, TITLE AND NON-INFRINGEMENT. IN NO EVENT
+ SHALL THE COPYRIGHT HOLDERS OR ANYONE DISTRIBUTING THE SOFTWARE BE LIABLE
+ FOR ANY DAMAGES OR OTHER LIABILITY, WHETHER IN CONTRACT, TORT OR OTHERWISE,
+ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ DEALINGS IN THE SOFTWARE.
+
+License: CC0-1.0
+ CC0 1.0 Universal
+ .
+ Statement of Purpose
+ .
+ The laws of most jurisdictions throughout the world automatically confer
+ exclusive Copyright and Related Rights (defined below) upon the creator and
+ subsequent owner(s) (each and all, an \"owner\") of an original work of
+ authorship and/or a database (each, a \"Work\").
+ .
+ Certain owners wish to permanently relinquish those rights to a Work for the
+ purpose of contributing to a commons of creative, cultural and scientific
+ works (\"Commons\") that the public can reliably and without fear of later
+ claims of infringement build upon, modify, incorporate in other works, reuse
+ and redistribute as freely as possible in any form whatsoever and for any
+ purposes, including without limitation commercial purposes. These owners may
+ contribute to the Commons to promote the ideal of a free culture and the
+ further production of creative, cultural and scientific works, or to gain
+ reputation or greater distribution for their Work in part through the use and
+ efforts of others.
+ .
+ For these and/or other purposes and motivations, and without any expectation
+ of additional consideration or compensation, the person associating CC0 with a
+ Work (the \"Affirmer\"), to the extent that he or she is an owner of Copyright
+ and Related Rights in the Work, voluntarily elects to apply CC0 to the Work
+ and publicly distribute the Work under its terms, with knowledge of his or her
+ Copyright and Related Rights in the Work and the meaning and intended legal
+ effect of CC0 on those rights.
+ .
+ 1. Copyright and Related Rights. A Work made available under CC0 may be
+ protected by copyright and related or neighboring rights (\"Copyright and
+ Related Rights\"). Copyright and Related Rights include, but are not limited
+ to, the following:
+ .
+ i. the right to reproduce, adapt, distribute, perform, display, communicate,
+ and translate a Work;
+ .
+ ii. moral rights retained by the original author(s) and/or performer(s);
+ .
+ iii. publicity and privacy rights pertaining to a person's image or likeness
+ depicted in a Work;
+ .
+ iv. rights protecting against unfair competition in regards to a Work,
+ subject to the limitations in paragraph 4(a), below;
+ .
+ v. rights protecting the extraction, dissemination, use and reuse of data in
+ a Work;
+ .
+ vi. database rights (such as those arising under Directive 96/9/EC of the
+ European Parliament and of the Council of 11 March 1996 on the legal
+ protection of databases, and under any national implementation thereof,
+ including any amended or successor version of such directive); and
+ .
+ vii. other similar, equivalent or corresponding rights throughout the world
+ based on applicable law or treaty, and any national implementations thereof.
+ .
+ 2. Waiver. To the greatest extent permitted by, but not in contravention of,
+ applicable law, Affirmer hereby overtly, fully, permanently, irrevocably and
+ unconditionally waives, abandons, and surrenders all of Affirmer's Copyright
+ and Related Rights and associated claims and causes of action, whether now
+ known or unknown (including existing as well as future claims and causes of
+ action), in the Work (i) in all territories worldwide, (ii) for the maximum
+ duration provided by applicable law or treaty (including future time
+ extensions), (iii) in any current or future medium and for any number of
+ copies, and (iv) for any purpose whatsoever, including without limitation
+ commercial, advertising or promotional purposes (the \"Waiver\"). Affirmer makes
+ the Waiver for the benefit of each member of the public at large and to the
+ detriment of Affirmer's heirs and successors, fully intending that such Waiver
+ shall not be subject to revocation, rescission, cancellation, termination, or
+ any other legal or equitable action to disrupt the quiet enjoyment of the Work
+ by the public as contemplated by Affirmer's express Statement of Purpose.
+ .
+ 3. Public License Fallback. Should any part of the Waiver for any reason be
+ judged legally invalid or ineffective under applicable law, then the Waiver
+ shall be preserved to the maximum extent permitted taking into account
+ Affirmer's express Statement of Purpose. In addition, to the extent the Waiver
+ is so judged Affirmer hereby grants to each affected person a royalty-free,
+ non transferable, non sublicensable, non exclusive, irrevocable and
+ unconditional license to exercise Affirmer's Copyright and Related Rights in
+ the Work (i) in all territories worldwide, (ii) for the maximum duration
+ provided by applicable law or treaty (including future time extensions), (iii)
+ in any current or future medium and for any number of copies, and (iv) for any
+ purpose whatsoever, including without limitation commercial, advertising or
+ promotional purposes (the \"License\"). The License shall be deemed effective as
+ of the date CC0 was applied by Affirmer to the Work. Should any part of the
+ License for any reason be judged legally invalid or ineffective under
+ applicable law, such partial invalidity or ineffectiveness shall not
+ invalidate the remainder of the License, and in such case Affirmer hereby
+ affirms that he or she will not (i) exercise any of his or her remaining
+ Copyright and Related Rights in the Work or (ii) assert any associated claims
+ and causes of action with respect to the Work, in either case contrary to
+ Affirmer's express Statement of Purpose.
+ .
+ 4. Limitations and Disclaimers.
+ .
+ a. No trademark or patent rights held by Affirmer are waived, abandoned,
+ surrendered, licensed or otherwise affected by this document.
+ .
+ b. Affirmer offers the Work as-is and makes no representations or warranties
+ of any kind concerning the Work, express, implied, statutory or otherwise,
+ including without limitation warranties of title, merchantability, fitness
+ for a particular purpose, non infringement, or the absence of latent or
+ other defects, accuracy, or the present or absence of errors, whether or not
+ discoverable, all to the greatest extent permissible under applicable law.
+ .
+ c. Affirmer disclaims responsibility for clearing rights of other persons
+ that may apply to the Work or any use thereof, including without limitation
+ any person's Copyright and Related Rights in the Work. Further, Affirmer
+ disclaims responsibility for obtaining any necessary consents, permissions
+ or other rights required for any use of the Work.
+ .
+ d. Affirmer understands and acknowledges that Creative Commons is not a
+ party to this document and has no duty or obligation with respect to this
+ CC0 or use of the Work.
+
+License: CC-BY-4.0
+ Creative Commons Attribution 4.0 International Public License
+ .
+ By exercising the Licensed Rights (defined below), You accept and agree
+ to be bound by the terms and conditions of this Creative Commons
+ Attribution 4.0 International Public License (\"Public
+ License\"). To the extent this Public License may be interpreted as a
+ contract, You are granted the Licensed Rights in consideration of Your
+ acceptance of these terms and conditions, and the Licensor grants You
+ such rights in consideration of benefits the Licensor receives from
+ making the Licensed Material available under these terms and
+ conditions.
+ .
+ Section 1 -- Definitions.
+ .
+ a. Adapted Material means material subject to Copyright and Similar
+ Rights that is derived from or based upon the Licensed Material
+ and in which the Licensed Material is translated, altered,
+ arranged, transformed, or otherwise modified in a manner requiring
+ permission under the Copyright and Similar Rights held by the
+ Licensor. For purposes of this Public License, where the Licensed
+ Material is a musical work, performance, or sound recording,
+ Adapted Material is always produced where the Licensed Material is
+ synched in timed relation with a moving image.
+ .
+ b. Adapter's License means the license You apply to Your Copyright
+ and Similar Rights in Your contributions to Adapted Material in
+ accordance with the terms and conditions of this Public License.
+ .
+ c. Copyright and Similar Rights means copyright and/or similar rights
+ closely related to copyright including, without limitation,
+ performance, broadcast, sound recording, and Sui Generis Database
+ Rights, without regard to how the rights are labeled or
+ categorized. For purposes of this Public License, the rights
+ specified in Section 2(b)(1)-(2) are not Copyright and Similar
+ Rights.
+ .
+ d. Effective Technological Measures means those measures that, in the
+ absence of proper authority, may not be circumvented under laws
+ fulfilling obligations under Article 11 of the WIPO Copyright
+ Treaty adopted on December 20, 1996, and/or similar international
+ agreements.
+ .
+ e. Exceptions and Limitations means fair use, fair dealing, and/or
+ any other exception or limitation to Copyright and Similar Rights
+ that applies to Your use of the Licensed Material.
+ .
+ f. Licensed Material means the artistic or literary work, database,
+ or other material to which the Licensor applied this Public
+ License.
+ .
+ g. Licensed Rights means the rights granted to You subject to the
+ terms and conditions of this Public License, which are limited to
+ all Copyright and Similar Rights that apply to Your use of the
+ Licensed Material and that the Licensor has authority to license.
+ .
+ h. Licensor means the individual(s) or entity(ies) granting rights
+ under this Public License.
+ .
+ i. Share means to provide material to the public by any means or
+ process that requires permission under the Licensed Rights, such
+ as reproduction, public display, public performance, distribution,
+ dissemination, communication, or importation, and to make material
+ available to the public including in ways that members of the
+ public may access the material from a place and at a time
+ individually chosen by them.
+ .
+ j. Sui Generis Database Rights means rights other than copyright
+ resulting from Directive 96/9/EC of the European Parliament and of
+ the Council of 11 March 1996 on the legal protection of databases,
+ as amended and/or succeeded, as well as other essentially
+ equivalent rights anywhere in the world.
+ .
+ k. You means the individual or entity exercising the Licensed Rights
+ under this Public License. Your has a corresponding meaning.
+ .
+ Section 2 -- Scope.
+ .
+ a. License grant.
+ .
+ 1. Subject to the terms and conditions of this Public License,
+ the Licensor hereby grants You a worldwide, royalty-free,
+ non-sublicensable, non-exclusive, irrevocable license to
+ exercise the Licensed Rights in the Licensed Material to:
+ .
+ a. reproduce and Share the Licensed Material, in whole or
+ in part; and
+ .
+ b. produce, reproduce, and Share Adapted Material.
+ .
+ 2. Exceptions and Limitations. For the avoidance of doubt, where
+ Exceptions and Limitations apply to Your use, this Public
+ License does not apply, and You do not need to comply with
+ its terms and conditions.
+ .
+ 3. Term. The term of this Public License is specified in Section
+ 6(a).
+ .
+ 4. Media and formats; technical modifications allowed. The
+ Licensor authorizes You to exercise the Licensed Rights in
+ all media and formats whether now known or hereafter created,
+ and to make technical modifications necessary to do so. The
+ Licensor waives and/or agrees not to assert any right or
+ authority to forbid You from making technical modifications
+ necessary to exercise the Licensed Rights, including
+ technical modifications necessary to circumvent Effective
+ Technological Measures. For purposes of this Public License,
+ simply making modifications authorized by this Section 2(a)
+ (4) never produces Adapted Material.
+ .
+ 5. Downstream recipients.
+ .
+ a. Offer from the Licensor -- Licensed Material. Every
+ recipient of the Licensed Material automatically
+ receives an offer from the Licensor to exercise the
+ Licensed Rights under the terms and conditions of this
+ Public License.
+ .
+ b. No downstream restrictions. You may not offer or impose
+ any additional or different terms or conditions on, or
+ apply any Effective Technological Measures to, the
+ Licensed Material if doing so restricts exercise of the
+ Licensed Rights by any recipient of the Licensed
+ Material.
+ .
+ 6. No endorsement. Nothing in this Public License constitutes or
+ may be construed as permission to assert or imply that You
+ are, or that Your use of the Licensed Material is, connected
+ with, or sponsored, endorsed, or granted official status by,
+ the Licensor or others designated to receive attribution as
+ provided in Section 3(a)(1)(A)(i).
+ .
+ b. Other rights.
+ .
+ 1. Moral rights, such as the right of integrity, are not
+ licensed under this Public License, nor are publicity,
+ privacy, and/or other similar personality rights; however, to
+ the extent possible, the Licensor waives and/or agrees not to
+ assert any such rights held by the Licensor to the limited
+ extent necessary to allow You to exercise the Licensed
+ Rights, but not otherwise.
+ .
+ 2. Patent and trademark rights are not licensed under this
+ Public License.
+ .
+ 3. To the extent possible, the Licensor waives any right to
+ collect royalties from You for the exercise of the Licensed
+ Rights, whether directly or through a collecting society
+ under any voluntary or waivable statutory or compulsory
+ licensing scheme. In all other cases the Licensor expressly
+ reserves any right to collect such royalties.
+ .
+ Section 3 -- License Conditions.
+ .
+ Your exercise of the Licensed Rights is expressly made subject to the
+ following conditions.
+ .
+ a. Attribution.
+ .
+ 1. If You Share the Licensed Material (including in modified
+ form), You must:
+ .
+ a. retain the following if it is supplied by the Licensor
+ with the Licensed Material:
+ .
+ i. identification of the creator(s) of the Licensed
+ Material and any others designated to receive
+ attribution, in any reasonable manner requested by
+ the Licensor (including by pseudonym if
+ designated);
+ .
+ ii. a copyright notice;
+ .
+ iii. a notice that refers to this Public License;
+ .
+ iv. a notice that refers to the disclaimer of
+ warranties;
+ .
+ v. a URI or hyperlink to the Licensed Material to the
+ extent reasonably practicable;
+ .
+ b. indicate if You modified the Licensed Material and
+ retain an indication of any previous modifications; and
+ .
+ c. indicate the Licensed Material is licensed under this
+ Public License, and include the text of, or the URI or
+ hyperlink to, this Public License.
+ .
+ 2. You may satisfy the conditions in Section 3(a)(1) in any
+ reasonable manner based on the medium, means, and context in
+ which You Share the Licensed Material. For example, it may be
+ reasonable to satisfy the conditions by providing a URI or
+ hyperlink to a resource that includes the required
+ information.
+ .
+ 3. If requested by the Licensor, You must remove any of the
+ information required by Section 3(a)(1)(A) to the extent
+ reasonably practicable.
+ .
+ 4. If You Share Adapted Material You produce, the Adapter's
+ License You apply must not prevent recipients of the Adapted
+ Material from complying with this Public License.
+ .
+ Section 4 -- Sui Generis Database Rights.
+ .
+ Where the Licensed Rights include Sui Generis Database Rights that
+ apply to Your use of the Licensed Material:
+ .
+ a. for the avoidance of doubt, Section 2(a)(1) grants You the right
+ to extract, reuse, reproduce, and Share all or a substantial
+ portion of the contents of the database;
+ .
+ b. if You include all or a substantial portion of the database
+ contents in a database in which You have Sui Generis Database
+ Rights, then the database in which You have Sui Generis Database
+ Rights (but not its individual contents) is Adapted Material; and
+ .
+ c. You must comply with the conditions in Section 3(a) if You Share
+ all or a substantial portion of the contents of the database.
+ .
+ For the avoidance of doubt, this Section 4 supplements and does not
+ replace Your obligations under this Public License where the Licensed
+ Rights include other Copyright and Similar Rights.
+ .
+ Section 5 -- Disclaimer of Warranties and Limitation of Liability.
+ .
+ a. UNLESS OTHERWISE SEPARATELY UNDERTAKEN BY THE LICENSOR, TO THE
+ EXTENT POSSIBLE, THE LICENSOR OFFERS THE LICENSED MATERIAL AS-IS
+ AND AS-AVAILABLE, AND MAKES NO REPRESENTATIONS OR WARRANTIES OF
+ ANY KIND CONCERNING THE LICENSED MATERIAL, WHETHER EXPRESS,
+ IMPLIED, STATUTORY, OR OTHER. THIS INCLUDES, WITHOUT LIMITATION,
+ WARRANTIES OF TITLE, MERCHANTABILITY, FITNESS FOR A PARTICULAR
+ PURPOSE, NON-INFRINGEMENT, ABSENCE OF LATENT OR OTHER DEFECTS,
+ ACCURACY, OR THE PRESENCE OR ABSENCE OF ERRORS, WHETHER OR NOT
+ KNOWN OR DISCOVERABLE. WHERE DISCLAIMERS OF WARRANTIES ARE NOT
+ ALLOWED IN FULL OR IN PART, THIS DISCLAIMER MAY NOT APPLY TO YOU.
+ .
+ b. TO THE EXTENT POSSIBLE, IN NO EVENT WILL THE LICENSOR BE LIABLE
+ TO YOU ON ANY LEGAL THEORY (INCLUDING, WITHOUT LIMITATION,
+ NEGLIGENCE) OR OTHERWISE FOR ANY DIRECT, SPECIAL, INDIRECT,
+ INCIDENTAL, CONSEQUENTIAL, PUNITIVE, EXEMPLARY, OR OTHER LOSSES,
+ COSTS, EXPENSES, OR DAMAGES ARISING OUT OF THIS PUBLIC LICENSE OR
+ USE OF THE LICENSED MATERIAL, EVEN IF THE LICENSOR HAS BEEN
+ ADVISED OF THE POSSIBILITY OF SUCH LOSSES, COSTS, EXPENSES, OR
+ DAMAGES. WHERE A LIMITATION OF LIABILITY IS NOT ALLOWED IN FULL OR
+ IN PART, THIS LIMITATION MAY NOT APPLY TO YOU.
+ .
+ c. The disclaimer of warranties and limitation of liability provided
+ above shall be interpreted in a manner that, to the extent
+ possible, most closely approximates an absolute disclaimer and
+ waiver of all liability.
+ .
+ Section 6 -- Term and Termination.
+ .
+ a. This Public License applies for the term of the Copyright and
+ Similar Rights licensed here. However, if You fail to comply with
+ this Public License, then Your rights under this Public License
+ terminate automatically.
+ .
+ b. Where Your right to use the Licensed Material has terminated under
+ Section 6(a), it reinstates:
+ .
+ 1. automatically as of the date the violation is cured, provided
+ it is cured within 30 days of Your discovery of the
+ violation; or
+ .
+ 2. upon express reinstatement by the Licensor.
+ .
+ For the avoidance of doubt, this Section 6(b) does not affect any
+ right the Licensor may have to seek remedies for Your violations
+ of this Public License.
+ .
+ c. For the avoidance of doubt, the Licensor may also offer the
+ Licensed Material under separate terms or conditions or stop
+ distributing the Licensed Material at any time; however, doing so
+ will not terminate this Public License.
+ .
+ d. Sections 1, 5, 6, 7, and 8 survive termination of this Public
+ License.
+ .
+ Section 7 -- Other Terms and Conditions.
+ .
+ a. The Licensor shall not be bound by any additional or different
+ terms or conditions communicated by You unless expressly agreed.
+ .
+ b. Any arrangements, understandings, or agreements regarding the
+ Licensed Material not stated herein are separate from and
+ independent of the terms and conditions of this Public License.
+ .
+ Section 8 -- Interpretation.
+ .
+ a. For the avoidance of doubt, this Public License does not, and
+ shall not be interpreted to, reduce, limit, restrict, or impose
+ conditions on any use of the Licensed Material that could lawfully
+ be made without permission under this Public License.
+ .
+ b. To the extent possible, if any provision of this Public License is
+ deemed unenforceable, it shall be automatically reformed to the
+ minimum extent necessary to make it enforceable. If the provision
+ cannot be reformed, it shall be severed from this Public License
+ without affecting the enforceability of the remaining terms and
+ conditions.
+ .
+ c. No term or condition of this Public License will be waived and no
+ failure to comply consented to unless expressly agreed to by the
+ Licensor.
+ .
+ d. Nothing in this Public License constitutes or may be interpreted
+ as a limitation upon, or waiver of, any privileges and immunities
+ that apply to the Licensor or You, including from the legal
+ processes of any jurisdiction or authority.
+
+License: Expat
+ Permission is hereby granted, free of charge, to any person obtaining
+ a copy of this software and associated documentation files (the
+ \"Software\"), to deal in the Software without restriction, including
+ without limitation the rights to use, copy, modify, merge, publish,
+ distribute, sublicense, and/or sell copies of the Software, and to
+ permit persons to whom the Software is furnished to do so, subject to
+ the following conditions:
+ .
+ The above copyright notice and this permission notice shall be
+ included in all copies or substantial portions of the Software.
+ .
+ THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND,
+ EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+License: glslang
+ Here, glslang proper means core GLSL parsing, HLSL parsing, and SPIR-V code
+ generation. Glslang proper requires use of a number of licenses, one that covers
+ preprocessing and others that covers non-preprocessing.
+ .
+ Bison was removed long ago. You can build glslang from the source grammar,
+ using tools of your choice, without using bison or any bison files.
+ .
+ Other parts, outside of glslang proper, include:
+ .
+ - gl_types.h, only needed for OpenGL-like reflection, and can be left out of
+   a parse and codegen project.  See it for its license.
+ .
+ - update_glslang_sources.py, which is not part of the project proper and does
+   not need to be used.
+ .
+ - the SPIR-V \"remapper\", which is optional, but has the same license as
+   glslang proper
+ .
+ - Google tests and SPIR-V tools, and anything in the external subdirectory
+   are external and optional; see them for their respective licenses.
+ .
+ --------------------------------------------------------------------------------
+ .
+ The core of glslang-proper, minus the preprocessor is licenced as follows:
+ .
+ --------------------------------------------------------------------------------
+ 3-Clause BSD License
+ --------------------------------------------------------------------------------
+ .
+ Copyright (C) 2015-2018 Google, Inc.
+ Copyright (C) <various other dates and companies>
+ .
+ All rights reserved.
+ .
+ See: <License: BSD-3-clause>.
+ .
+ --------------------------------------------------------------------------------
+ 2-Clause BSD License
+ --------------------------------------------------------------------------------
+ .
+ Copyright 2020 The Khronos Group Inc
+ .
+ See: <License: BSD-2-clause>.
+ .
+ --------------------------------------------------------------------------------
+ The MIT License
+ --------------------------------------------------------------------------------
+ .
+ Copyright 2020 The Khronos Group Inc
+ .
+ See: <License: Expat>.
+ .
+ --------------------------------------------------------------------------------
+ APACHE LICENSE, VERSION 2.0
+ --------------------------------------------------------------------------------
+ .
+ See: <License: Apache-2.0>.
+ .
+ --------------------------------------------------------------------------------
+ GPL 3 with special bison exception
+ --------------------------------------------------------------------------------
+ .
+ Bison implementation for Yacc-like parsers in C
+ .
+ Copyright (C) 1984, 1989-1990, 2000-2015 Free Software Foundation, Inc.
+ .
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ .
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ .
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ .
+ As a special exception, you may create a larger work that contains
+ part or all of the Bison parser skeleton and distribute that work
+ under terms of your choice, so long as that work isn't itself a
+ parser generator using the skeleton or a modified version thereof
+ as a parser skeleton.  Alternatively, if you modify or redistribute
+ the parser skeleton itself, you may (at your option) remove this
+ special exception, which will cause the skeleton and the resulting
+ Bison output files to be licensed under the GNU General Public
+ License without this special exception.
+ .
+ This special exception was added by the Free Software Foundation in
+ version 2.2 of Bison.
+ .
+ --------------------------------------------------------------------------------
+ ================================================================================
+ --------------------------------------------------------------------------------
+ .
+ The preprocessor has the core licenses stated above, plus an additional licence:
+ .
+ Copyright (c) 2002, NVIDIA Corporation.
+ .
+ NVIDIA Corporation(\"NVIDIA\") supplies this software to you in
+ consideration of your agreement to the following terms, and your use,
+ installation, modification or redistribution of this NVIDIA software
+ constitutes acceptance of these terms.  If you do not agree with these
+ terms, please do not use, install, modify or redistribute this NVIDIA
+ software.
+ .
+ In consideration of your agreement to abide by the following terms, and
+ subject to these terms, NVIDIA grants you a personal, non-exclusive
+ license, under NVIDIA's copyrights in this original NVIDIA software (the
+ \"NVIDIA Software\"), to use, reproduce, modify and redistribute the
+ NVIDIA Software, with or without modifications, in source and/or binary
+ forms; provided that if you redistribute the NVIDIA Software, you must
+ retain the copyright notice of NVIDIA, this notice and the following
+ text and disclaimers in all such redistributions of the NVIDIA Software.
+ Neither the name, trademarks, service marks nor logos of NVIDIA
+ Corporation may be used to endorse or promote products derived from the
+ NVIDIA Software without specific prior written permission from NVIDIA.
+ Except as expressly stated in this notice, no other rights or licenses
+ express or implied, are granted by NVIDIA herein, including but not
+ limited to any patent rights that may be infringed by your derivative
+ works or by other works in which the NVIDIA Software may be
+ incorporated. No hardware is licensed hereunder.
+ .
+ THE NVIDIA SOFTWARE IS BEING PROVIDED ON AN \"AS IS\" BASIS, WITHOUT
+ WARRANTIES OR CONDITIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED,
+ INCLUDING WITHOUT LIMITATION, WARRANTIES OR CONDITIONS OF TITLE,
+ NON-INFRINGEMENT, MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, OR
+ ITS USE AND OPERATION EITHER ALONE OR IN COMBINATION WITH OTHER
+ PRODUCTS.
+ .
+ IN NO EVENT SHALL NVIDIA BE LIABLE FOR ANY SPECIAL, INDIRECT,
+ INCIDENTAL, EXEMPLARY, CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+ TO, LOST PROFITS; PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF
+ USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) OR ARISING IN ANY WAY
+ OUT OF THE USE, REPRODUCTION, MODIFICATION AND/OR DISTRIBUTION OF THE
+ NVIDIA SOFTWARE, HOWEVER CAUSED AND WHETHER UNDER THEORY OF CONTRACT,
+ TORT (INCLUDING NEGLIGENCE), STRICT LIABILITY OR OTHERWISE, EVEN IF
+ NVIDIA HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+License: FTL
+                    The FreeType Project LICENSE
+                    ----------------------------
+ .
+                            2006-Jan-27
+ .
+                       Copyright 1996-2002, 2006 by
+          David Turner, Robert Wilhelm, and Werner Lemberg
+ .
+ .
+ .
+ Introduction
+ ============
+ .
+ The FreeType  Project is distributed in  several archive packages;
+ some of them may contain, in addition to the FreeType font engine,
+ various tools and  contributions which rely on, or  relate to, the
+ FreeType Project.
+ .
+ This  license applies  to all  files found  in such  packages, and
+ which do not  fall under their own explicit  license.  The license
+ affects  thus  the  FreeType   font  engine,  the  test  programs,
+ documentation and makefiles, at the very least.
+ .
+ This  license   was  inspired  by  the  BSD,   Artistic,  and  IJG
+ (Independent JPEG  Group) licenses, which  all encourage inclusion
+ and  use of  free  software in  commercial  and freeware  products
+ alike.  As a consequence, its main points are that:
+ .
+   o We don't promise that this software works. However, we will be
+     interested in any kind of bug reports. (`as is' distribution)
+ .
+   o You can  use this software for whatever you  want, in parts or
+     full form, without having to pay us. (`royalty-free' usage)
+ .
+   o You may not pretend that  you wrote this software.  If you use
+     it, or  only parts of it,  in a program,  you must acknowledge
+     somewhere  in  your  documentation  that  you  have  used  the
+     FreeType code. (`credits')
+ .
+ We  specifically  permit  and  encourage  the  inclusion  of  this
+ software, with  or without modifications,  in commercial products.
+ We  disclaim  all warranties  covering  The  FreeType Project  and
+ assume no liability related to The FreeType Project.
+ .
+ .
+ Finally,  many  people  asked  us  for  a  preferred  form  for  a
+ credit/disclaimer to use in compliance with this license.  We thus
+ encourage you to use the following text:
+ .
+  \"\"\"
+   Portions of this software are copyright © <year> The FreeType
+   Project (https://freetype.org).  All rights reserved.
+  \"\"\"
+ .
+ Please replace <year> with the value from the FreeType version you
+ actually use.
+ .
+ .
+ Legal Terms
+ ===========
+ .
+ 0. Definitions
+ --------------
+ .
+ Throughout this license,  the terms `package', `FreeType Project',
+ and  `FreeType  archive' refer  to  the  set  of files  originally
+ distributed  by the  authors  (David Turner,  Robert Wilhelm,  and
+ Werner Lemberg) as the `FreeType Project', be they named as alpha,
+ beta or final release.
+ .
+ `You' refers to  the licensee, or person using  the project, where
+ `using' is a generic term including compiling the project's source
+ code as  well as linking it  to form a  `program' or `executable'.
+ This  program is  referred to  as  `a program  using the  FreeType
+ engine'.
+ .
+ This  license applies  to all  files distributed  in  the original
+ FreeType  Project,   including  all  source   code,  binaries  and
+ documentation,  unless  otherwise  stated   in  the  file  in  its
+ original, unmodified form as  distributed in the original archive.
+ If you are  unsure whether or not a particular  file is covered by
+ this license, you must contact us to verify this.
+ .
+ The FreeType  Project is copyright (C) 1996-2000  by David Turner,
+ Robert Wilhelm, and Werner Lemberg.  All rights reserved except as
+ specified below.
+ .
+ 1. No Warranty
+ --------------
+ .
+ THE FREETYPE PROJECT  IS PROVIDED `AS IS' WITHOUT  WARRANTY OF ANY
+ KIND, EITHER  EXPRESS OR IMPLIED,  INCLUDING, BUT NOT  LIMITED TO,
+ WARRANTIES  OF  MERCHANTABILITY   AND  FITNESS  FOR  A  PARTICULAR
+ PURPOSE.  IN NO EVENT WILL ANY OF THE AUTHORS OR COPYRIGHT HOLDERS
+ BE LIABLE  FOR ANY DAMAGES CAUSED  BY THE USE OR  THE INABILITY TO
+ USE, OF THE FREETYPE PROJECT.
+ .
+ 2. Redistribution
+ -----------------
+ .
+ This  license  grants  a  worldwide, royalty-free,  perpetual  and
+ irrevocable right  and license to use,  execute, perform, compile,
+ display,  copy,   create  derivative  works   of,  distribute  and
+ sublicense the  FreeType Project (in  both source and  object code
+ forms)  and  derivative works  thereof  for  any  purpose; and  to
+ authorize others  to exercise  some or all  of the  rights granted
+ herein, subject to the following conditions:
+ .
+   o Redistribution of  source code  must retain this  license file
+     (`FTL.TXT') unaltered; any  additions, deletions or changes to
+     the original  files must be clearly  indicated in accompanying
+     documentation.   The  copyright   notices  of  the  unaltered,
+     original  files must  be  preserved in  all  copies of  source
+     files.
+ .
+   o Redistribution in binary form must provide a  disclaimer  that
+     states  that  the software is based in part of the work of the
+     FreeType Team,  in  the  distribution  documentation.  We also
+     encourage you to put an URL to the FreeType web page  in  your
+     documentation, though this isn't mandatory.
+ .
+ These conditions  apply to any  software derived from or  based on
+ the FreeType Project,  not just the unmodified files.   If you use
+ our work, you  must acknowledge us.  However, no  fee need be paid
+ to us.
+ .
+ 3. Advertising
+ --------------
+ .
+ Neither the  FreeType authors and  contributors nor you  shall use
+ the name of the  other for commercial, advertising, or promotional
+ purposes without specific prior written permission.
+ .
+ We suggest,  but do not require, that  you use one or  more of the
+ following phrases to refer  to this software in your documentation
+ or advertising  materials: `FreeType Project',  `FreeType Engine',
+ `FreeType library', or `FreeType Distribution'.
+ .
+ As  you have  not signed  this license,  you are  not  required to
+ accept  it.   However,  as  the FreeType  Project  is  copyrighted
+ material, only  this license, or  another one contracted  with the
+ authors, grants you  the right to use, distribute,  and modify it.
+ Therefore,  by  using,  distributing,  or modifying  the  FreeType
+ Project, you indicate that you understand and accept all the terms
+ of this license.
+ .
+ 4. Contacts
+ -----------
+ .
+ There are two mailing lists related to FreeType:
+ .
+   o freetype@nongnu.org
+ .
+     Discusses general use and applications of FreeType, as well as
+     future and  wanted additions to the  library and distribution.
+     If  you are looking  for support,  start in  this list  if you
+     haven't found anything to help you in the documentation.
+ .
+   o freetype-devel@nongnu.org
+ .
+     Discusses bugs,  as well  as engine internals,  design issues,
+     specific licenses, porting, etc.
+ .
+ Our home page can be found at
+ .
+   https://freetype.org
+
+License: HarfBuzz
+ HarfBuzz is licensed under the so-called \"Old MIT\" license.  Details follow.
+ For parts of HarfBuzz that are licensed under different licenses see individual
+ files names COPYING in subdirectories where applicable.
+ .
+ Copyright (C) 2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020  Google, Inc.
+ Copyright (C) 2018,2019,2020  Ebrahim Byagowi
+ Copyright (C) 2019,2020  Facebook, Inc.
+ Copyright (C) 2012  Mozilla Foundation
+ Copyright (C) 2011  Codethink Limited
+ Copyright (C) 2008,2010  Nokia Corporation and/or its subsidiary(-ies)
+ Copyright (C) 2009  Keith Stribley
+ Copyright (C) 2009  Martin Hosken and SIL International
+ Copyright (C) 2007  Chris Wilson
+ Copyright (C) 2005,2006,2020,2021  Behdad Esfahbod
+ Copyright (C) 2005  David Turner
+ Copyright (C) 2004,2007,2008,2009,2010  Red Hat, Inc.
+ Copyright (C) 1998-2004  David Turner and Werner Lemberg
+ .
+ For full copyright notices consult the individual files in the package.
+ .
+ .
+ Permission is hereby granted, without written agreement and without
+ license or royalty fees, to use, copy, modify, and distribute this
+ software and its documentation for any purpose, provided that the
+ above copyright notice and the following two paragraphs appear in
+ all copies of this software.
+ .
+ IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE TO ANY PARTY FOR
+ DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES
+ ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN
+ IF THE COPYRIGHT HOLDER HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH
+ DAMAGE.
+ .
+ THE COPYRIGHT HOLDER SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING,
+ BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+ FITNESS FOR A PARTICULAR PURPOSE.  THE SOFTWARE PROVIDED HEREUNDER IS
+ ON AN \"AS IS\" BASIS, AND THE COPYRIGHT HOLDER HAS NO OBLIGATION TO
+ PROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+
+License: IJG
+ The authors make NO WARRANTY or representation, either express or implied,
+ with respect to this software, its quality, accuracy, merchantability, or
+ fitness for a particular purpose.  This software is provided \"AS IS\", and you,
+ its user, assume the entire risk as to its quality and accuracy.
+ .
+ This software is copyright (C) 1991-2020, Thomas G. Lane, Guido Vollbeding.
+ All Rights Reserved except as specified below.
+ .
+ Permission is hereby granted to use, copy, modify, and distribute this
+ software (or portions thereof) for any purpose, without fee, subject to these
+ conditions:
+ (1) If any part of the source code for this software is distributed, then this
+ README file must be included, with this copyright and no-warranty notice
+ unaltered; and any additions, deletions, or changes to the original files
+ must be clearly indicated in accompanying documentation.
+ (2) If only executable code is distributed, then the accompanying
+ documentation must state that \"this software is based in part on the work of
+ the Independent JPEG Group\".
+ (3) Permission for use of this software is granted only if the user accepts
+ full responsibility for any undesirable consequences; the authors accept
+ NO LIABILITY for damages of any kind.
+ .
+ These conditions apply to any software derived from or based on the IJG code,
+ not just to the unmodified library.  If you use our work, you ought to
+ acknowledge us.
+ .
+ Permission is NOT granted for the use of any IJG author's name or company name
+ in advertising or publicity relating to this software or products derived from
+ it.  This software may be referred to only as \"the Independent JPEG Group's
+ software\".
+ .
+ We specifically permit and encourage the use of this software as the basis of
+ commercial products, provided that all warranty or liability claims are
+ assumed by the product vendor.
+
+License: MPL-2.0
+ Mozilla Public License Version 2.0
+ ==================================
+ .
+ 1. Definitions
+ --------------
+ .
+ 1.1. \"Contributor\"
+     means each individual or legal entity that creates, contributes to
+     the creation of, or owns Covered Software.
+ .
+ 1.2. \"Contributor Version\"
+     means the combination of the Contributions of others (if any) used
+     by a Contributor and that particular Contributor's Contribution.
+ .
+ 1.3. \"Contribution\"
+     means Covered Software of a particular Contributor.
+ .
+ 1.4. \"Covered Software\"
+     means Source Code Form to which the initial Contributor has attached
+     the notice in Exhibit A, the Executable Form of such Source Code
+     Form, and Modifications of such Source Code Form, in each case
+     including portions thereof.
+ .
+ 1.5. \"Incompatible With Secondary Licenses\"
+     means
+ .
+     (a) that the initial Contributor has attached the notice described
+         in Exhibit B to the Covered Software; or
+ .
+     (b) that the Covered Software was made available under the terms of
+         version 1.1 or earlier of the License, but not also under the
+         terms of a Secondary License.
+ .
+ 1.6. \"Executable Form\"
+     means any form of the work other than Source Code Form.
+ .
+ 1.7. \"Larger Work\"
+     means a work that combines Covered Software with other material, in
+     a separate file or files, that is not Covered Software.
+ .
+ 1.8. \"License\"
+     means this document.
+ .
+ 1.9. \"Licensable\"
+     means having the right to grant, to the maximum extent possible,
+     whether at the time of the initial grant or subsequently, any and
+     all of the rights conveyed by this License.
+ .
+ 1.10. \"Modifications\"
+     means any of the following:
+ .
+     (a) any file in Source Code Form that results from an addition to,
+         deletion from, or modification of the contents of Covered
+         Software; or
+ .
+     (b) any new file in Source Code Form that contains any Covered
+         Software.
+ .
+ 1.11. \"Patent Claims\" of a Contributor
+     means any patent claim(s), including without limitation, method,
+     process, and apparatus claims, in any patent Licensable by such
+     Contributor that would be infringed, but for the grant of the
+     License, by the making, using, selling, offering for sale, having
+     made, import, or transfer of either its Contributions or its
+     Contributor Version.
+ .
+ 1.12. \"Secondary License\"
+     means either the GNU General Public License, Version 2.0, the GNU
+     Lesser General Public License, Version 2.1, the GNU Affero General
+     Public License, Version 3.0, or any later versions of those
+     licenses.
+ .
+ 1.13. \"Source Code Form\"
+     means the form of the work preferred for making modifications.
+ .
+ 1.14. \"You\" (or \"Your\")
+     means an individual or a legal entity exercising rights under this
+     License. For legal entities, \"You\" includes any entity that
+     controls, is controlled by, or is under common control with You. For
+     purposes of this definition, \"control\" means (a) the power, direct
+     or indirect, to cause the direction or management of such entity,
+     whether by contract or otherwise, or (b) ownership of more than
+     fifty percent (50%) of the outstanding shares or beneficial
+     ownership of such entity.
+ .
+ 2. License Grants and Conditions
+ --------------------------------
+ .
+ 2.1. Grants
+ .
+ Each Contributor hereby grants You a world-wide, royalty-free,
+ non-exclusive license:
+ .
+ (a) under intellectual property rights (other than patent or trademark)
+     Licensable by such Contributor to use, reproduce, make available,
+     modify, display, perform, distribute, and otherwise exploit its
+     Contributions, either on an unmodified basis, with Modifications, or
+     as part of a Larger Work; and
+ .
+ (b) under Patent Claims of such Contributor to make, use, sell, offer
+     for sale, have made, import, and otherwise transfer either its
+     Contributions or its Contributor Version.
+ .
+ 2.2. Effective Date
+ .
+ The licenses granted in Section 2.1 with respect to any Contribution
+ become effective for each Contribution on the date the Contributor first
+ distributes such Contribution.
+ .
+ 2.3. Limitations on Grant Scope
+ .
+ The licenses granted in this Section 2 are the only rights granted under
+ this License. No additional rights or licenses will be implied from the
+ distribution or licensing of Covered Software under this License.
+ Notwithstanding Section 2.1(b) above, no patent license is granted by a
+ Contributor:
+ .
+ (a) for any code that a Contributor has removed from Covered Software;
+     or
+ .
+ (b) for infringements caused by: (i) Your and any other third party's
+     modifications of Covered Software, or (ii) the combination of its
+     Contributions with other software (except as part of its Contributor
+     Version); or
+ .
+ (c) under Patent Claims infringed by Covered Software in the absence of
+     its Contributions.
+ .
+ This License does not grant any rights in the trademarks, service marks,
+ or logos of any Contributor (except as may be necessary to comply with
+ the notice requirements in Section 3.4).
+ .
+ 2.4. Subsequent Licenses
+ .
+ No Contributor makes additional grants as a result of Your choice to
+ distribute the Covered Software under a subsequent version of this
+ License (see Section 10.2) or under the terms of a Secondary License (if
+ permitted under the terms of Section 3.3).
+ .
+ 2.5. Representation
+ .
+ Each Contributor represents that the Contributor believes its
+ Contributions are its original creation(s) or it has sufficient rights
+ to grant the rights to its Contributions conveyed by this License.
+ .
+ 2.6. Fair Use
+ .
+ This License is not intended to limit any rights You have under
+ applicable copyright doctrines of fair use, fair dealing, or other
+ equivalents.
+ .
+ 2.7. Conditions
+ .
+ Sections 3.1, 3.2, 3.3, and 3.4 are conditions of the licenses granted
+ in Section 2.1.
+ .
+ 3. Responsibilities
+ -------------------
+ .
+ 3.1. Distribution of Source Form
+ .
+ All distribution of Covered Software in Source Code Form, including any
+ Modifications that You create or to which You contribute, must be under
+ the terms of this License. You must inform recipients that the Source
+ Code Form of the Covered Software is governed by the terms of this
+ License, and how they can obtain a copy of this License. You may not
+ attempt to alter or restrict the recipients' rights in the Source Code
+ Form.
+ .
+ 3.2. Distribution of Executable Form
+ .
+ If You distribute Covered Software in Executable Form then:
+ .
+ (a) such Covered Software must also be made available in Source Code
+     Form, as described in Section 3.1, and You must inform recipients of
+     the Executable Form how they can obtain a copy of such Source Code
+     Form by reasonable means in a timely manner, at a charge no more
+     than the cost of distribution to the recipient; and
+ .
+ (b) You may distribute such Executable Form under the terms of this
+     License, or sublicense it under different terms, provided that the
+     license for the Executable Form does not attempt to limit or alter
+     the recipients' rights in the Source Code Form under this License.
+ .
+ 3.3. Distribution of a Larger Work
+ .
+ You may create and distribute a Larger Work under terms of Your choice,
+ provided that You also comply with the requirements of this License for
+ the Covered Software. If the Larger Work is a combination of Covered
+ Software with a work governed by one or more Secondary Licenses, and the
+ Covered Software is not Incompatible With Secondary Licenses, this
+ License permits You to additionally distribute such Covered Software
+ under the terms of such Secondary License(s), so that the recipient of
+ the Larger Work may, at their option, further distribute the Covered
+ Software under the terms of either this License or such Secondary
+ License(s).
+ .
+ 3.4. Notices
+ .
+ You may not remove or alter the substance of any license notices
+ (including copyright notices, patent notices, disclaimers of warranty,
+ or limitations of liability) contained within the Source Code Form of
+ the Covered Software, except that You may alter any license notices to
+ the extent required to remedy known factual inaccuracies.
+ .
+ 3.5. Application of Additional Terms
+ .
+ You may choose to offer, and to charge a fee for, warranty, support,
+ indemnity or liability obligations to one or more recipients of Covered
+ Software. However, You may do so only on Your own behalf, and not on
+ behalf of any Contributor. You must make it absolutely clear that any
+ such warranty, support, indemnity, or liability obligation is offered by
+ You alone, and You hereby agree to indemnify every Contributor for any
+ liability incurred by such Contributor as a result of warranty, support,
+ indemnity or liability terms You offer. You may include additional
+ disclaimers of warranty and limitations of liability specific to any
+ jurisdiction.
+ .
+ 4. Inability to Comply Due to Statute or Regulation
+ ---------------------------------------------------
+ .
+ If it is impossible for You to comply with any of the terms of this
+ License with respect to some or all of the Covered Software due to
+ statute, judicial order, or regulation then You must: (a) comply with
+ the terms of this License to the maximum extent possible; and (b)
+ describe the limitations and the code they affect. Such description must
+ be placed in a text file included with all distributions of the Covered
+ Software under this License. Except to the extent prohibited by statute
+ or regulation, such description must be sufficiently detailed for a
+ recipient of ordinary skill to be able to understand it.
+ .
+ 5. Termination
+ --------------
+ .
+ 5.1. The rights granted under this License will terminate automatically
+ if You fail to comply with any of its terms. However, if You become
+ compliant, then the rights granted under this License from a particular
+ Contributor are reinstated (a) provisionally, unless and until such
+ Contributor explicitly and finally terminates Your grants, and (b) on an
+ ongoing basis, if such Contributor fails to notify You of the
+ non-compliance by some reasonable means prior to 60 days after You have
+ come back into compliance. Moreover, Your grants from a particular
+ Contributor are reinstated on an ongoing basis if such Contributor
+ notifies You of the non-compliance by some reasonable means, this is the
+ first time You have received notice of non-compliance with this License
+ from such Contributor, and You become compliant prior to 30 days after
+ Your receipt of the notice.
+ .
+ 5.2. If You initiate litigation against any entity by asserting a patent
+ infringement claim (excluding declaratory judgment actions,
+ counter-claims, and cross-claims) alleging that a Contributor Version
+ directly or indirectly infringes any patent, then the rights granted to
+ You by any and all Contributors for the Covered Software under Section
+ 2.1 of this License shall terminate.
+ .
+ 5.3. In the event of termination under Sections 5.1 or 5.2 above, all
+ end user license agreements (excluding distributors and resellers) which
+ have been validly granted by You or Your distributors under this License
+ prior to termination shall survive termination.
+ .
+ ************************************************************************
+ *                                                                      *
+ *  6. Disclaimer of Warranty                                           *
+ *  -------------------------                                           *
+ *                                                                      *
+ *  Covered Software is provided under this License on an \"as is\"       *
+ *  basis, without warranty of any kind, either expressed, implied, or  *
+ *  statutory, including, without limitation, warranties that the       *
+ *  Covered Software is free of defects, merchantable, fit for a        *
+ *  particular purpose or non-infringing. The entire risk as to the     *
+ *  quality and performance of the Covered Software is with You.        *
+ *  Should any Covered Software prove defective in any respect, You     *
+ *  (not any Contributor) assume the cost of any necessary servicing,   *
+ *  repair, or correction. This disclaimer of warranty constitutes an   *
+ *  essential part of this License. No use of any Covered Software is   *
+ *  authorized under this License except under this disclaimer.         *
+ *                                                                      *
+ ************************************************************************
+ .
+ ************************************************************************
+ *                                                                      *
+ *  7. Limitation of Liability                                          *
+ *  --------------------------                                          *
+ *                                                                      *
+ *  Under no circumstances and under no legal theory, whether tort      *
+ *  (including negligence), contract, or otherwise, shall any           *
+ *  Contributor, or anyone who distributes Covered Software as          *
+ *  permitted above, be liable to You for any direct, indirect,         *
+ *  special, incidental, or consequential damages of any character      *
+ *  including, without limitation, damages for lost profits, loss of    *
+ *  goodwill, work stoppage, computer failure or malfunction, or any    *
+ *  and all other commercial damages or losses, even if such party      *
+ *  shall have been informed of the possibility of such damages. This   *
+ *  limitation of liability shall not apply to liability for death or   *
+ *  personal injury resulting from such party's negligence to the       *
+ *  extent applicable law prohibits such limitation. Some               *
+ *  jurisdictions do not allow the exclusion or limitation of           *
+ *  incidental or consequential damages, so this exclusion and          *
+ *  limitation may not apply to You.                                    *
+ *                                                                      *
+ ************************************************************************
+ .
+ 8. Litigation
+ -------------
+ .
+ Any litigation relating to this License may be brought only in the
+ courts of a jurisdiction where the defendant maintains its principal
+ place of business and such litigation shall be governed by laws of that
+ jurisdiction, without reference to its conflict-of-law provisions.
+ Nothing in this Section shall prevent a party's ability to bring
+ cross-claims or counter-claims.
+ .
+ 9. Miscellaneous
+ ----------------
+ .
+ This License represents the complete agreement concerning the subject
+ matter hereof. If any provision of this License is held to be
+ unenforceable, such provision shall be reformed only to the extent
+ necessary to make it enforceable. Any law or regulation which provides
+ that the language of a contract shall be construed against the drafter
+ shall not be used to construe this License against a Contributor.
+ .
+ 10. Versions of the License
+ ---------------------------
+ .
+ 10.1. New Versions
+ .
+ Mozilla Foundation is the license steward. Except as provided in Section
+ 10.3, no one other than the license steward has the right to modify or
+ publish new versions of this License. Each version will be given a
+ distinguishing version number.
+ .
+ 10.2. Effect of New Versions
+ .
+ You may distribute the Covered Software under the terms of the version
+ of the License under which You originally received the Covered Software,
+ or under the terms of any subsequent version published by the license
+ steward.
+ .
+ 10.3. Modified Versions
+ .
+ If you create software not governed by this License, and you want to
+ create a new license for such software, you may create and use a
+ modified version of this License if you rename the license and remove
+ any references to the name of the license steward (except to note that
+ such modified license differs from this License).
+ .
+ 10.4. Distributing Source Code Form that is Incompatible With Secondary
+ Licenses
+ .
+ If You choose to distribute Source Code Form that is Incompatible With
+ Secondary Licenses under the terms of this version of the License, the
+ notice described in Exhibit B of this License must be attached.
+ .
+ Exhibit A - Source Code Form License Notice
+ -------------------------------------------
+ .
+   This Source Code Form is subject to the terms of the Mozilla Public
+   License, v. 2.0. If a copy of the MPL was not distributed with this
+   file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ .
+ If it is not possible or desirable to put the notice in a particular
+ file, then You may include the notice in a location (such as a LICENSE
+ file in a relevant directory) where a recipient would be likely to look
+ for such a notice.
+ .
+ You may add additional accurate notices of copyright ownership.
+ .
+ Exhibit B - \"Incompatible With Secondary Licenses\" Notice
+ ---------------------------------------------------------
+ .
+   This Source Code Form is \"Incompatible With Secondary Licenses\", as
+   defined by the Mozilla Public License, v. 2.0.
+
+License: MIT-0
+ Permission is hereby granted, free of charge, to any person obtaining
+ a copy of this software and associated documentation files (the
+ \"Software\"), to deal in the Software without restriction, including
+ without limitation the rights to use, copy, modify, merge, publish,
+ distribute, sublicense, and/or sell copies of the Software, and to
+ permit persons to whom the Software is furnished to do so.
+ .
+ THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND,
+ EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+ TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+License: OFL-1.1
+ PREAMBLE
+ The goals of the Open Font License (OFL) are to stimulate worldwide
+ development of collaborative font projects, to support the font creation
+ efforts of academic and linguistic communities, and to provide a free and
+ open framework in which fonts may be shared and improved in partnership
+ with others.
+ .
+ The OFL allows the licensed fonts to be used, studied, modified and
+ redistributed freely as long as they are not sold by themselves. The
+ fonts, including any derivative works, can be bundled, embedded,
+ redistributed and/or sold with any software provided that any reserved
+ names are not used by derivative works. The fonts and derivatives,
+ however, cannot be released under any other type of license. The
+ requirement for fonts to remain under this license does not apply
+ to any document created using the fonts or their derivatives.
+ .
+ DEFINITIONS
+ \"Font Software\" refers to the set of files released by the Copyright
+ Holder(s) under this license and clearly marked as such. This may
+ include source files, build scripts and documentation.
+ .
+ \"Reserved Font Name\" refers to any names specified as such after the
+ copyright statement(s).
+ .
+ \"Original Version\" refers to the collection of Font Software components as
+ distributed by the Copyright Holder(s).
+ .
+ \"Modified Version\" refers to any derivative made by adding to, deleting,
+ or substituting -- in part or in whole -- any of the components of the
+ Original Version, by changing formats or by porting the Font Software to a
+ new environment.
+ .
+ \"Author\" refers to any designer, engineer, programmer, technical
+ writer or other person who contributed to the Font Software.
+ .
+ PERMISSION & CONDITIONS
+ Permission is hereby granted, free of charge, to any person obtaining
+ a copy of the Font Software, to use, study, copy, merge, embed, modify,
+ redistribute, and sell modified and unmodified copies of the Font
+ Software, subject to the following conditions:
+ .
+ 1) Neither the Font Software nor any of its individual components,
+ in Original or Modified Versions, may be sold by itself.
+ .
+ 2) Original or Modified Versions of the Font Software may be bundled,
+ redistributed and/or sold with any software, provided that each copy
+ contains the above copyright notice and this license. These can be
+ included either as stand-alone text files, human-readable headers or
+ in the appropriate machine-readable metadata fields within text or
+ binary files as long as those fields can be easily viewed by the user.
+ .
+ 3) No Modified Version of the Font Software may use the Reserved Font
+ Name(s) unless explicit written permission is granted by the corresponding
+ Copyright Holder. This restriction only applies to the primary font name as
+ presented to the users.
+ .
+ 4) The name(s) of the Copyright Holder(s) or the Author(s) of the Font
+ Software shall not be used to promote, endorse or advertise any
+ Modified Version, except to acknowledge the contribution(s) of the
+ Copyright Holder(s) and the Author(s) or with their explicit written
+ permission.
+ .
+ 5) The Font Software, modified or unmodified, in part or in whole,
+ must be distributed entirely under this license, and must not be
+ distributed under any other license. The requirement for fonts to
+ remain under this license does not apply to any document created
+ using the Font Software.
+ .
+ TERMINATION
+ This license becomes null and void if any of the above conditions are
+ not met.
+ .
+ DISCLAIMER
+ THE FONT SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND,
+ EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO ANY WARRANTIES OF
+ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT
+ OF COPYRIGHT, PATENT, TRADEMARK, OR OTHER RIGHT. IN NO EVENT SHALL THE
+ COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+ INCLUDING ANY GENERAL, SPECIAL, INDIRECT, INCIDENTAL, OR CONSEQUENTIAL
+ DAMAGES, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ FROM, OUT OF THE USE OR INABILITY TO USE THE FONT SOFTWARE.
+
+License: Unicode
+ COPYRIGHT AND PERMISSION NOTICE (ICU 58 and later)
+ .
+ Copyright (C) 1991-2020 Unicode, Inc. All rights reserved.
+ Distributed under the Terms of Use in https://www.unicode.org/copyright.html.
+ .
+ Permission is hereby granted, free of charge, to any person obtaining
+ a copy of the Unicode data files and any associated documentation
+ (the \"Data Files\") or Unicode software and any associated documentation
+ (the \"Software\") to deal in the Data Files or Software
+ without restriction, including without limitation the rights to use,
+ copy, modify, merge, publish, distribute, and/or sell copies of
+ the Data Files or Software, and to permit persons to whom the Data Files
+ or Software are furnished to do so, provided that either
+ (a) this copyright and permission notice appear with all copies
+ of the Data Files or Software, or
+ (b) this copyright and permission notice appear in associated
+ Documentation.
+ .
+ THE DATA FILES AND SOFTWARE ARE PROVIDED \"AS IS\", WITHOUT WARRANTY OF
+ ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
+ WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ NONINFRINGEMENT OF THIRD PARTY RIGHTS.
+ IN NO EVENT SHALL THE COPYRIGHT HOLDER OR HOLDERS INCLUDED IN THIS
+ NOTICE BE LIABLE FOR ANY CLAIM, OR ANY SPECIAL INDIRECT OR CONSEQUENTIAL
+ DAMAGES, OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE,
+ DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
+ TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+ PERFORMANCE OF THE DATA FILES OR SOFTWARE.
+ .
+ Except as contained in this notice, the name of a copyright holder
+ shall not be used in advertising or otherwise to promote the sale,
+ use or other dealings in these Data Files or Software without prior
+ written authorization of the copyright holder.
+
+License: Unlicense
+ This is free and unencumbered software released into the public domain.
+ .
+ Anyone is free to copy, modify, publish, use, compile, sell, or
+ distribute this software, either in source code form or as a compiled
+ binary, for any purpose, commercial or non-commercial, and by any
+ means.
+ .
+ In jurisdictions that recognize copyright laws, the author or authors
+ of this software dedicate any and all copyright interest in the
+ software to the public domain. We make this dedication for the benefit
+ of the public at large and to the detriment of our heirs and
+ successors. We intend this dedication to be an overt act of
+ relinquishment in perpetuity of all present and future rights to this
+ software under copyright law.
+ .
+ THE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND,
+ EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+ MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+ IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+ OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+ OTHER DEALINGS IN THE SOFTWARE.
+ .
+ For more information, please refer to <https://unlicense.org/>
+
+License: WOL
+                          The Wide Open License (WOL)
+ .
+ Permission to use, copy, modify, distribute and sell this software and its
+ documentation for any purpose is hereby granted without fee, provided that
+ the above copyright notice and this license appear in all source copies.
+ THIS SOFTWARE IS PROVIDED \"AS IS\" WITHOUT EXPRESS OR IMPLIED WARRANTY OF
+ ANY KIND. See https://dspguru.com/wide-open-license/ for more information.
+
+License: X11
+ Permission to use, copy, modify, distribute, and sell this
+ software and its documentation for any purpose is hereby granted
+ without fee, provided that\\n the above copyright notice appear in
+ all copies and that both that copyright notice and this permission
+ notice appear in supporting documentation, and that the name of
+ the copyright holders not be used in advertising or publicity
+ pertaining to distribution of the software without specific,
+ written prior permission.  The copyright holders make no
+ representations about the suitability of this software for any
+ purpose.  It is provided \"as is\" without express or implied
+ warranty.
+ .
+ THE COPYRIGHT HOLDERS DISCLAIM ALL WARRANTIES WITH REGARD TO THIS
+ SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND
+ FITNESS, IN NO EVENT SHALL THE COPYRIGHT HOLDERS BE LIABLE FOR ANY
+ SPECIAL, INDIRECT OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+ WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN
+ AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION,
+ ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF
+ THIS SOFTWARE.
+
+License: Zlib
+ This software is provided 'as-is', without any express or implied
+ warranty.  In no event will the authors be held liable for any damages
+ arising from the use of this software.
+ .
+ Permission is granted to anyone to use this software for any purpose,
+ including commercial applications, and to alter it and redistribute it
+ freely, subject to the following restrictions:
+ .
+ 1. The origin of this software must not be misrepresented; you must not
+    claim that you wrote the original software. If you use this software
+    in a product, an acknowledgment in the product documentation would be
+    appreciated but is not required.
+ 2. Altered source versions must be plainly marked as such, and must not be
+    misrepresented as being the original software.
+ 3. This notice may not be removed or altered from any source distribution."
+autowrap_mode = 3
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.4067366, 0.9135455, 0, -0.9135455, 0.4067366, 0, 0, 0)
+shadow_blur = 0.23
+directional_shadow_pancake_size = 0.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_5qyes")
+
+[connection signal="file_selected" from="ModelSearch" to="." method="_import_model"]
+[connection signal="close_requested" from="Settings" to="." method="_on_settings_close_requested"]
+[connection signal="bone_renamed" from="Panels/Control/TabContainer/Skeleton/Skeleton" to="Panels/Control/TabContainer/Collisions/Collisions" method="update_tree"]
+[connection signal="transform_begin" from="Panels/Control/TabContainer/Skeleton/Skeleton/Gizmo3D" to="Panels/Control/TabContainer/Skeleton/Skeleton" method="_on_gizmo_3d_transform_begin"]
+[connection signal="transform_changed" from="Panels/Control/TabContainer/Skeleton/Skeleton/Gizmo3D" to="Panels/Control/TabContainer/Skeleton/Skeleton" method="_on_gizmo_3d_transform_changed"]
+[connection signal="transform_end" from="Panels/Control/TabContainer/Skeleton/Skeleton/Gizmo3D" to="Panels/Control/TabContainer/Skeleton/Skeleton" method="_on_gizmo_3d_transform_end"]
+[connection signal="item_edited" from="Panels/Control/TabContainer/Skeleton/Skeleton/Bones/Tree" to="Panels/Control/TabContainer/Skeleton/Skeleton" method="_on_tree_item_edited"]
+[connection signal="item_selected" from="Panels/Control/TabContainer/Skeleton/Skeleton/Bones/Tree" to="Panels/Control/TabContainer/Skeleton/Skeleton" method="_on_tree_item_selected"]
+[connection signal="pressed" from="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming/VBoxContainer/Rename/Button" to="Panels/Control/TabContainer/Skeleton/Skeleton" method="_toggle_rename"]
+[connection signal="pressed" from="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming/VBoxContainer/Repose/Button" to="Panels/Control/TabContainer/Skeleton/Skeleton" method="_toggle_repose"]
+[connection signal="pressed" from="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer/RelativeRotationEditing/CheckBox" to="Panels/Control/TabContainer/Skeleton/Skeleton" method="adjust_gizmo_transform"]
+[connection signal="value_changed" from="Panels/Control/TabContainer/Mesh/Mesh/Offsets/VBoxContainer/Scale/SpinBox" to="Panels/Control/TabContainer/Mesh/Mesh" method="_on_scale"]
+[connection signal="value_changed" from="Panels/Control/TabContainer/Mesh/Mesh/Offsets/VBoxContainer/YOffset/SpinBox" to="Panels/Control/TabContainer/Mesh/Mesh" method="_on_offset"]
+[connection signal="pressed" from="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer/Controls/Add" to="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups" method="prompt_new_item"]
+[connection signal="pressed" from="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer/Controls/Remove" to="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups" method="_on_remove_pressed"]
+[connection signal="confirmed" from="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer/Controls/AddName" to="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups" method="add_new_item"]
+[connection signal="item_selected" from="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer/GroupList" to="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups" method="_on_group_list_item_selected"]
+[connection signal="value_changed" from="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer/BodyGroupAmount/SpinBox" to="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups" method="_on_spin_box_value_changed"]
+[connection signal="item_edited" from="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer/Tree" to="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups" method="_on_tree_item_edited"]
+[connection signal="pressed" from="Panels/Control/TabContainer/Mesh/Mesh/Jigglebones/VBoxContainer/Add" to="Panels/Control/TabContainer/Mesh/Mesh/Jigglebones" method="_on_add_pressed"]
+[connection signal="pressed" from="Panels/Control/TabContainer/Collisions/Collisions/GenerateCollisions/Button" to="Panels/Control/TabContainer/Collisions/Collisions" method="generate_collisions"]
+[connection signal="add_texture_group" from="Panels/ModelData2/TabContainer/Materials/Materials/Groups" to="Panels/ModelData2/TabContainer/Materials/Materials" method="setup_materials"]
+[connection signal="pressed" from="Panels/ModelData2/TabContainer/Materials/Materials/Groups/VBoxContainer/Controls/Add" to="Panels/ModelData2/TabContainer/Materials/Materials/Groups" method="_on_add_pressed"]
+[connection signal="pressed" from="Panels/ModelData2/TabContainer/Materials/Materials/Groups/VBoxContainer/Controls/Remove" to="Panels/ModelData2/TabContainer/Materials/Materials/Groups" method="_on_remove_pressed"]
+[connection signal="item_selected" from="Panels/ModelData2/TabContainer/Materials/Materials/Groups/VBoxContainer/Skins" to="Panels/ModelData2/TabContainer/Materials/Materials" method="switch_body_group"]
+[connection signal="item_selected" from="Panels/ModelData2/TabContainer/Materials/Materials/Groups/VBoxContainer/Skins" to="Panels/ModelData2/TabContainer/Materials/Materials/Groups" method="_on_skins_item_selected"]
+[connection signal="item_selected" from="Panels/ModelData2/TabContainer/Materials/Materials/Settings/VBoxContainer/ShaderMode/OptionButton" to="Panels/ModelData2/TabContainer/Materials/Materials" method="_on_shader_mode_item_selected"]
+[connection signal="item_selected" from="Panels/ModelData2/TabContainer/Materials/Materials/Settings/VBoxContainer/MaterialList" to="Panels/ModelData2/TabContainer/Materials/Materials" method="_on_material_list_item_selected"]
+[connection signal="compile_model" from="Toolbar/Options" to="." method="export_model"]
+[connection signal="import_model" from="Toolbar/Options" to="." method="_prompt_model"]
+[connection signal="open_settings" from="Toolbar/Options" to="." method="_show_settings"]
+
+[editable path="male_07_reference2"]

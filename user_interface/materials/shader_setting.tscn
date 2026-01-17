@@ -1,0 +1,127 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7yrxhi2m6fxs"]
+
+[ext_resource type="Script" uid="uid://bsiybcsvnspts" path="res://user_interface/materials/shader_setting.gd" id="1_awitq"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_5l1ur"]
+
+[node name="ShaderSetting" type="Control"]
+custom_minimum_size = Vector2(30, 30)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 336.0
+offset_bottom = 30.0
+script = ExtResource("1_awitq")
+
+[node name="Property" type="Label" parent="."]
+layout_mode = 1
+offset_right = 101.0
+offset_bottom = 29.0
+text = "Base Texture"
+vertical_alignment = 1
+
+[node name="Bool" type="CheckBox" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -24.0
+offset_top = -12.0
+offset_bottom = 12.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Number" type="SpinBox" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -86.5625
+offset_top = -15.5
+offset_bottom = 15.5
+grow_horizontal = 0
+grow_vertical = 2
+step = 0.0
+allow_greater = true
+allow_lesser = true
+custom_arrow_step = 0.01
+
+[node name="Texture" type="Button" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -64.0
+grow_horizontal = 0
+grow_vertical = 2
+icon = SubResource("PlaceholderTexture2D_5l1ur")
+icon_alignment = 1
+expand_icon = true
+
+[node name="TextureOpen" type="FileDialog" parent="Texture"]
+title = "Open a File"
+force_native = true
+file_mode = 0
+access = 2
+filters = PackedStringArray("*.png", "*.jpg", "*.jpeg", "*.tga", "*.bmp", "*.gif")
+use_native_dialog = true
+
+[node name="Vector" type="HBoxContainer" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -31.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="Vector"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "X"
+
+[node name="X" type="SpinBox" parent="Vector"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/field_and_buttons_separation = -16
+step = 0.0
+allow_greater = true
+allow_lesser = true
+custom_arrow_step = 0.01
+
+[node name="Label2" type="Label" parent="Vector"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 1, 0, 1)
+text = "Y"
+
+[node name="Y" type="SpinBox" parent="Vector"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/field_and_buttons_separation = -16
+step = 0.0
+allow_greater = true
+allow_lesser = true
+custom_arrow_step = 0.01
+
+[node name="Label3" type="Label" parent="Vector"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.4725618, 0.7285387, 1)
+text = "Z"
+
+[node name="Z" type="SpinBox" parent="Vector"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/field_and_buttons_separation = -16
+step = 0.0
+allow_greater = true
+allow_lesser = true
+custom_arrow_step = 0.01
