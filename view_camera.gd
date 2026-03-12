@@ -7,11 +7,12 @@ var can_move = false
 var rotator: RotGizmo = null
 var rotation_node: Node3D = null
 var selected_vector: Vector3
+var captured_mouse_pos: Vector2
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	singleton = self
-
+	captured_mouse_pos = get_viewport().get_mouse_position()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -31,10 +32,12 @@ func _input(event: InputEvent) -> void:
 		rotation_degrees.x = clampf(rotation_degrees.x, -90.0, 90.0)
 	
 	if event.is_action_pressed("toggle_move"):
+		captured_mouse_pos = get_viewport().get_mouse_position()
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		can_move = true
 	elif event.is_action_released("toggle_move"):
 		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+		get_viewport().warp_mouse(captured_mouse_pos)
 		can_move = false
 	
 	if event is InputEventMouseButton:

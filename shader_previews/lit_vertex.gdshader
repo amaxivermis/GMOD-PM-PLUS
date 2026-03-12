@@ -1,4 +1,7 @@
 shader_type spatial;
+render_mode unshaded;
+
+global uniform vec3 SunDirection;
 
 group_uniforms Basics;
 uniform sampler2D BaseTexture: filter_linear, source_color;
@@ -24,29 +27,9 @@ uniform bool AllowAlphaToCoverage;
 group_uniforms Lighting;
 uniform bool HalfLambert;
 
-void vertex() {
-	// Called for every vertex the material is visible on.
-}
+// this is weird but godot light shaders dont seem to work when vertex lighting is on so i have to fake it for now
+varying vec2 VertexLighting;
 
-void fragment() {
-	vec4 base_texture = texture(BaseTexture, UV);
-
-	ALBEDO = base_texture.rgb;
-	NORMAL_MAP = texture(BumpMap, UV).rgb;
-
-	if (AlphaTesting)
-	{
-		ALPHA = base_texture.a;
-		if (AllowAlphaToCoverage)
-			ALPHA_SCISSOR_THRESHOLD = AlphaTestReference;
-		else
-			ALPHA_HASH_SCALE = AlphaTestReference;
-	}
-	else if (Translucent)
-	{
-		ALPHA = base_texture.a;
-	}
-}
 
 float saturate(float value)
 {
@@ -73,9 +56,13 @@ float Fresnel(vec3 vNormal, vec3 vEyeDir, vec3 vRanges)
 	return result;
 }
 
-void light()
+vec2 CalculateLighting(vec3 Normal, vec3 View)
 {
-	float dotN = dot(NORMAL, LIGHT);
+	// I tried some parts my best to mimic it although some parts of source code I found online didn't seem to be easy to understand
+	float diffuse_lighting = 0.0;
+	float specular_lighting = 0.0;
+	
+	float dotN = dot(Normal, SunDirection);
 	if (HalfLambert)
 	{
 		dotN = saturate(dotN * 0.5 + 0.5);
@@ -87,48 +74,58 @@ void light()
 		//	(dot(NORMAL, LIGHT) / 2.0) + 0.5
 		//, 2.0f);
 
-	DIFFUSE_LIGHT += ALBEDO * ATTENUATION * LIGHT_COLOR * dotN;
+	diffuse_lighting = dotN;
 
 	// Specular and rim lighting
 	if (Phong)
 	{
-		vec3 specular_lighting = vec3(0.0);
 		vec3 rim = vec3(0.0);
 
-		vec3 vReflect = 2.0 * NORMAL * dot( NORMAL , VIEW ) - VIEW; // Reflect view through normal
-		float LdotR = saturate(dot( vReflect, LIGHT ));					// L.R	(use half-angle instead?)
-		specular_lighting = vec3(pow( LdotR, float(PhongExponent) ));
+		vec3 vReflect = 2.0 * Normal * dot( Normal , View ) - View; // Reflect view through normal
+		float LdotR = saturate(dot( vReflect, SunDirection ));					// L.R	(use half-angle instead?)
+		specular_lighting = vec3(pow( LdotR, float(PhongExponent) )).y;
 
-		specular_lighting *= saturate(dot( NORMAL, LIGHT ));		// Mask with N.L
-		specular_lighting *= LIGHT_COLOR;											// Modulate with light color
+		specular_lighting *= saturate(dot( Normal, SunDirection ));		// Mask with N.L
+		//specular_lighting *= LIGHT_COLOR;											// Modulate with light color
 
 		if (Rimlight)
 		{
-			rim  = vec3(pow( max(-dot( vReflect, LIGHT ), 0.0), float(RimlightExponent) ));	// Raise to rim exponent
+			rim  = vec3(pow( max(-dot( vReflect, SunDirection ), 0.0), float(RimlightExponent) ));	// Raise to rim exponent
 			rim *= (1.0 - dotN);		// Mask with N.L
 			rim *= vec3(0.2, 0.5, 1.0);
-			SPECULAR_LIGHT += rim * RimlightBoost;
+			specular_lighting += rim.y * RimlightBoost;
 		}
 
-		SPECULAR_LIGHT += ATTENUATION * specular_lighting * PhongBoost * Fresnel(NORMAL, VIEW, PhongFresnelRanges);
+		specular_lighting *= PhongBoost * Fresnel(Normal, View, PhongFresnelRanges);
 	}
-
-	/*if (Phong)
-	{
-		vec3 reflection_dir = -reflect(VIEW, NORMAL);
-		float range_fresnel = Fresnel(NORMAL, VIEW, PhongFresnelRanges);
-		float dotR = max(dot(LIGHT, reflection_dir), 0.0);
-		dotR = pow(dotR, float(PhongExponent)) * PhongBoost;
-		SPECULAR_LIGHT += max(dotR, 0.0) * LIGHT_COLOR * ATTENUATION * range_fresnel;
-
-		if (Rimlight)
-		{
-			DIFFUSE_LIGHT += pow(max(dot(-reflection_dir, normalize(vec3(0.0, 0.0, PhongFresnelRanges.z))), 0.0), float(RimlightExponent)) * RimlightBoost;
-		}
-	}*/
+	
+	return vec2(diffuse_lighting, specular_lighting);
 }
 
-//void light() {
-//	// Called for every pixel for every light affecting the material.
-//	// Uncomment to replace the default light processing function with this one.
-//}
+void vertex() {
+	VertexLighting = CalculateLighting(NORMAL, CAMERA_DIRECTION_WORLD);
+}
+
+void fragment() {
+	vec4 base_texture = texture(BaseTexture, UV);
+
+	ALBEDO = base_texture.rgb;
+	NORMAL_MAP = texture(BumpMap, UV).rgb;
+
+	if (AlphaTesting)
+	{
+		ALPHA = base_texture.a;
+		if (AllowAlphaToCoverage)
+			ALPHA_SCISSOR_THRESHOLD = AlphaTestReference;
+		else
+			ALPHA_HASH_SCALE = AlphaTestReference;
+	}
+	else if (Translucent)
+	{
+		ALPHA = base_texture.a;
+	}
+	
+	ALBEDO *= vec3(VertexLighting.x) + vec3(0.07, 0.15, 0.3);
+	ALBEDO += VertexLighting.y;
+	//ALBEDO += vec3(0.07, 0.15, 0.3) * 0.5;
+}

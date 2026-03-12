@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://nhkkyvcan3so"]
+[gd_scene format=3 uid="uid://nhkkyvcan3so"]
 
 [ext_resource type="Script" uid="uid://dyl5vto8pedvv" path="res://view_camera.gd" id="1_16jkr"]
 [ext_resource type="Script" uid="uid://dk5e60841igq0" path="res://user_interface/model_editor.gd" id="1_if0bs"]
@@ -42,15 +42,15 @@ background_mode = 2
 sky = SubResource("Sky_lmiwe")
 tonemap_mode = 1
 
-[node name="ModelEditor" type="Node"]
+[node name="ModelEditor" type="Node" unique_id=1577784274]
 script = ExtResource("1_if0bs")
 
-[node name="reference_male2" type="Node3D" parent="."]
+[node name="reference_male2" type="Node3D" parent="." unique_id=2089648758]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0928857, 1.1920929e-07, -3.1500914)
 
-[node name="reference_male" type="Node3D" parent="reference_male2"]
+[node name="reference_male" type="Node3D" parent="reference_male2" unique_id=1294344604]
 
-[node name="Skeleton3D" type="Skeleton3D" parent="reference_male2/reference_male"]
+[node name="Skeleton3D" type="Skeleton3D" parent="reference_male2/reference_male" unique_id=1366004045]
 bones/0/name = "ValveBiped.Bip01_Pelvis"
 bones/0/parent = -1
 bones/0/rest = Transform3D(1, 0, 7.152535e-07, 0, 1, 0, -7.152535e-07, 0, 1, -5.8725007e-05, 0.96417296, 0.013281526)
@@ -444,7 +444,7 @@ bones/55/position = Vector3(0.1719862, -3.4592813e-07, -5.3823896e-09)
 bones/55/rotation = Quaternion(-0.0009824093, -0.0015331011, -0.2741297, 0.961691)
 bones/55/scale = Vector3(0.99999994, 0.9999998, 0.9999999)
 
-[node name="male_07_reference2" parent="." instance=ExtResource("3_sdunm")]
+[node name="male_07_reference2" parent="." unique_id=23311503 instance=ExtResource("3_sdunm")]
 transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, 0, 0, 0)
 
 [node name="Skeleton3D" parent="male_07_reference2/male_07_reference_skeleton" index="0"]
@@ -455,16 +455,16 @@ bones/35/scale = Vector3(1.0000001, 0.9999999, 0.9999996)
 
 [node name="male_07_reference" parent="male_07_reference2/male_07_reference_skeleton/Skeleton3D" index="0"]
 material_override = SubResource("StandardMaterial3D_sdunm")
+skeleton = NodePath("..")
 
-[node name="SkeletonIK3D" type="SkeletonIK3D" parent="male_07_reference2/male_07_reference_skeleton/Skeleton3D" index="1"]
+[node name="SkeletonIK3D" type="SkeletonIK3D" parent="male_07_reference2/male_07_reference_skeleton/Skeleton3D" index="1" unique_id=481033233]
 
-[node name="SpringBoneSimulator3D" type="SpringBoneSimulator3D" parent="male_07_reference2/male_07_reference_skeleton/Skeleton3D" index="2"]
+[node name="SpringBoneSimulator3D" type="SpringBoneSimulator3D" parent="male_07_reference2/male_07_reference_skeleton/Skeleton3D" index="2" unique_id=745399147]
 setting_count = 2
 settings/0/root_bone_name = ""
 settings/0/root_bone = -1
 settings/0/end_bone_name = ""
 settings/0/end_bone = -1
-settings/0/extend_end_bone = false
 settings/0/center_from = 0
 settings/0/individual_config = false
 settings/0/rotation_axis = 3
@@ -483,7 +483,6 @@ settings/1/root_bone_name = ""
 settings/1/root_bone = -1
 settings/1/end_bone_name = ""
 settings/1/end_bone = -1
-settings/1/extend_end_bone = false
 settings/1/center_from = 0
 settings/1/individual_config = false
 settings/1/rotation_axis = 3
@@ -499,7 +498,7 @@ settings/1/gravity/direction = Vector3(0, -1, 0)
 settings/1/enable_all_child_collisions = true
 settings/1/exclude_collision_count = 0
 
-[node name="ErrorDialog" type="AcceptDialog" parent="."]
+[node name="ErrorDialog" type="AcceptDialog" parent="." unique_id=754824988]
 oversampling_override = 1.0
 title = "Error"
 initial_position = 1
@@ -511,14 +510,14 @@ min_size = Vector2i(400, 106)
 max_size = Vector2i(400, 32768)
 dialog_autowrap = true
 
-[node name="Label" type="Label" parent="ErrorDialog"]
+[node name="Label" type="Label" parent="ErrorDialog" unique_id=187312902]
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 392.0
 offset_bottom = 59.0
 autowrap_mode = 3
 
-[node name="ModelSearch" type="FileDialog" parent="."]
+[node name="ModelSearch" type="FileDialog" parent="." unique_id=1524516980]
 oversampling_override = 1.0
 title = "Open a File"
 position = Vector2i(0, 36)
@@ -528,7 +527,7 @@ access = 2
 filters = PackedStringArray("*.glb", "*.gltf", "*.gmp")
 use_native_dialog = true
 
-[node name="Settings" type="Window" parent="."]
+[node name="Settings" type="Window" parent="." unique_id=1661865041]
 oversampling_override = 1.0
 title = "Editor Settings"
 initial_position = 2
@@ -536,7 +535,7 @@ size = Vector2i(600, 300)
 visible = false
 force_native = true
 
-[node name="TabContainer" type="TabContainer" parent="Settings"]
+[node name="TabContainer" type="TabContainer" parent="Settings" unique_id=970540359]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -544,102 +543,102 @@ grow_horizontal = 2
 grow_vertical = 2
 current_tab = 0
 
-[node name="Paths" type="ScrollContainer" parent="Settings/TabContainer"]
+[node name="Paths" type="ScrollContainer" parent="Settings/TabContainer" unique_id=1802083220]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Settings/TabContainer/Paths"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings/TabContainer/Paths" unique_id=3070010]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="GmodPath" type="HBoxContainer" parent="Settings/TabContainer/Paths/VBoxContainer"]
+[node name="GmodPath" type="HBoxContainer" parent="Settings/TabContainer/Paths/VBoxContainer" unique_id=1439279019]
 layout_mode = 2
 script = ExtResource("4_lan5r")
 
-[node name="Label" type="Label" parent="Settings/TabContainer/Paths/VBoxContainer/GmodPath"]
+[node name="Label" type="Label" parent="Settings/TabContainer/Paths/VBoxContainer/GmodPath" unique_id=1362943273]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Garry's Mod Path"
 
-[node name="LineEdit" type="LineEdit" parent="Settings/TabContainer/Paths/VBoxContainer/GmodPath"]
+[node name="LineEdit" type="LineEdit" parent="Settings/TabContainer/Paths/VBoxContainer/GmodPath" unique_id=544342694]
 custom_minimum_size = Vector2(88, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Load" type="Button" parent="Settings/TabContainer/Paths/VBoxContainer/GmodPath"]
+[node name="Load" type="Button" parent="Settings/TabContainer/Paths/VBoxContainer/GmodPath" unique_id=1633466971]
 custom_minimum_size = Vector2(31, 0)
 layout_mode = 2
 icon = ExtResource("5_iopv7")
 expand_icon = true
 metadata/directory = false
 
-[node name="StudioMDLPath" type="HBoxContainer" parent="Settings/TabContainer/Paths/VBoxContainer"]
+[node name="StudioMDLPath" type="HBoxContainer" parent="Settings/TabContainer/Paths/VBoxContainer" unique_id=1902233638]
 layout_mode = 2
 script = ExtResource("4_lan5r")
 
-[node name="Label" type="Label" parent="Settings/TabContainer/Paths/VBoxContainer/StudioMDLPath"]
+[node name="Label" type="Label" parent="Settings/TabContainer/Paths/VBoxContainer/StudioMDLPath" unique_id=44871522]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "StudioMDL Path"
 
-[node name="LineEdit" type="LineEdit" parent="Settings/TabContainer/Paths/VBoxContainer/StudioMDLPath"]
+[node name="LineEdit" type="LineEdit" parent="Settings/TabContainer/Paths/VBoxContainer/StudioMDLPath" unique_id=233511194]
 custom_minimum_size = Vector2(88, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Load" type="Button" parent="Settings/TabContainer/Paths/VBoxContainer/StudioMDLPath"]
+[node name="Load" type="Button" parent="Settings/TabContainer/Paths/VBoxContainer/StudioMDLPath" unique_id=1466509780]
 custom_minimum_size = Vector2(31, 0)
 layout_mode = 2
 icon = ExtResource("5_iopv7")
 expand_icon = true
 
-[node name="GmadPath" type="HBoxContainer" parent="Settings/TabContainer/Paths/VBoxContainer"]
+[node name="GmadPath" type="HBoxContainer" parent="Settings/TabContainer/Paths/VBoxContainer" unique_id=2044956163]
 layout_mode = 2
 script = ExtResource("4_lan5r")
 
-[node name="Label" type="Label" parent="Settings/TabContainer/Paths/VBoxContainer/GmadPath"]
+[node name="Label" type="Label" parent="Settings/TabContainer/Paths/VBoxContainer/GmadPath" unique_id=1182226811]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "GMAD Path"
 
-[node name="LineEdit" type="LineEdit" parent="Settings/TabContainer/Paths/VBoxContainer/GmadPath"]
+[node name="LineEdit" type="LineEdit" parent="Settings/TabContainer/Paths/VBoxContainer/GmadPath" unique_id=1387910799]
 custom_minimum_size = Vector2(88, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Load" type="Button" parent="Settings/TabContainer/Paths/VBoxContainer/GmadPath"]
+[node name="Load" type="Button" parent="Settings/TabContainer/Paths/VBoxContainer/GmadPath" unique_id=1180265746]
 custom_minimum_size = Vector2(31, 0)
 layout_mode = 2
 icon = ExtResource("5_iopv7")
 expand_icon = true
 
-[node name="VTFEditPath" type="HBoxContainer" parent="Settings/TabContainer/Paths/VBoxContainer"]
+[node name="VTFEditPath" type="HBoxContainer" parent="Settings/TabContainer/Paths/VBoxContainer" unique_id=140585190]
 layout_mode = 2
 script = ExtResource("4_lan5r")
 
-[node name="Label" type="Label" parent="Settings/TabContainer/Paths/VBoxContainer/VTFEditPath"]
+[node name="Label" type="Label" parent="Settings/TabContainer/Paths/VBoxContainer/VTFEditPath" unique_id=1606408685]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "VTFCmd Path"
 
-[node name="LineEdit" type="LineEdit" parent="Settings/TabContainer/Paths/VBoxContainer/VTFEditPath"]
+[node name="LineEdit" type="LineEdit" parent="Settings/TabContainer/Paths/VBoxContainer/VTFEditPath" unique_id=2858587]
 custom_minimum_size = Vector2(88, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Load" type="Button" parent="Settings/TabContainer/Paths/VBoxContainer/VTFEditPath"]
+[node name="Load" type="Button" parent="Settings/TabContainer/Paths/VBoxContainer/VTFEditPath" unique_id=434379435]
 custom_minimum_size = Vector2(31, 0)
 layout_mode = 2
 icon = ExtResource("5_iopv7")
 expand_icon = true
 
-[node name="ExportProgress" type="Window" parent="."]
+[node name="ExportProgress" type="Window" parent="." unique_id=2113871515]
 oversampling_override = 1.0
 initial_position = 2
 size = Vector2i(300, 150)
 visible = false
 
-[node name="VBoxContainer" type="VBoxContainer" parent="ExportProgress"]
+[node name="VBoxContainer" type="VBoxContainer" parent="ExportProgress" unique_id=1149845195]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -648,17 +647,17 @@ offset_right = -12.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Action" type="Label" parent="ExportProgress/VBoxContainer"]
+[node name="Action" type="Label" parent="ExportProgress/VBoxContainer" unique_id=205257105]
 layout_mode = 2
 size_flags_vertical = 6
 text = "Exporting model..."
 horizontal_alignment = 1
 
-[node name="ProgressBar" type="ProgressBar" parent="ExportProgress/VBoxContainer"]
+[node name="ProgressBar" type="ProgressBar" parent="ExportProgress/VBoxContainer" unique_id=1016241836]
 layout_mode = 2
 size_flags_vertical = 2
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=217470257]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -666,7 +665,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.06666667, 0.06666667, 0.06666667, 1)
 
-[node name="Panels" type="HBoxContainer" parent="."]
+[node name="Panels" type="HBoxContainer" parent="." unique_id=204363223]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -674,12 +673,12 @@ offset_top = 39.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Control" type="Control" parent="Panels"]
+[node name="Control" type="Control" parent="Panels" unique_id=1811047047]
 custom_minimum_size = Vector2(314, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 
-[node name="TabContainer" type="TabContainer" parent="Panels/Control"]
+[node name="TabContainer" type="TabContainer" parent="Panels/Control" unique_id=264986254]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -688,18 +687,18 @@ grow_horizontal = 2
 grow_vertical = 2
 current_tab = 0
 
-[node name="Skeleton" type="ScrollContainer" parent="Panels/Control/TabContainer"]
+[node name="Skeleton" type="ScrollContainer" parent="Panels/Control/TabContainer" unique_id=278885828]
 layout_mode = 2
 horizontal_scroll_mode = 0
 metadata/_tab_index = 0
 
-[node name="Skeleton" type="VBoxContainer" parent="Panels/Control/TabContainer/Skeleton"]
+[node name="Skeleton" type="VBoxContainer" parent="Panels/Control/TabContainer/Skeleton" unique_id=88914457]
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 0
 script = ExtResource("3_arc6n")
 
-[node name="Gizmo3D" type="Node3D" parent="Panels/Control/TabContainer/Skeleton/Skeleton"]
+[node name="Gizmo3D" type="Node3D" parent="Panels/Control/TabContainer/Skeleton/Skeleton" unique_id=605206963]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3161557, 0)
 visible = false
 script = ExtResource("7_lmiwe")
@@ -707,24 +706,24 @@ mode = 2
 use_local_space = true
 metadata/_custom_type_script = "uid://e3f1ox6y6cvg"
 
-[node name="Bones" type="FoldableContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton"]
+[node name="Bones" type="FoldableContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton" unique_id=2026390524]
 layout_mode = 2
 title = "Bones"
 
-[node name="Tree" type="Tree" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Bones"]
+[node name="Tree" type="Tree" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Bones" unique_id=2137411272]
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
 allow_reselect = true
 hide_root = true
 
-[node name="Renaming" type="FoldableContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton"]
+[node name="Renaming" type="FoldableContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton" unique_id=1917218880]
 layout_mode = 2
 title = "Bone Posing and Naming"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming" unique_id=376673408]
 layout_mode = 2
 
-[node name="Rename" type="HBoxContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming/VBoxContainer"]
+[node name="Rename" type="HBoxContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming/VBoxContainer" unique_id=1579056501]
 layout_mode = 2
 tooltip_text = "The application will analyse the armature and try to rename the bones to the Valve Biped structure. This is an important action to do.
 
@@ -732,64 +731,64 @@ This is estimated to work 90% of the time, the spine bones are more likely to re
 
 Some armatures that have bones parented in a way that the head doesn't lead up to the pelvis bone by going up may require manual ordering here"
 
-[node name="Label" type="Label" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming/VBoxContainer/Rename"]
+[node name="Label" type="Label" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming/VBoxContainer/Rename" unique_id=1173928599]
 layout_mode = 2
 text = "Rename Automatically"
 
-[node name="Button" type="Button" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming/VBoxContainer/Rename"]
+[node name="Button" type="Button" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming/VBoxContainer/Rename" unique_id=1043811875]
 custom_minimum_size = Vector2(123, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 text = "Rename"
 
-[node name="Repose" type="HBoxContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming/VBoxContainer"]
+[node name="Repose" type="HBoxContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming/VBoxContainer" unique_id=139022856]
 layout_mode = 2
 tooltip_text = "This automatically will make your character T-Pose, which is important for reason other than 'memes' in Gmod. Only do this action once the bones have been renamed
 
 -This doesn't correct the arm rotation nor the finger poses, you need to rotate them manually if you have fingers and make sure they are as intended"
 
-[node name="Label" type="Label" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming/VBoxContainer/Repose"]
+[node name="Label" type="Label" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming/VBoxContainer/Repose" unique_id=883122806]
 layout_mode = 2
 text = "T-Pose Automatically"
 
-[node name="Button" type="Button" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming/VBoxContainer/Repose"]
+[node name="Button" type="Button" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming/VBoxContainer/Repose" unique_id=922866292]
 custom_minimum_size = Vector2(123, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 text = "Repose"
 
-[node name="HasThumbs" type="HBoxContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming/VBoxContainer"]
+[node name="HasThumbs" type="HBoxContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming/VBoxContainer" unique_id=743790527]
 layout_mode = 2
 tooltip_text = "Turning this on means that the player has thumbs, and the bone will be renamed as such, turn this off if your player has no thumbs"
 script = ExtResource("8_lan5r")
 
-[node name="Label" type="Label" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming/VBoxContainer/HasThumbs"]
+[node name="Label" type="Label" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming/VBoxContainer/HasThumbs" unique_id=547044589]
 layout_mode = 2
 text = "Has Thumbs"
 
-[node name="CheckBox" type="CheckBox" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming/VBoxContainer/HasThumbs"]
+[node name="CheckBox" type="CheckBox" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming/VBoxContainer/HasThumbs" unique_id=1871578228]
 custom_minimum_size = Vector2(123, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 button_pressed = true
 text = "Yes"
 
-[node name="Editing" type="FoldableContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton"]
+[node name="Editing" type="FoldableContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton" unique_id=1963884485]
 layout_mode = 2
 title = "Bone Editing Settings"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing" unique_id=1679523286]
 layout_mode = 2
 
-[node name="RotationSnap" type="HBoxContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer"]
+[node name="RotationSnap" type="HBoxContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer" unique_id=1630115464]
 layout_mode = 2
 script = ExtResource("8_lan5r")
 
-[node name="Label" type="Label" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer/RotationSnap"]
+[node name="Label" type="Label" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer/RotationSnap" unique_id=1653201695]
 layout_mode = 2
 text = "Rotation Snapping"
 
-[node name="SpinBox" type="SpinBox" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer/RotationSnap"]
+[node name="SpinBox" type="SpinBox" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer/RotationSnap" unique_id=1262796112]
 custom_minimum_size = Vector2(123, 0)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -799,97 +798,97 @@ value = 10.0
 allow_greater = true
 suffix = "degrees"
 
-[node name="MirrorBone" type="HBoxContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer"]
+[node name="MirrorBone" type="HBoxContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer" unique_id=1724907560]
 layout_mode = 2
 tooltip_text = "Mirror the bone rotations
 
 -This setting may be a bit buggy on some models with unusual orientations or bone structures, especially with relative rotations on"
 script = ExtResource("8_lan5r")
 
-[node name="Label" type="Label" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer/MirrorBone"]
+[node name="Label" type="Label" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer/MirrorBone" unique_id=1278758348]
 layout_mode = 2
 text = "Mirror bone rotations"
 
-[node name="CheckBox" type="CheckBox" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer/MirrorBone"]
+[node name="CheckBox" type="CheckBox" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer/MirrorBone" unique_id=1250767462]
 custom_minimum_size = Vector2(123, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 button_pressed = true
 text = "On"
 
-[node name="RelativeRotationEditing" type="HBoxContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer"]
+[node name="RelativeRotationEditing" type="HBoxContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer" unique_id=843704306]
 layout_mode = 2
 tooltip_text = "If one, the gizmo will be based on the bone orientation, it be global, useful to turn off when some bones don't function as intended when it comes to rotating with this setting"
 script = ExtResource("8_lan5r")
 
-[node name="Label" type="Label" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer/RelativeRotationEditing"]
+[node name="Label" type="Label" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer/RelativeRotationEditing" unique_id=1202936567]
 layout_mode = 2
 text = "Relative rotations"
 
-[node name="CheckBox" type="CheckBox" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer/RelativeRotationEditing"]
+[node name="CheckBox" type="CheckBox" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer/RelativeRotationEditing" unique_id=907703784]
 custom_minimum_size = Vector2(123, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 button_pressed = true
 text = "On"
 
-[node name="PickBone" type="HBoxContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer"]
+[node name="PickBone" type="HBoxContainer" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer" unique_id=1492978604]
 visible = false
 layout_mode = 2
 tooltip_text = "The model will be compiled into a .GMA file instead of being a folder"
 script = ExtResource("8_lan5r")
 
-[node name="Label" type="Label" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer/PickBone"]
+[node name="Label" type="Label" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer/PickBone" unique_id=990925346]
 layout_mode = 2
 text = "Pick bone in 3D"
 
-[node name="CheckBox" type="CheckBox" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer/PickBone"]
+[node name="CheckBox" type="CheckBox" parent="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer/PickBone" unique_id=249456911]
 custom_minimum_size = Vector2(123, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 text = "On"
 
-[node name="Mesh" type="ScrollContainer" parent="Panels/Control/TabContainer"]
+[node name="Mesh" type="ScrollContainer" parent="Panels/Control/TabContainer" unique_id=955358137]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="Mesh" type="VBoxContainer" parent="Panels/Control/TabContainer/Mesh"]
+[node name="Mesh" type="VBoxContainer" parent="Panels/Control/TabContainer/Mesh" unique_id=1664230159]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("5_tv22w")
 
-[node name="Offsets" type="FoldableContainer" parent="Panels/Control/TabContainer/Mesh/Mesh"]
+[node name="Offsets" type="FoldableContainer" parent="Panels/Control/TabContainer/Mesh/Mesh" unique_id=310534015]
 layout_mode = 2
 title = "Scale and Offsets"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panels/Control/TabContainer/Mesh/Mesh/Offsets"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panels/Control/TabContainer/Mesh/Mesh/Offsets" unique_id=659485246]
 layout_mode = 2
 
-[node name="Scale" type="HBoxContainer" parent="Panels/Control/TabContainer/Mesh/Mesh/Offsets/VBoxContainer"]
+[node name="Scale" type="HBoxContainer" parent="Panels/Control/TabContainer/Mesh/Mesh/Offsets/VBoxContainer" unique_id=1276629553]
 layout_mode = 2
 script = ExtResource("8_lan5r")
 
-[node name="Label" type="Label" parent="Panels/Control/TabContainer/Mesh/Mesh/Offsets/VBoxContainer/Scale"]
+[node name="Label" type="Label" parent="Panels/Control/TabContainer/Mesh/Mesh/Offsets/VBoxContainer/Scale" unique_id=1023606901]
 layout_mode = 2
 text = "Scale"
 
-[node name="SpinBox" type="SpinBox" parent="Panels/Control/TabContainer/Mesh/Mesh/Offsets/VBoxContainer/Scale"]
+[node name="SpinBox" type="SpinBox" parent="Panels/Control/TabContainer/Mesh/Mesh/Offsets/VBoxContainer/Scale" unique_id=1403575152]
 custom_minimum_size = Vector2(123, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 step = 0.01
 value = 1.0
 
-[node name="YOffset" type="HBoxContainer" parent="Panels/Control/TabContainer/Mesh/Mesh/Offsets/VBoxContainer"]
+[node name="YOffset" type="HBoxContainer" parent="Panels/Control/TabContainer/Mesh/Mesh/Offsets/VBoxContainer" unique_id=922897225]
 layout_mode = 2
 script = ExtResource("8_lan5r")
 
-[node name="Label" type="Label" parent="Panels/Control/TabContainer/Mesh/Mesh/Offsets/VBoxContainer/YOffset"]
+[node name="Label" type="Label" parent="Panels/Control/TabContainer/Mesh/Mesh/Offsets/VBoxContainer/YOffset" unique_id=2062054554]
 layout_mode = 2
 text = "Height Offset"
 
-[node name="SpinBox" type="SpinBox" parent="Panels/Control/TabContainer/Mesh/Mesh/Offsets/VBoxContainer/YOffset"]
+[node name="SpinBox" type="SpinBox" parent="Panels/Control/TabContainer/Mesh/Mesh/Offsets/VBoxContainer/YOffset" unique_id=1601869727]
 custom_minimum_size = Vector2(123, 0)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -899,35 +898,35 @@ allow_greater = true
 allow_lesser = true
 suffix = "m"
 
-[node name="Bodygroups" type="FoldableContainer" parent="Panels/Control/TabContainer/Mesh/Mesh"]
+[node name="Bodygroups" type="FoldableContainer" parent="Panels/Control/TabContainer/Mesh/Mesh" unique_id=2096367380]
 layout_mode = 2
 title = "Bodygroups"
 script = ExtResource("10_lan5r")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups" unique_id=1730357845]
 layout_mode = 2
 
-[node name="Controls" type="HBoxContainer" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer"]
+[node name="Controls" type="HBoxContainer" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer" unique_id=1575191438]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 
-[node name="Add" type="Button" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer/Controls"]
+[node name="Add" type="Button" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer/Controls" unique_id=762041195]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Add"
 
-[node name="Remove" type="Button" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer/Controls"]
+[node name="Remove" type="Button" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer/Controls" unique_id=1294609750]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Remove"
 
-[node name="AddName" type="AcceptDialog" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer/Controls"]
+[node name="AddName" type="AcceptDialog" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer/Controls" unique_id=53657191]
 oversampling_override = 1.0
 title = "Rename bone"
 size = Vector2i(300, 100)
 force_native = true
 
-[node name="LineEdit" type="LineEdit" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer/Controls/AddName"]
+[node name="LineEdit" type="LineEdit" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer/Controls/AddName" unique_id=785957626]
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 292.0
@@ -935,12 +934,12 @@ offset_bottom = 53.0
 theme = ExtResource("4_iopv7")
 placeholder_text = "Bodygroup name"
 
-[node name="Rename" type="ConfirmationDialog" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer/Controls"]
+[node name="Rename" type="ConfirmationDialog" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer/Controls" unique_id=725122652]
 oversampling_override = 1.0
 size = Vector2i(300, 100)
 force_native = true
 
-[node name="LineEdit" type="LineEdit" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer/Controls/Rename"]
+[node name="LineEdit" type="LineEdit" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer/Controls/Rename" unique_id=330465937]
 offset_left = 8.0
 offset_top = 8.0
 offset_right = 292.0
@@ -948,7 +947,7 @@ offset_bottom = 53.0
 theme = ExtResource("4_iopv7")
 placeholder_text = "Bodygroup name"
 
-[node name="GroupList" type="ItemList" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer"]
+[node name="GroupList" type="ItemList" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer" unique_id=1084351154]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 allow_reselect = true
@@ -957,18 +956,18 @@ max_columns = 3
 fixed_column_width = 100
 item_0/text = "Body"
 
-[node name="BodyGroupAmount" type="HBoxContainer" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer"]
+[node name="BodyGroupAmount" type="HBoxContainer" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer" unique_id=2012951510]
 layout_mode = 2
 tooltip_text = "The amount of options a bodygroup has
 
 -If you have no mesh set to the last index, it allows the bodygroup to be disabled"
 script = ExtResource("8_lan5r")
 
-[node name="Label" type="Label" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer/BodyGroupAmount"]
+[node name="Label" type="Label" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer/BodyGroupAmount" unique_id=1733713039]
 layout_mode = 2
 text = "Mesh option count"
 
-[node name="SpinBox" type="SpinBox" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer/BodyGroupAmount"]
+[node name="SpinBox" type="SpinBox" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer/BodyGroupAmount" unique_id=893874718]
 custom_minimum_size = Vector2(123, 0)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -976,82 +975,82 @@ min_value = 1.0
 value = 1.0
 allow_greater = true
 
-[node name="Tree" type="Tree" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer"]
+[node name="Tree" type="Tree" parent="Panels/Control/TabContainer/Mesh/Mesh/Bodygroups/VBoxContainer" unique_id=1178392163]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 columns = 3
 hide_root = true
 
-[node name="Jigglebones" type="FoldableContainer" parent="Panels/Control/TabContainer/Mesh/Mesh"]
+[node name="Jigglebones" type="FoldableContainer" parent="Panels/Control/TabContainer/Mesh/Mesh" unique_id=1614668944]
 layout_mode = 2
 title = "Jiggle bones"
 script = ExtResource("11_iopv7")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panels/Control/TabContainer/Mesh/Mesh/Jigglebones"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panels/Control/TabContainer/Mesh/Mesh/Jigglebones" unique_id=227532475]
 layout_mode = 2
 
-[node name="Elements" type="VBoxContainer" parent="Panels/Control/TabContainer/Mesh/Mesh/Jigglebones/VBoxContainer"]
+[node name="Elements" type="VBoxContainer" parent="Panels/Control/TabContainer/Mesh/Mesh/Jigglebones/VBoxContainer" unique_id=2091215399]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Add" type="Button" parent="Panels/Control/TabContainer/Mesh/Mesh/Jigglebones/VBoxContainer"]
+[node name="Add" type="Button" parent="Panels/Control/TabContainer/Mesh/Mesh/Jigglebones/VBoxContainer" unique_id=1807615866]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 6
 theme = ExtResource("12_jx6jd")
 text = "Add Element"
 
-[node name="Collisions" type="ScrollContainer" parent="Panels/Control/TabContainer"]
+[node name="Collisions" type="ScrollContainer" parent="Panels/Control/TabContainer" unique_id=673103013]
 visible = false
 layout_mode = 2
 horizontal_scroll_mode = 0
 metadata/_tab_index = 2
 
-[node name="Collisions" type="VBoxContainer" parent="Panels/Control/TabContainer/Collisions"]
+[node name="Collisions" type="VBoxContainer" parent="Panels/Control/TabContainer/Collisions" unique_id=1315981072]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("8_lmiwe")
 
-[node name="GenerateCollisions" type="HBoxContainer" parent="Panels/Control/TabContainer/Collisions/Collisions"]
+[node name="GenerateCollisions" type="HBoxContainer" parent="Panels/Control/TabContainer/Collisions/Collisions" unique_id=337866323]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Panels/Control/TabContainer/Collisions/Collisions/GenerateCollisions"]
+[node name="Label" type="Label" parent="Panels/Control/TabContainer/Collisions/Collisions/GenerateCollisions" unique_id=1690137098]
 layout_mode = 2
 text = "Generate Collisions"
 
-[node name="Button" type="Button" parent="Panels/Control/TabContainer/Collisions/Collisions/GenerateCollisions"]
+[node name="Button" type="Button" parent="Panels/Control/TabContainer/Collisions/Collisions/GenerateCollisions" unique_id=1039978434]
 custom_minimum_size = Vector2(123, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 text = "Generate"
 
-[node name="Inclusion" type="FoldableContainer" parent="Panels/Control/TabContainer/Collisions/Collisions"]
+[node name="Inclusion" type="FoldableContainer" parent="Panels/Control/TabContainer/Collisions/Collisions" unique_id=341132649]
 layout_mode = 2
 title = "Bones to include with Generation"
 
-[node name="SelectedBones" type="Tree" parent="Panels/Control/TabContainer/Collisions/Collisions/Inclusion"]
+[node name="SelectedBones" type="Tree" parent="Panels/Control/TabContainer/Collisions/Collisions/Inclusion" unique_id=1822401161]
 custom_minimum_size = Vector2(0, 300)
 layout_mode = 2
 columns = 2
 hide_root = true
 
-[node name="RagdollPhysics" type="FoldableContainer" parent="Panels/Control/TabContainer/Collisions/Collisions"]
+[node name="RagdollPhysics" type="FoldableContainer" parent="Panels/Control/TabContainer/Collisions/Collisions" unique_id=10724545]
 layout_mode = 2
 title = "Ragdoll Physics Parameters"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics" unique_id=1935813590]
 layout_mode = 2
 
-[node name="Mass" type="HBoxContainer" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer"]
+[node name="Mass" type="HBoxContainer" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer" unique_id=890095733]
 layout_mode = 2
 tooltip_text = "If this value is set to zero or less, the mass will be computed automatically"
 script = ExtResource("8_lan5r")
 
-[node name="Label" type="Label" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer/Mass"]
+[node name="Label" type="Label" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer/Mass" unique_id=691177277]
 layout_mode = 2
 text = "Mass"
 
-[node name="SpinBox" type="SpinBox" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer/Mass"]
+[node name="SpinBox" type="SpinBox" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer/Mass" unique_id=55834628]
 custom_minimum_size = Vector2(123, 0)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -1060,15 +1059,15 @@ value = 90.0
 allow_greater = true
 custom_arrow_step = 0.01
 
-[node name="Inertia" type="HBoxContainer" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer"]
+[node name="Inertia" type="HBoxContainer" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer" unique_id=1138867829]
 layout_mode = 2
 script = ExtResource("8_lan5r")
 
-[node name="Label" type="Label" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer/Inertia"]
+[node name="Label" type="Label" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer/Inertia" unique_id=1204050320]
 layout_mode = 2
 text = "Inertia"
 
-[node name="SpinBox" type="SpinBox" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer/Inertia"]
+[node name="SpinBox" type="SpinBox" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer/Inertia" unique_id=1665996462]
 custom_minimum_size = Vector2(123, 0)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -1077,15 +1076,15 @@ value = 10.0
 allow_greater = true
 custom_arrow_step = 0.01
 
-[node name="Damping" type="HBoxContainer" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer"]
+[node name="Damping" type="HBoxContainer" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer" unique_id=612382914]
 layout_mode = 2
 script = ExtResource("8_lan5r")
 
-[node name="Label" type="Label" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer/Damping"]
+[node name="Label" type="Label" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer/Damping" unique_id=934206293]
 layout_mode = 2
 text = "Damping"
 
-[node name="SpinBox" type="SpinBox" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer/Damping"]
+[node name="SpinBox" type="SpinBox" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer/Damping" unique_id=2116766562]
 custom_minimum_size = Vector2(123, 0)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -1094,15 +1093,15 @@ value = 0.01
 allow_greater = true
 custom_arrow_step = 0.01
 
-[node name="RotationDamping" type="HBoxContainer" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer"]
+[node name="RotationDamping" type="HBoxContainer" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer" unique_id=1208154616]
 layout_mode = 2
 script = ExtResource("8_lan5r")
 
-[node name="Label" type="Label" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer/RotationDamping"]
+[node name="Label" type="Label" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer/RotationDamping" unique_id=768639758]
 layout_mode = 2
 text = "Rotation Damping"
 
-[node name="SpinBox" type="SpinBox" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer/RotationDamping"]
+[node name="SpinBox" type="SpinBox" parent="Panels/Control/TabContainer/Collisions/Collisions/RagdollPhysics/VBoxContainer/RotationDamping" unique_id=796271377]
 custom_minimum_size = Vector2(123, 0)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -1110,31 +1109,31 @@ step = 0.0
 allow_greater = true
 custom_arrow_step = 0.01
 
-[node name="MeshGen" type="Node" parent="Panels/Control/TabContainer/Collisions/Collisions"]
+[node name="MeshGen" type="Node" parent="Panels/Control/TabContainer/Collisions/Collisions" unique_id=595872928]
 script = ExtResource("9_qchcq")
 
-[node name="View" type="SubViewportContainer" parent="Panels"]
+[node name="View" type="SubViewportContainer" parent="Panels" unique_id=1515837073]
 layout_mode = 2
 size_flags_horizontal = 3
 stretch = true
 script = ExtResource("14_lan5r")
 
-[node name="SubViewport" type="SubViewport" parent="Panels/View"]
+[node name="SubViewport" type="SubViewport" parent="Panels/View" unique_id=1537834492]
 handle_input_locally = false
 gui_embed_subwindows = true
 size = Vector2i(598, 681)
 render_target_update_mode = 4
 
-[node name="View Camera" type="Camera3D" parent="Panels/View/SubViewport"]
+[node name="View Camera" type="Camera3D" parent="Panels/View/SubViewport" unique_id=717511275]
 current = true
 script = ExtResource("1_16jkr")
 
-[node name="ModelData2" type="Control" parent="Panels"]
+[node name="ModelData2" type="Control" parent="Panels" unique_id=1684922187]
 custom_minimum_size = Vector2(360, 0)
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="TabContainer" type="TabContainer" parent="Panels/ModelData2"]
+[node name="TabContainer" type="TabContainer" parent="Panels/ModelData2" unique_id=520395064]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -1143,83 +1142,83 @@ grow_horizontal = 2
 grow_vertical = 2
 current_tab = 1
 
-[node name="Info" type="ScrollContainer" parent="Panels/ModelData2/TabContainer"]
+[node name="Info" type="ScrollContainer" parent="Panels/ModelData2/TabContainer" unique_id=1352772669]
 visible = false
 layout_mode = 2
 horizontal_scroll_mode = 0
 metadata/_tab_index = 0
 
-[node name="Info" type="VBoxContainer" parent="Panels/ModelData2/TabContainer/Info"]
+[node name="Info" type="VBoxContainer" parent="Panels/ModelData2/TabContainer/Info" unique_id=291111216]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="ModelInfo" type="FoldableContainer" parent="Panels/ModelData2/TabContainer/Info/Info"]
+[node name="ModelInfo" type="FoldableContainer" parent="Panels/ModelData2/TabContainer/Info/Info" unique_id=1492955505]
 layout_mode = 2
 title = "Model Information"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panels/ModelData2/TabContainer/Info/Info/ModelInfo"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panels/ModelData2/TabContainer/Info/Info/ModelInfo" unique_id=1267959141]
 layout_mode = 2
 
-[node name="CompileGMA" type="HBoxContainer" parent="Panels/ModelData2/TabContainer/Info/Info/ModelInfo/VBoxContainer"]
+[node name="CompileGMA" type="HBoxContainer" parent="Panels/ModelData2/TabContainer/Info/Info/ModelInfo/VBoxContainer" unique_id=663241272]
 visible = false
 layout_mode = 2
 tooltip_text = "The model will be compiled into a .GMA file instead of being a folder"
 script = ExtResource("8_lan5r")
 
-[node name="Label" type="Label" parent="Panels/ModelData2/TabContainer/Info/Info/ModelInfo/VBoxContainer/CompileGMA"]
+[node name="Label" type="Label" parent="Panels/ModelData2/TabContainer/Info/Info/ModelInfo/VBoxContainer/CompileGMA" unique_id=1255915022]
 layout_mode = 2
 text = "Compile as GMA"
 
-[node name="CheckBox" type="CheckBox" parent="Panels/ModelData2/TabContainer/Info/Info/ModelInfo/VBoxContainer/CompileGMA"]
+[node name="CheckBox" type="CheckBox" parent="Panels/ModelData2/TabContainer/Info/Info/ModelInfo/VBoxContainer/CompileGMA" unique_id=1759457253]
 custom_minimum_size = Vector2(123, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 text = "On"
 
-[node name="ModelName" type="HBoxContainer" parent="Panels/ModelData2/TabContainer/Info/Info/ModelInfo/VBoxContainer"]
+[node name="ModelName" type="HBoxContainer" parent="Panels/ModelData2/TabContainer/Info/Info/ModelInfo/VBoxContainer" unique_id=1321438884]
 layout_mode = 2
 script = ExtResource("8_lan5r")
 
-[node name="Label" type="Label" parent="Panels/ModelData2/TabContainer/Info/Info/ModelInfo/VBoxContainer/ModelName"]
+[node name="Label" type="Label" parent="Panels/ModelData2/TabContainer/Info/Info/ModelInfo/VBoxContainer/ModelName" unique_id=1514232382]
 layout_mode = 2
 text = "Model Name"
 
-[node name="LineEdit" type="LineEdit" parent="Panels/ModelData2/TabContainer/Info/Info/ModelInfo/VBoxContainer/ModelName"]
+[node name="LineEdit" type="LineEdit" parent="Panels/ModelData2/TabContainer/Info/Info/ModelInfo/VBoxContainer/ModelName" unique_id=1381504614]
 custom_minimum_size = Vector2(123, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 text = "GMP"
 
-[node name="AuthorName" type="HBoxContainer" parent="Panels/ModelData2/TabContainer/Info/Info/ModelInfo/VBoxContainer"]
+[node name="AuthorName" type="HBoxContainer" parent="Panels/ModelData2/TabContainer/Info/Info/ModelInfo/VBoxContainer" unique_id=917575863]
 layout_mode = 2
 script = ExtResource("8_lan5r")
 
-[node name="Label" type="Label" parent="Panels/ModelData2/TabContainer/Info/Info/ModelInfo/VBoxContainer/AuthorName"]
+[node name="Label" type="Label" parent="Panels/ModelData2/TabContainer/Info/Info/ModelInfo/VBoxContainer/AuthorName" unique_id=2016995327]
 layout_mode = 2
 text = "Author"
 
-[node name="LineEdit" type="LineEdit" parent="Panels/ModelData2/TabContainer/Info/Info/ModelInfo/VBoxContainer/AuthorName"]
+[node name="LineEdit" type="LineEdit" parent="Panels/ModelData2/TabContainer/Info/Info/ModelInfo/VBoxContainer/AuthorName" unique_id=1025834579]
 custom_minimum_size = Vector2(123, 0)
 layout_mode = 2
 size_flags_horizontal = 10
 text = "GMP"
 
-[node name="CharacterInfo" type="FoldableContainer" parent="Panels/ModelData2/TabContainer/Info/Info"]
+[node name="CharacterInfo" type="FoldableContainer" parent="Panels/ModelData2/TabContainer/Info/Info" unique_id=1974699700]
 layout_mode = 2
 title = "Character Info"
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panels/ModelData2/TabContainer/Info/Info/CharacterInfo"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panels/ModelData2/TabContainer/Info/Info/CharacterInfo" unique_id=1892114869]
 layout_mode = 2
 
-[node name="AnimationGender" type="HBoxContainer" parent="Panels/ModelData2/TabContainer/Info/Info/CharacterInfo/VBoxContainer"]
+[node name="AnimationGender" type="HBoxContainer" parent="Panels/ModelData2/TabContainer/Info/Info/CharacterInfo/VBoxContainer" unique_id=741416611]
 layout_mode = 2
 script = ExtResource("8_lan5r")
 
-[node name="Label" type="Label" parent="Panels/ModelData2/TabContainer/Info/Info/CharacterInfo/VBoxContainer/AnimationGender"]
+[node name="Label" type="Label" parent="Panels/ModelData2/TabContainer/Info/Info/CharacterInfo/VBoxContainer/AnimationGender" unique_id=1280328567]
 layout_mode = 2
 text = "Animation Gender"
 
-[node name="OptionButton" type="OptionButton" parent="Panels/ModelData2/TabContainer/Info/Info/CharacterInfo/VBoxContainer/AnimationGender"]
+[node name="OptionButton" type="OptionButton" parent="Panels/ModelData2/TabContainer/Info/Info/CharacterInfo/VBoxContainer/AnimationGender" unique_id=26689345]
 custom_minimum_size = Vector2(123, 0)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -1230,15 +1229,15 @@ popup/item_0/id = 0
 popup/item_1/text = "Female"
 popup/item_1/id = 1
 
-[node name="SurfaceMaterial" type="HBoxContainer" parent="Panels/ModelData2/TabContainer/Info/Info/CharacterInfo/VBoxContainer"]
+[node name="SurfaceMaterial" type="HBoxContainer" parent="Panels/ModelData2/TabContainer/Info/Info/CharacterInfo/VBoxContainer" unique_id=2121863047]
 layout_mode = 2
 script = ExtResource("8_lan5r")
 
-[node name="Label" type="Label" parent="Panels/ModelData2/TabContainer/Info/Info/CharacterInfo/VBoxContainer/SurfaceMaterial"]
+[node name="Label" type="Label" parent="Panels/ModelData2/TabContainer/Info/Info/CharacterInfo/VBoxContainer/SurfaceMaterial" unique_id=404441594]
 layout_mode = 2
 text = "Surface Material"
 
-[node name="OptionButton" type="OptionButton" parent="Panels/ModelData2/TabContainer/Info/Info/CharacterInfo/VBoxContainer/SurfaceMaterial"]
+[node name="OptionButton" type="OptionButton" parent="Panels/ModelData2/TabContainer/Info/Info/CharacterInfo/VBoxContainer/SurfaceMaterial" unique_id=317983914]
 custom_minimum_size = Vector2(123, 0)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -1249,38 +1248,38 @@ popup/item_0/id = 0
 popup/item_1/text = "Metal"
 popup/item_1/id = 1
 
-[node name="Materials" type="ScrollContainer" parent="Panels/ModelData2/TabContainer"]
+[node name="Materials" type="ScrollContainer" parent="Panels/ModelData2/TabContainer" unique_id=1500123991]
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="Materials" type="VBoxContainer" parent="Panels/ModelData2/TabContainer/Materials"]
+[node name="Materials" type="VBoxContainer" parent="Panels/ModelData2/TabContainer/Materials" unique_id=1042607950]
 layout_mode = 2
 size_flags_horizontal = 3
 script = ExtResource("6_h06fm")
 
-[node name="Groups" type="FoldableContainer" parent="Panels/ModelData2/TabContainer/Materials/Materials"]
+[node name="Groups" type="FoldableContainer" parent="Panels/ModelData2/TabContainer/Materials/Materials" unique_id=134253108]
 layout_mode = 2
 title = "Texture Groups"
 script = ExtResource("16_iopv7")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panels/ModelData2/TabContainer/Materials/Materials/Groups"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panels/ModelData2/TabContainer/Materials/Materials/Groups" unique_id=671609503]
 layout_mode = 2
 
-[node name="Controls" type="HBoxContainer" parent="Panels/ModelData2/TabContainer/Materials/Materials/Groups/VBoxContainer"]
+[node name="Controls" type="HBoxContainer" parent="Panels/ModelData2/TabContainer/Materials/Materials/Groups/VBoxContainer" unique_id=850082217]
 custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
 
-[node name="Add" type="Button" parent="Panels/ModelData2/TabContainer/Materials/Materials/Groups/VBoxContainer/Controls"]
+[node name="Add" type="Button" parent="Panels/ModelData2/TabContainer/Materials/Materials/Groups/VBoxContainer/Controls" unique_id=1468270320]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Add"
 
-[node name="Remove" type="Button" parent="Panels/ModelData2/TabContainer/Materials/Materials/Groups/VBoxContainer/Controls"]
+[node name="Remove" type="Button" parent="Panels/ModelData2/TabContainer/Materials/Materials/Groups/VBoxContainer/Controls" unique_id=1617774507]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Remove"
 
-[node name="Skins" type="ItemList" parent="Panels/ModelData2/TabContainer/Materials/Materials/Groups/VBoxContainer"]
+[node name="Skins" type="ItemList" parent="Panels/ModelData2/TabContainer/Materials/Materials/Groups/VBoxContainer" unique_id=86857367]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 item_count = 1
@@ -1290,24 +1289,24 @@ fixed_icon_size = Vector2i(32, 32)
 item_0/text = "Base"
 item_0/icon = ExtResource("17_lan5r")
 
-[node name="Settings" type="FoldableContainer" parent="Panels/ModelData2/TabContainer/Materials/Materials"]
+[node name="Settings" type="FoldableContainer" parent="Panels/ModelData2/TabContainer/Materials/Materials" unique_id=1339171141]
 layout_mode = 2
 title = "Material Settings"
 
-[node name="Panel" type="Panel" parent="Panels/ModelData2/TabContainer/Materials/Materials/Settings"]
+[node name="Panel" type="Panel" parent="Panels/ModelData2/TabContainer/Materials/Materials/Settings" unique_id=789611709]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Panels/ModelData2/TabContainer/Materials/Materials/Settings"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Panels/ModelData2/TabContainer/Materials/Materials/Settings" unique_id=368103714]
 layout_mode = 2
 
-[node name="ShaderMode" type="HBoxContainer" parent="Panels/ModelData2/TabContainer/Materials/Materials/Settings/VBoxContainer"]
+[node name="ShaderMode" type="HBoxContainer" parent="Panels/ModelData2/TabContainer/Materials/Materials/Settings/VBoxContainer" unique_id=445826884]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Panels/ModelData2/TabContainer/Materials/Materials/Settings/VBoxContainer/ShaderMode"]
+[node name="Label" type="Label" parent="Panels/ModelData2/TabContainer/Materials/Materials/Settings/VBoxContainer/ShaderMode" unique_id=1036647041]
 layout_mode = 2
 text = "Shader Type"
 
-[node name="OptionButton" type="OptionButton" parent="Panels/ModelData2/TabContainer/Materials/Materials/Settings/VBoxContainer/ShaderMode"]
+[node name="OptionButton" type="OptionButton" parent="Panels/ModelData2/TabContainer/Materials/Materials/Settings/VBoxContainer/ShaderMode" unique_id=952390410]
 custom_minimum_size = Vector2(123, 0)
 layout_mode = 2
 size_flags_horizontal = 10
@@ -1318,27 +1317,27 @@ popup/item_0/id = 0
 popup/item_1/text = "Unlit"
 popup/item_1/id = 1
 
-[node name="MaterialList" type="ItemList" parent="Panels/ModelData2/TabContainer/Materials/Materials/Settings/VBoxContainer"]
+[node name="MaterialList" type="ItemList" parent="Panels/ModelData2/TabContainer/Materials/Materials/Settings/VBoxContainer" unique_id=669818583]
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 
-[node name="Settings" type="VBoxContainer" parent="Panels/ModelData2/TabContainer/Materials/Materials/Settings/VBoxContainer"]
+[node name="Settings" type="VBoxContainer" parent="Panels/ModelData2/TabContainer/Materials/Materials/Settings/VBoxContainer" unique_id=1748016864]
 custom_minimum_size = Vector2(0, 10.345)
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="Control" type="Control" parent="Panels/ModelData2/TabContainer/Materials/Materials"]
+[node name="Control" type="Control" parent="Panels/ModelData2/TabContainer/Materials/Materials" unique_id=239204231]
 visible = false
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="Label" type="Label" parent="Panels/ModelData2/TabContainer/Materials/Materials/Control"]
+[node name="Label" type="Label" parent="Panels/ModelData2/TabContainer/Materials/Materials/Control" unique_id=157061570]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 23.0
 text = "A worm"
 
-[node name="Button" type="Button" parent="Panels/ModelData2/TabContainer/Materials/Materials/Control"]
+[node name="Button" type="Button" parent="Panels/ModelData2/TabContainer/Materials/Materials/Control" unique_id=177455644]
 layout_mode = 1
 anchors_preset = 11
 anchor_left = 1.0
@@ -1350,20 +1349,20 @@ grow_vertical = 2
 icon = SubResource("CompressedTexture2D_lfd62")
 expand_icon = true
 
-[node name="Toolbar" type="Control" parent="."]
+[node name="Toolbar" type="Control" parent="." unique_id=24106264]
 layout_mode = 3
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 40.0
 grow_horizontal = 2
 
-[node name="Options" type="HBoxContainer" parent="Toolbar"]
+[node name="Options" type="HBoxContainer" parent="Toolbar" unique_id=1006078964]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("13_yp505")
 
-[node name="Editor" type="MenuButton" parent="Toolbar/Options"]
+[node name="Editor" type="MenuButton" parent="Toolbar/Options" unique_id=1575529355]
 layout_mode = 2
 text = "Editor"
 item_count = 4
@@ -1376,7 +1375,7 @@ popup/item_2/id = 1
 popup/item_3/text = "Redo"
 popup/item_3/id = 2
 
-[node name="Model" type="MenuButton" parent="Toolbar/Options"]
+[node name="Model" type="MenuButton" parent="Toolbar/Options" unique_id=658334072]
 layout_mode = 2
 text = "Model"
 item_count = 3
@@ -1387,7 +1386,7 @@ popup/item_1/separator = true
 popup/item_2/text = "Compile"
 popup/item_2/id = 1
 
-[node name="Help" type="MenuButton" parent="Toolbar/Options"]
+[node name="Help" type="MenuButton" parent="Toolbar/Options" unique_id=1755920162]
 layout_mode = 2
 text = "Help"
 item_count = 4
@@ -1400,7 +1399,7 @@ popup/item_2/separator = true
 popup/item_3/text = "Licences"
 popup/item_3/id = 3
 
-[node name="Troubleshooting" type="Window" parent="Toolbar/Options/Help"]
+[node name="Troubleshooting" type="Window" parent="Toolbar/Options/Help" unique_id=1176163107]
 oversampling_override = 1.0
 title = "Common problems"
 position = Vector2i(0, 36)
@@ -1408,7 +1407,7 @@ size = Vector2i(700, 400)
 visible = false
 force_native = true
 
-[node name="TabContainer" type="TabContainer" parent="Toolbar/Options/Help/Troubleshooting"]
+[node name="TabContainer" type="TabContainer" parent="Toolbar/Options/Help/Troubleshooting" unique_id=122258259]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1416,147 +1415,147 @@ grow_horizontal = 2
 grow_vertical = 2
 current_tab = 2
 
-[node name="Editor" type="ScrollContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer"]
+[node name="Editor" type="ScrollContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer" unique_id=1308085768]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Editor"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Editor" unique_id=813600806]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="FoldableContainer2" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Editor/VBoxContainer"]
+[node name="FoldableContainer2" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Editor/VBoxContainer" unique_id=1814490378]
 layout_mode = 2
 size_flags_horizontal = 3
 folded = true
 title = "I got a warning saying the bones weren't renamed"
 title_text_overrun_behavior = 1
 
-[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Editor/VBoxContainer/FoldableContainer2"]
+[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Editor/VBoxContainer/FoldableContainer2" unique_id=761086694]
 visible = false
 layout_mode = 2
 text = "This is because the amount of bones that have a name that match a certain body part may be too much or too little, if too little you may need to make some changes to your armature, if too many the easiest way is to just rename some of the bones in the area to a gibberish name such as \"feiadwfg\" that doesn't include what the body part is"
 autowrap_mode = 3
 
-[node name="FoldableContainer10" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Editor/VBoxContainer"]
+[node name="FoldableContainer10" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Editor/VBoxContainer" unique_id=272241173]
 layout_mode = 2
 size_flags_horizontal = 3
 folded = true
 title = "I reposed the character, but the results are a bit weird"
 title_text_overrun_behavior = 1
 
-[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Editor/VBoxContainer/FoldableContainer10"]
+[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Editor/VBoxContainer/FoldableContainer10" unique_id=991085162]
 visible = false
 layout_mode = 2
 text = "You can manually recorrect the rotations, but the repose tool may not work well on all models, especially ones that don't follow normal conventions"
 autowrap_mode = 3
 
-[node name="FoldableContainer3" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Editor/VBoxContainer"]
+[node name="FoldableContainer3" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Editor/VBoxContainer" unique_id=1369715881]
 layout_mode = 2
 size_flags_horizontal = 3
 folded = true
 title = "The character when I import is sideways or not up"
 title_text_overrun_behavior = 1
 
-[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Editor/VBoxContainer/FoldableContainer3"]
+[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Editor/VBoxContainer/FoldableContainer3" unique_id=2115327165]
 visible = false
 layout_mode = 2
 text = "This tends to happen if you are using someone else's character, if this is happening you need to make sure the model is already facing up and the rotations have been applied or you will run into bugs"
 autowrap_mode = 3
 
-[node name="Compilation" type="ScrollContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer"]
+[node name="Compilation" type="ScrollContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer" unique_id=2003092689]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Compilation"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Compilation" unique_id=856662700]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="FoldableContainer" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Compilation/VBoxContainer"]
+[node name="FoldableContainer" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Compilation/VBoxContainer" unique_id=902533274]
 layout_mode = 2
 size_flags_horizontal = 3
 folded = true
 title = "When I hit compile, VTFEdit opens up, and then crashes..."
 title_text_overrun_behavior = 1
 
-[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Compilation/VBoxContainer/FoldableContainer"]
+[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Compilation/VBoxContainer/FoldableContainer" unique_id=1721899170]
 visible = false
 layout_mode = 2
 text = "If this is happening, you most likely set the VTFCmd path to VTFEdit instead of VTFCmd, make sure you are setting the path to VTFCmd instead, that is very important, if you did set VTFCmd, I don't know what happened"
 autowrap_mode = 3
 
-[node name="FoldableContainer5" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Compilation/VBoxContainer"]
+[node name="FoldableContainer5" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Compilation/VBoxContainer" unique_id=118998167]
 layout_mode = 2
 size_flags_horizontal = 3
 folded = true
 title = "I got \"ERROR: Rotation constraint on bone X which has no parent!!!\" when I compiled"
 title_text_overrun_behavior = 1
 
-[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Compilation/VBoxContainer/FoldableContainer5"]
+[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Compilation/VBoxContainer/FoldableContainer5" unique_id=1781604479]
 visible = false
 layout_mode = 2
 text = "If you character has two pelvis bones, this is most likely the reason why this error is happening, make sure the top one which isn't really the pelvis bone is renamed to something gibberish and rename the bones again"
 autowrap_mode = 3
 
-[node name="FoldableContainer7" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Compilation/VBoxContainer"]
+[node name="FoldableContainer7" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Compilation/VBoxContainer" unique_id=301619508]
 layout_mode = 2
 size_flags_horizontal = 3
 folded = true
 title = "I get an error saying a folder wasn't deleted"
 title_text_overrun_behavior = 1
 
-[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Compilation/VBoxContainer/FoldableContainer7"]
+[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Compilation/VBoxContainer/FoldableContainer7" unique_id=2087642174]
 visible = false
 layout_mode = 2
 text = "This is because of an existing folder in your addons folder, if this is the case there may be file permission issues, but the easiest way to fix this for your current session is to delete the folder and recompile the addon"
 autowrap_mode = 3
 
-[node name="FoldableContainer4" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Compilation/VBoxContainer"]
+[node name="FoldableContainer4" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Compilation/VBoxContainer" unique_id=440515667]
 layout_mode = 2
 size_flags_horizontal = 3
 folded = true
 title = "I got an error about the jigglebones being in the incorrect order"
 title_text_overrun_behavior = 1
 
-[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Compilation/VBoxContainer/FoldableContainer4"]
+[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Compilation/VBoxContainer/FoldableContainer4" unique_id=142063569]
 visible = false
 layout_mode = 2
 text = "The start index should be a child reachable somewhere as the final index"
 autowrap_mode = 3
 
-[node name="FoldableContainer6" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Compilation/VBoxContainer"]
+[node name="FoldableContainer6" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Compilation/VBoxContainer" unique_id=28322355]
 layout_mode = 2
 size_flags_horizontal = 3
 folded = true
 title = "The addons folder is missing the models folder, but when I check"
 title_text_overrun_behavior = 1
 
-[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Compilation/VBoxContainer/FoldableContainer6"]
+[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Compilation/VBoxContainer/FoldableContainer6" unique_id=1627859046]
 visible = false
 layout_mode = 2
 text = "The start index should be a child reachable somewhere as the final index"
 autowrap_mode = 3
 
-[node name="Model" type="ScrollContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer"]
+[node name="Model" type="ScrollContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer" unique_id=69869325]
 layout_mode = 2
 metadata/_tab_index = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Model"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Model" unique_id=203079956]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="FoldableContainer5" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Model/VBoxContainer"]
+[node name="FoldableContainer5" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Model/VBoxContainer" unique_id=1982738231]
 layout_mode = 2
 size_flags_horizontal = 3
 folded = true
 title = "The fingers look very terrible and buggy"
 title_text_overrun_behavior = 1
 
-[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Model/VBoxContainer/FoldableContainer5"]
+[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Model/VBoxContainer/FoldableContainer5" unique_id=369862054]
 visible = false
 layout_mode = 2
 text = "This is likely because of how your model is rotated, make it so the palm is facing downwards and the fingers should try to match the rotation of the reference model as close as possible
@@ -1564,14 +1563,14 @@ text = "This is likely because of how your model is rotated, make it so the palm
 If it looks worse in first person than in third person, it may require a custom arms model which has been adjusted, which is currently not supported"
 autowrap_mode = 3
 
-[node name="FoldableContainer13" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Model/VBoxContainer"]
+[node name="FoldableContainer13" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Model/VBoxContainer" unique_id=240903027]
 layout_mode = 2
 size_flags_horizontal = 3
 folded = true
 title = "My character's arms/legs/body part look so weird"
 title_text_overrun_behavior = 1
 
-[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Model/VBoxContainer/FoldableContainer13"]
+[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Model/VBoxContainer/FoldableContainer13" unique_id=606264877]
 visible = false
 layout_mode = 2
 text = "There are likely two reasons for this
@@ -1581,82 +1580,82 @@ text = "There are likely two reasons for this
 2: The default pose you have is not correct, keep in mind that the application expects a T-Pose, not for the funnies, given that's the best way for the model to work as intended in the game"
 autowrap_mode = 3
 
-[node name="FoldableContainer14" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Model/VBoxContainer"]
+[node name="FoldableContainer14" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Model/VBoxContainer" unique_id=1452325762]
 layout_mode = 2
 size_flags_horizontal = 3
 folded = true
 title = "My character's feet sink into the ground sometimes"
 title_text_overrun_behavior = 1
 
-[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Model/VBoxContainer/FoldableContainer14"]
+[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Model/VBoxContainer/FoldableContainer14" unique_id=364071133]
 visible = false
 layout_mode = 2
 text = "This tends to happen if your character has a pretty different armature when it comes to legs, the best fix would be to make the bones match the reference, although this is not always possible to do on some models"
 autowrap_mode = 3
 
-[node name="FoldableContainer15" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Model/VBoxContainer"]
+[node name="FoldableContainer15" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Model/VBoxContainer" unique_id=746550301]
 layout_mode = 2
 size_flags_horizontal = 3
 folded = true
 title = "My character deforms oddly in game"
 title_text_overrun_behavior = 1
 
-[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Model/VBoxContainer/FoldableContainer15"]
+[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Model/VBoxContainer/FoldableContainer15" unique_id=215856662]
 visible = false
 layout_mode = 2
 text = "This can happen if for example your character has very few spine bones, and the spine is very short, so you can try adding bones without any weights before in reasonable spots to try to make it look better"
 autowrap_mode = 3
 
-[node name="Physics" type="ScrollContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer"]
+[node name="Physics" type="ScrollContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer" unique_id=1356670455]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Physics"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Physics" unique_id=1523558810]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 0
 
-[node name="FoldableContainer9" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Physics/VBoxContainer"]
+[node name="FoldableContainer9" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Physics/VBoxContainer" unique_id=1048597936]
 layout_mode = 2
 size_flags_horizontal = 3
 folded = true
 title = "The jigglebone physics look weird"
 title_text_overrun_behavior = 1
 
-[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Physics/VBoxContainer/FoldableContainer9"]
+[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Physics/VBoxContainer/FoldableContainer9" unique_id=809071657]
 visible = false
 layout_mode = 2
 text = "The parameters are based off what is exactly in the compile file, but these require some knowledge to work with, although the length parameter is calculated automatically for you"
 autowrap_mode = 3
 
-[node name="FoldableContainer7" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Physics/VBoxContainer"]
+[node name="FoldableContainer7" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Physics/VBoxContainer" unique_id=1703402259]
 layout_mode = 2
 size_flags_horizontal = 3
 folded = true
 title = "The character looks buggy as a ragdoll"
 title_text_overrun_behavior = 1
 
-[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Physics/VBoxContainer/FoldableContainer7"]
+[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Physics/VBoxContainer/FoldableContainer7" unique_id=212169168]
 visible = false
 layout_mode = 2
 text = "The bone naming scheme is most likely not correct, you should double check it to make sure it is correct"
 autowrap_mode = 3
 
-[node name="FoldableContainer8" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Physics/VBoxContainer"]
+[node name="FoldableContainer8" type="FoldableContainer" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Physics/VBoxContainer" unique_id=532322899]
 layout_mode = 2
 size_flags_horizontal = 3
 folded = true
 title = "The character doesn't have a ragdoll"
 title_text_overrun_behavior = 1
 
-[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Physics/VBoxContainer/FoldableContainer8"]
+[node name="Label" type="Label" parent="Toolbar/Options/Help/Troubleshooting/TabContainer/Physics/VBoxContainer/FoldableContainer8" unique_id=725006031]
 visible = false
 layout_mode = 2
 text = "You likely did not create collisiosn for the character"
 autowrap_mode = 3
 
-[node name="Licenses" type="Window" parent="Toolbar/Options/Help"]
+[node name="Licenses" type="Window" parent="Toolbar/Options/Help" unique_id=841347074]
 oversampling_override = 1.0
 title = "Licenses"
 position = Vector2i(0, 36)
@@ -1664,7 +1663,7 @@ size = Vector2i(600, 400)
 visible = false
 force_native = true
 
-[node name="ColorRect" type="ColorRect" parent="Toolbar/Options/Help/Licenses"]
+[node name="ColorRect" type="ColorRect" parent="Toolbar/Options/Help/Licenses" unique_id=181649773]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1672,7 +1671,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.09, 0.09, 0.09, 1)
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Toolbar/Options/Help/Licenses"]
+[node name="ScrollContainer" type="ScrollContainer" parent="Toolbar/Options/Help/Licenses" unique_id=1925299356]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -1680,7 +1679,7 @@ grow_horizontal = 2
 grow_vertical = 2
 horizontal_scroll_mode = 0
 
-[node name="Label" type="Label" parent="Toolbar/Options/Help/Licenses/ScrollContainer"]
+[node name="Label" type="Label" parent="Toolbar/Options/Help/Licenses/ScrollContainer" unique_id=746811143]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "(c) 2026 Amaxivermis
@@ -4023,12 +4022,7 @@ License: Zlib
  3. This notice may not be removed or altered from any source distribution."
 autowrap_mode = 3
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.4067366, 0.9135455, 0, -0.9135455, 0.4067366, 0, 0, 0)
-shadow_blur = 0.23
-directional_shadow_pancake_size = 0.0
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1818482531]
 environment = SubResource("Environment_5qyes")
 
 [connection signal="file_selected" from="ModelSearch" to="." method="_import_model"]

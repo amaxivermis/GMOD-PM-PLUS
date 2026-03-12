@@ -7,6 +7,10 @@ class ExportProgress:
 static var undo_manager: UndoRedo
 static var error_dialogue: AcceptDialog
 
+func _init() -> void:
+	# I searched this up and I had to add this line to get it to work
+	RenderingServer.set_debug_generate_wireframes(true)
+
 func _enter_tree() -> void:
 	undo_manager = UndoRedo.new()
 	error_dialogue = $ErrorDialog
@@ -28,7 +32,7 @@ func _import_model(path: String) -> void:
 	if model != null:
 		model.queue_free()
 	
-	if path.get_extension().to_lower() == "glb":
+	if path.get_extension().to_lower() == "glb" || path.get_extension().to_lower() == "gltf":
 		import_gltf(path)
 	
 	if model != null:
