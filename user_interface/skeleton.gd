@@ -53,7 +53,7 @@ func set_scene(imported_scene):
 	scene = imported_scene
 	
 	var child = scene.get_child(0)
-	skeleton = child.get_child(0)
+	skeleton = PMPlusUtils.get_skeleton(child)
 	var old_basis = child.basis
 	var child_basis = skeleton.get_bone_pose(0)
 	child.transform = Transform3D.IDENTITY
