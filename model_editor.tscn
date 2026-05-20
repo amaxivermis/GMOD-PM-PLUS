@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dyl5vto8pedvv" path="res://view_camera.gd" id="1_16jkr"]
 [ext_resource type="Script" uid="uid://dk5e60841igq0" path="res://user_interface/model_editor.gd" id="1_if0bs"]
 [ext_resource type="Script" uid="uid://7ee5brbsddgk" path="res://user_interface/skeleton.gd" id="3_arc6n"]
+[ext_resource type="SkeletonProfile" uid="uid://t70y1qphnbrf" path="res://gmod_male.tres" id="3_olasb"]
 [ext_resource type="PackedScene" uid="uid://tw0dyldw0ed1" path="res://male07_ref.glb" id="3_sdunm"]
 [ext_resource type="Theme" uid="uid://b4lcu0m3by7tw" path="res://user_interface/themes/amaxivermis_theme.tres" id="4_iopv7"]
 [ext_resource type="Script" uid="uid://d2yx12vcihlkk" path="res://application_setting.gd" id="4_lan5r"]
@@ -20,6 +21,7 @@
 [ext_resource type="Script" uid="uid://vob5gaa4k4p4" path="res://view.gd" id="14_lan5r"]
 [ext_resource type="Script" uid="uid://bfwqnlivm84l7" path="res://user_interface/materials/groups.gd" id="16_iopv7"]
 [ext_resource type="Texture2D" uid="uid://dqe46enaw0840" path="res://user_interface/icons/material_icon.png" id="17_lan5r"]
+[ext_resource type="Script" uid="uid://b4iocrsyle3ww" path="res://ImportModel.cs" id="21_trbmf"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sdunm"]
 transparency = 1
@@ -46,7 +48,6 @@ tonemap_mode = 1
 script = ExtResource("1_if0bs")
 
 [node name="reference_male2" type="Node3D" parent="." unique_id=2089648758]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0928857, 1.1920929e-07, -3.1500914)
 
 [node name="reference_male" type="Node3D" parent="reference_male2" unique_id=1294344604]
 
@@ -444,8 +445,11 @@ bones/55/position = Vector3(0.1719862, -3.4592813e-07, -5.3823896e-09)
 bones/55/rotation = Quaternion(-0.0009824093, -0.0015331011, -0.2741297, 0.961691)
 bones/55/scale = Vector3(0.99999994, 0.9999998, 0.9999999)
 
+[node name="Repose" type="RetargetModifier3D" parent="reference_male2/reference_male/Skeleton3D" unique_id=1088282024]
+profile = ExtResource("3_olasb")
+enable = 2
+
 [node name="male_07_reference2" parent="." unique_id=23311503 instance=ExtResource("3_sdunm")]
-transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, 0, 0, 0)
 
 [node name="Skeleton3D" parent="male_07_reference2/male_07_reference_skeleton" index="0"]
 bones/9/rotation = Quaternion(0.70054656, 0.0847502, 0.09926718, 0.7015682)
@@ -454,12 +458,15 @@ bones/35/rotation = Quaternion(-0.70054656, -0.09165578, 0.092928946, 0.70156825
 bones/35/scale = Vector3(1.0000001, 0.9999999, 0.9999996)
 
 [node name="male_07_reference" parent="male_07_reference2/male_07_reference_skeleton/Skeleton3D" index="0"]
+transform = Transform3D(0.025, 0, 0, 0, 0.025, 0, 0, 0, 0.025, 0, 0, 0)
 material_override = SubResource("StandardMaterial3D_sdunm")
 skeleton = NodePath("..")
 
 [node name="SkeletonIK3D" type="SkeletonIK3D" parent="male_07_reference2/male_07_reference_skeleton/Skeleton3D" index="1" unique_id=481033233]
+visible = false
 
 [node name="SpringBoneSimulator3D" type="SpringBoneSimulator3D" parent="male_07_reference2/male_07_reference_skeleton/Skeleton3D" index="2" unique_id=745399147]
+visible = false
 setting_count = 2
 settings/0/root_bone_name = ""
 settings/0/root_bone = -1
@@ -524,7 +531,7 @@ position = Vector2i(0, 36)
 size = Vector2i(779, 360)
 file_mode = 0
 access = 2
-filters = PackedStringArray("*.glb", "*.gltf", "*.gmp")
+filters = PackedStringArray("*.glb", "*.gltf", "*.fbx", "*.gmp")
 use_native_dialog = true
 
 [node name="Settings" type="Window" parent="." unique_id=1661865041]
@@ -4022,10 +4029,16 @@ License: Zlib
  3. This notice may not be removed or altered from any source distribution."
 autowrap_mode = 3
 
+[node name="Actions" type="Node" parent="." unique_id=1479853885]
+
+[node name="ImportModel" type="Node" parent="Actions" unique_id=1980806415 node_paths=PackedStringArray("ToBeAddedTo")]
+script = ExtResource("21_trbmf")
+ToBeAddedTo = NodePath("../../reference_male2/reference_male/Skeleton3D/Repose")
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1818482531]
 environment = SubResource("Environment_5qyes")
 
-[connection signal="file_selected" from="ModelSearch" to="." method="_import_model"]
+[connection signal="file_selected" from="ModelSearch" to="Actions/ImportModel" method="Import"]
 [connection signal="close_requested" from="Settings" to="." method="_on_settings_close_requested"]
 [connection signal="bone_renamed" from="Panels/Control/TabContainer/Skeleton/Skeleton" to="Panels/Control/TabContainer/Collisions/Collisions" method="update_tree"]
 [connection signal="transform_begin" from="Panels/Control/TabContainer/Skeleton/Skeleton/Gizmo3D" to="Panels/Control/TabContainer/Skeleton/Skeleton" method="_on_gizmo_3d_transform_begin"]
@@ -4056,5 +4069,6 @@ environment = SubResource("Environment_5qyes")
 [connection signal="compile_model" from="Toolbar/Options" to="." method="export_model"]
 [connection signal="import_model" from="Toolbar/Options" to="." method="_prompt_model"]
 [connection signal="open_settings" from="Toolbar/Options" to="." method="_show_settings"]
+[connection signal="PushError" from="Actions/ImportModel" to="." method="show_error"]
 
 [editable path="male_07_reference2"]

@@ -29,15 +29,14 @@ static var bones_to_generate = [
 
 static var bones_to_item: Array[TreeItem] = []
 
-var scene
+var skeleton
 
 func _ready() -> void:
 	visible = false
+	get_node("/root/SkeletonManager").SkeletonChanged.connect(set_skeleton)
 
 func update_tree():
 	await RenderingServer.frame_post_draw
-	
-	var skeleton = PMPlusUtils.get_skeleton(scene)
 	
 	bones_to_item.clear()
 	
@@ -94,8 +93,7 @@ func update_tree():
 
 func generate_collisions():
 	
-	var skeleton = PMPlusUtils.get_skeleton(scene)
-	var mesh_array = PMPlusUtils.get_single_mesh(scene)
+	var mesh_array = PMPlusUtils.get_single_mesh(skeleton)
 	
 	for i in skeleton.get_children():
 		if i.name.contains("ValveBiped_Bip01"):
@@ -164,7 +162,7 @@ func vertex_part_of_bone(index: int, array_data: Array, skeleton: Skeleton3D, bo
 	
 	return false
 
-func set_scene(imported_scene):
+func set_skeleton(imported_skeleton):
 	visible = true
-	scene = imported_scene
+	skeleton = imported_skeleton
 	update_tree()

@@ -2,7 +2,6 @@ extends VBoxContainer
 
 signal bone_renamed
 
-var scene
 @onready var undo_redo: UndoRedo = UndoRedo.new()
 var skeleton: Skeleton3D
 var bone_mappings = []
@@ -47,22 +46,14 @@ var banned_terms = [
 
 func _ready() -> void:
 	visible = false
+	get_node("/root/SkeletonManager").SkeletonChanged.connect(set_skeleton)
 
-func set_scene(imported_scene):
+func set_skeleton(imported_skeleton):
 	visible = true
-	scene = imported_scene
-	
-	var child = scene.get_child(0)
-	skeleton = PMPlusUtils.get_skeleton(child)
-	var old_basis = child.basis
-	var child_basis = skeleton.get_bone_pose(0)
-	child.transform = Transform3D.IDENTITY
-	
-	child_basis.basis = old_basis * child_basis.basis
-	
-	skeleton.set_bone_pose(0, child_basis)
+	skeleton = imported_skeleton
 	
 	generate_bone_gizmos(skeleton)
+	update_tree()
 
 func generate_bone_gizmos(skeleton: Skeleton3D):
 	
@@ -118,8 +109,6 @@ func generate_bone_gizmos(skeleton: Skeleton3D):
 func update_tree():
 	await RenderingServer.frame_post_draw
 	
-	
-	
 	var items = []
 	var stuff_to_look = []
 	
@@ -163,6 +152,165 @@ func update_tree():
 	#var root = $Tree.create_item(null, 0)
 	#root.set_text(0, str(skeleton.get_bone_name(0)) )
 
+func _toggle_repose() -> void:
+	for i in range(0, skeleton.get_bone_count()):
+		var bone_name = skeleton.get_bone_name(i)
+		
+		var bones_to_reset = [
+			"Calf",
+			"Thigh",
+			"Foot",
+			"Toe0",
+			"UpperArm",
+			"ForeArm",
+			"Hand",
+		]
+		
+		if !bones_to_reset.has(bone_name):
+			continue
+		
+		var global_pose = skeleton.get_bone_pose(i)
+		global_pose.basis = Basis.IDENTITY #ReferenceSkeleton.get_bone_pose(ref_index).basis
+		
+		skeleton.set_bone_pose(i, global_pose)
+	
+	# first we do the body
+	var torsoIk = SkeletonIK3D.new()
+	torsoIk.root_bone = "ValveBiped.Bip01_Pelvis"
+	torsoIk.tip_bone = "ValveBiped.Bip01_Head1"
+	torsoIk.override_tip_basis = false
+	
+	# check the pelvis area though
+	var spines = [
+		"ValveBiped.Bip01_Spine",
+		"ValveBiped.Bip01_Spine1",
+		"ValveBiped.Bip01_Spine2",
+		"ValveBiped.Bip01_Spine4",
+	]
+	
+	for i in spines:
+		var index = skeleton.find_bone(i)
+		if index == -1:
+			continue
+		
+		if index < skeleton.find_bone(torsoIk.root_bone):
+			torsoIk.root_bone = i
+			break
+	
+	var torsoPos = Node3D.new()
+	skeleton.add_child(torsoIk)
+	add_child(torsoPos)
+	
+	torsoIk.target_node = torsoPos.get_path()
+	torsoPos.global_position = skeleton.get_bone_global_pose(skeleton.find_bone(torsoIk.root_bone)).origin + skeleton.global_basis.y * 10.0
+	torsoIk.start(true)
+	
+	# apply bones
+	for i in range(0, skeleton.get_bone_count()):
+		var bone_pose = skeleton.get_bone_global_pose_override(i)
+		
+		if bone_pose == Transform3D.IDENTITY:
+			continue
+		
+		skeleton.set_bone_global_pose(i, skeleton.get_bone_global_pose_override(i))
+		skeleton.set_bone_rest(i, skeleton.get_bone_global_pose_override(i))
+	
+	# remove now
+	torsoPos.queue_free()
+	torsoIk.queue_free()
+	
+	setup_arm_ik(false)
+	setup_arm_ik(true)
+	
+	setup_leg_ik(false)
+	setup_leg_ik(true)
+	
+	#setup_foot_ik(skeleton, false)
+	#setup_foot_ik(skeleton, true)
+
+func setup_arm_ik(right: bool):
+	var ArmIk = SkeletonIK3D.new()
+	ArmIk.root_bone = "ValveBiped.Bip01_L_Clavicle"
+	
+	if skeleton.find_bone(ArmIk.root_bone) == -1:
+		ArmIk.root_bone = "ValveBiped.Bip01_L_UpperArm"
+	
+	ArmIk.tip_bone = "ValveBiped.Bip01_L_Hand"
+	ArmIk.override_tip_basis = false
+	
+	if right:
+		ArmIk.root_bone = ArmIk.root_bone.replacen("_L_", "_R_")
+		ArmIk.tip_bone = ArmIk.tip_bone.replacen("_L_", "_R_")
+	
+	var ArmPos = Node3D.new()
+	skeleton.add_child(ArmIk)
+	add_child(ArmPos)
+	
+	ArmIk.target_node = ArmPos.get_path()
+	ArmPos.global_position = skeleton.get_bone_global_pose(skeleton.find_bone(ArmIk.root_bone)).origin + skeleton.global_basis.x * (-10.0 if right else 10.0)
+	
+	ArmIk.start(true)
+	
+	# apply bones
+	for i in range(0, skeleton.get_bone_count()):
+		var bone_pose = skeleton.get_bone_global_pose_override(i)
+		
+		if bone_pose == Transform3D.IDENTITY:
+			continue
+		
+		skeleton.set_bone_global_pose(i, skeleton.get_bone_global_pose_override(i))
+		skeleton.set_bone_rest(i, skeleton.get_bone_global_pose_override(i))
+	
+	# fix the stuff
+	var bottom_index = skeleton.find_bone(ArmIk.tip_bone)
+	var bottom_trans = skeleton.get_bone_global_pose(bottom_index)
+	bottom_trans.basis = skeleton.get_bone_global_pose(skeleton.get_bone_parent(bottom_index)).basis
+	skeleton.set_bone_global_pose(bottom_index, bottom_trans)
+	
+	# remove now
+	ArmPos.queue_free()
+	ArmIk.queue_free()
+
+func setup_leg_ik(right: bool):
+	var legIk = SkeletonIK3D.new()
+	legIk.root_bone = "ValveBiped.Bip01_L_Thigh"
+	legIk.tip_bone = "ValveBiped.Bip01_L_Foot"
+	legIk.override_tip_basis = false
+	
+	if right:
+		legIk.root_bone = legIk.root_bone.replacen("_L_", "_R_")
+		legIk.tip_bone = legIk.tip_bone.replacen("_L_", "_R_")
+	
+	var legPos = Node3D.new()
+	skeleton.add_child(legIk)
+	add_child(legPos)
+	
+	legIk.target_node = legPos.get_path()
+	legPos.global_position = skeleton.get_bone_global_pose(skeleton.find_bone(legIk.root_bone)).origin + skeleton.global_basis.y * -10.0
+	legPos.rotation_degrees = Vector3(-90.0, -90.0, 0.0)
+	
+	legIk.start(true)
+	
+	# apply bones
+	for i in range(0, skeleton.get_bone_count()):
+		var bone_pose = skeleton.get_bone_global_pose_override(i)
+		
+		if bone_pose == Transform3D.IDENTITY:
+			continue
+		
+		skeleton.set_bone_global_pose(i, skeleton.get_bone_global_pose_override(i))
+		skeleton.set_bone_rest(i, skeleton.get_bone_global_pose_override(i))
+	
+	# fix the stuff
+	var bottom_index = skeleton.find_bone(legIk.tip_bone)
+	var bottom_trans = skeleton.get_bone_global_pose(bottom_index)
+	bottom_trans.basis = skeleton.get_bone_global_pose(skeleton.get_bone_parent(bottom_index)).basis
+	bottom_trans.basis = bottom_trans.basis.rotated(Vector3.RIGHT, PI / -2.0)
+	skeleton.set_bone_global_pose(bottom_index, bottom_trans)
+	
+	# remove now
+	legPos.queue_free()
+	legIk.queue_free()
 
 func _process(delta: float) -> void:
 	if skeleton == null:
@@ -622,168 +770,6 @@ func bone_has_array_term(string: String, array: PackedStringArray) -> bool:
 			return true
 	
 	return false
-
-func _toggle_repose() -> void:
-	for i in range(0, skeleton.get_bone_count()):
-		var bone_name = skeleton.get_bone_name(i)
-		
-		var bones_to_reset = [
-			"Calf",
-			"Thigh",
-			"Foot",
-			"Toe0",
-			"UpperArm",
-			"ForeArm",
-			"Hand",
-		]
-		
-		if !bones_to_reset.has(bone_name):
-			continue
-		
-		var global_pose = skeleton.get_bone_pose(i)
-		global_pose.basis = Basis.IDENTITY #ReferenceSkeleton.get_bone_pose(ref_index).basis
-		
-		skeleton.set_bone_pose(i, global_pose)
-	
-	# first we do the body
-	var torsoIk = SkeletonIK3D.new()
-	torsoIk.root_bone = "ValveBiped.Bip01_Pelvis"
-	torsoIk.tip_bone = "ValveBiped.Bip01_Head1"
-	torsoIk.override_tip_basis = false
-	
-	# check the pelvis area though
-	var spines = [
-		"ValveBiped.Bip01_Spine",
-		"ValveBiped.Bip01_Spine1",
-		"ValveBiped.Bip01_Spine2",
-		"ValveBiped.Bip01_Spine4",
-	]
-	
-	for i in spines:
-		var index = skeleton.find_bone(i)
-		if index == -1:
-			continue
-		
-		if index < skeleton.find_bone(torsoIk.root_bone):
-			torsoIk.root_bone = i
-			break
-	
-	var torsoPos = Node3D.new()
-	skeleton.add_child(torsoIk)
-	scene.add_child(torsoPos)
-	
-	torsoIk.target_node = torsoPos.get_path()
-	torsoPos.global_position = skeleton.get_bone_global_pose(skeleton.find_bone(torsoIk.root_bone)).origin + scene.basis.y * 10.0
-	torsoIk.start(true)
-	
-	# apply bones
-	for i in range(0, skeleton.get_bone_count()):
-		var bone_pose = skeleton.get_bone_global_pose_override(i)
-		
-		if bone_pose == Transform3D.IDENTITY:
-			continue
-		
-		skeleton.set_bone_global_pose(i, skeleton.get_bone_global_pose_override(i))
-		skeleton.set_bone_rest(i, skeleton.get_bone_global_pose_override(i))
-	
-	# remove now
-	torsoPos.queue_free()
-	torsoIk.queue_free()
-	
-	setup_arm_ik(false)
-	setup_arm_ik(true)
-	
-	setup_leg_ik(false)
-	setup_leg_ik(true)
-	
-	#setup_foot_ik(skeleton, false)
-	#setup_foot_ik(skeleton, true)
-
-func setup_arm_ik(right: bool):
-	var ArmIk = SkeletonIK3D.new()
-	ArmIk.root_bone = "ValveBiped.Bip01_L_Clavicle"
-	
-	if skeleton.find_bone(ArmIk.root_bone) == -1:
-		ArmIk.root_bone = "ValveBiped.Bip01_L_UpperArm"
-	
-	ArmIk.tip_bone = "ValveBiped.Bip01_L_Hand"
-	ArmIk.override_tip_basis = false
-	
-	if right:
-		ArmIk.root_bone = ArmIk.root_bone.replacen("_L_", "_R_")
-		ArmIk.tip_bone = ArmIk.tip_bone.replacen("_L_", "_R_")
-	
-	var ArmPos = Node3D.new()
-	skeleton.add_child(ArmIk)
-	scene.add_child(ArmPos)
-	
-	ArmIk.target_node = ArmPos.get_path()
-	ArmPos.global_position = skeleton.get_bone_global_pose(skeleton.find_bone(ArmIk.root_bone)).origin + scene.basis.x * (-10.0 if right else 10.0)
-	
-	ArmIk.start(true)
-	
-	# apply bones
-	for i in range(0, skeleton.get_bone_count()):
-		var bone_pose = skeleton.get_bone_global_pose_override(i)
-		
-		if bone_pose == Transform3D.IDENTITY:
-			continue
-		
-		skeleton.set_bone_global_pose(i, skeleton.get_bone_global_pose_override(i))
-		skeleton.set_bone_rest(i, skeleton.get_bone_global_pose_override(i))
-	
-	# fix the stuff
-	var bottom_index = skeleton.find_bone(ArmIk.tip_bone)
-	var bottom_trans = skeleton.get_bone_global_pose(bottom_index)
-	bottom_trans.basis = skeleton.get_bone_global_pose(skeleton.get_bone_parent(bottom_index)).basis
-	skeleton.set_bone_global_pose(bottom_index, bottom_trans)
-	
-	# remove now
-	ArmPos.queue_free()
-	ArmIk.queue_free()
-
-func setup_leg_ik(right: bool):
-	var legIk = SkeletonIK3D.new()
-	legIk.root_bone = "ValveBiped.Bip01_L_Thigh"
-	legIk.tip_bone = "ValveBiped.Bip01_L_Foot"
-	legIk.override_tip_basis = false
-	
-	if right:
-		legIk.root_bone = legIk.root_bone.replacen("_L_", "_R_")
-		legIk.tip_bone = legIk.tip_bone.replacen("_L_", "_R_")
-	
-	var legPos = Node3D.new()
-	skeleton.add_child(legIk)
-	scene.add_child(legPos)
-	
-	legIk.target_node = legPos.get_path()
-	legPos.global_position = skeleton.get_bone_global_pose(skeleton.find_bone(legIk.root_bone)).origin + scene.basis.y * -10.0
-	legPos.rotation_degrees = Vector3(-90.0, -90.0, 0.0)
-	
-	legIk.start(true)
-	
-	# apply bones
-	for i in range(0, skeleton.get_bone_count()):
-		var bone_pose = skeleton.get_bone_global_pose_override(i)
-		
-		if bone_pose == Transform3D.IDENTITY:
-			continue
-		
-		skeleton.set_bone_global_pose(i, skeleton.get_bone_global_pose_override(i))
-		skeleton.set_bone_rest(i, skeleton.get_bone_global_pose_override(i))
-	
-	# fix the stuff
-	var bottom_index = skeleton.find_bone(legIk.tip_bone)
-	var bottom_trans = skeleton.get_bone_global_pose(bottom_index)
-	bottom_trans.basis = skeleton.get_bone_global_pose(skeleton.get_bone_parent(bottom_index)).basis
-	bottom_trans.basis = bottom_trans.basis.rotated(Vector3.RIGHT, PI / -2.0)
-	skeleton.set_bone_global_pose(bottom_index, bottom_trans)
-	
-	# remove now
-	legPos.queue_free()
-	legIk.queue_free()
-
-
 
 # just some ui stuff
 var target_transform: Transform3D = Transform3D.IDENTITY

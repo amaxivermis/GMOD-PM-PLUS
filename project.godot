@@ -18,6 +18,10 @@ boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/show_image=false
 config/icon="uid://cqjw4nykhoi06"
 
+[autoload]
+
+SkeletonManager="*uid://dmn8oqyokjw2"
+
 [display]
 
 window/size/viewport_width=1280

@@ -7,18 +7,19 @@ var shader_setting_scene = preload("res://user_interface/materials/shader_settin
 var shader_material_groups: Array[TextureGroup] = []
 var current_texture_group: TextureGroup
 
-var scene
+var skeleton
 
 var current_index = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	visible = false
+	get_node("/root/SkeletonManager").SkeletonChanged.connect(set_skeleton)
 
 
-func import_scene(import):
+func set_skeleton(import_skeleton):
 	visible = true
-	scene = import
+	skeleton = import_skeleton
 	
 	$Settings/VBoxContainer/MaterialList.clear()
 	shader_material_groups.clear()
@@ -32,7 +33,7 @@ func remove_group(index):
 	switch_body_group(index)
 
 func setup_materials(index):
-	var children = [ scene ]
+	var children = [ skeleton ]
 	var materials = []
 	
 	current_texture_group = TextureGroup.new()
@@ -85,7 +86,7 @@ func setup_materials(index):
 	refresh_shader_settings()
 
 func switch_body_group(index):
-	var children = [ scene ]
+	var children = [ skeleton ]
 	
 	for i in children:
 		children.append_array(i.get_children())
