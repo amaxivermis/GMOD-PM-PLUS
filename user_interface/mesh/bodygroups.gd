@@ -24,7 +24,6 @@ func setup_group_tree(scene):
 	list.clear()
 	list.add_item("Body")
 	
-	var tree = $VBoxContainer/Tree
 	tree.clear()
 	
 	tree.set_column_expand(1, true)

@@ -4,8 +4,14 @@ using System.Collections.Generic;
 
 public partial class ImportModel : Node
 {
+
+
     [Signal]
     public delegate void PushErrorEventHandler(string error);
+    [Signal]
+    public delegate void PushWarningEventHandler(string warning);
+    [Signal]
+    public delegate void ProjectFileEventHandler(string file);
 
     [Export] Node ToBeAddedTo;
 
@@ -22,7 +28,6 @@ public partial class ImportModel : Node
     public void Import(string path)
     {
         var model = SkeletonManager.Singleton.SkeletonInstance;
-
         if (model != null)
         {
             model.QueueFree();
@@ -32,6 +37,9 @@ public partial class ImportModel : Node
             ImportGLTF(path);
         else if (path.GetExtension().ToLower() == "fbx")
             ImportFBX(path);
+        // it's a GMP file
+        else if (path.GetExtension().ToLower() == "gmp")
+            EmitSignal(SignalName.ProjectFile, path);
     }
 
     public void ImportGLTF(string path)
@@ -55,6 +63,8 @@ public partial class ImportModel : Node
 
     public void ImportFBX(string path)
     {
+        EmitSignal(SignalName.PushWarning, "FBX is generally buggier than GLTF and is a closed format, if you use 3D modelling software it's recommended to use GLTF instead which is also an open format");
+
         GD.Print("Importing FBX: " + path);
 
         FbxDocument fbxDocumentLoad = new();
@@ -84,8 +94,8 @@ public partial class ImportModel : Node
         }
 
         // reparent now
-        skeleton.Reparent(ToBeAddedTo);
-        scene.QueueFree();
+        //skeleton.Reparent(ToBeAddedTo);
+        //scene.QueueFree();
 
         SkeletonManager.Singleton.SkeletonInstance = skeleton;
     }

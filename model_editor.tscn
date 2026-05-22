@@ -22,6 +22,8 @@
 [ext_resource type="Script" uid="uid://bfwqnlivm84l7" path="res://user_interface/materials/groups.gd" id="16_iopv7"]
 [ext_resource type="Texture2D" uid="uid://dqe46enaw0840" path="res://user_interface/icons/material_icon.png" id="17_lan5r"]
 [ext_resource type="Script" uid="uid://b4iocrsyle3ww" path="res://ImportModel.cs" id="21_trbmf"]
+[ext_resource type="Script" uid="uid://cql0qrv7iawxk" path="res://SaveModel.cs" id="23_pguem"]
+[ext_resource type="Script" uid="uid://bu6qx4s7s2l27" path="res://bone_auto_renaming.gd" id="24_bbu36"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sdunm"]
 transparency = 1
@@ -505,6 +507,15 @@ settings/1/gravity/direction = Vector3(0, -1, 0)
 settings/1/enable_all_child_collisions = true
 settings/1/exclude_collision_count = 0
 
+[node name="FABRIK3D" type="FABRIK3D" parent="male_07_reference2/male_07_reference_skeleton/Skeleton3D" index="3" unique_id=2087882244]
+setting_count = 1
+settings/0/target_node = NodePath("")
+settings/0/root_bone_name = ""
+settings/0/root_bone = -1
+settings/0/end_bone_name = ""
+settings/0/end_bone = -1
+settings/0/joint_count = 0
+
 [node name="ErrorDialog" type="AcceptDialog" parent="." unique_id=754824988]
 oversampling_override = 1.0
 title = "Error"
@@ -528,7 +539,7 @@ autowrap_mode = 3
 oversampling_override = 1.0
 title = "Open a File"
 position = Vector2i(0, 36)
-size = Vector2i(779, 360)
+size = Vector2i(1022, 360)
 file_mode = 0
 access = 2
 filters = PackedStringArray("*.glb", "*.gltf", "*.fbx", "*.gmp")
@@ -663,6 +674,37 @@ horizontal_alignment = 1
 [node name="ProgressBar" type="ProgressBar" parent="ExportProgress/VBoxContainer" unique_id=1016241836]
 layout_mode = 2
 size_flags_vertical = 2
+
+[node name="ImportOverride" type="ConfirmationDialog" parent="." unique_id=815869205]
+oversampling_override = 1.0
+initial_position = 1
+size = Vector2i(400, 100)
+max_size = Vector2i(400, 32768)
+dialog_text = "You're about to overwrite your current model and create a new save, are you sure you want to continue?"
+dialog_autowrap = true
+
+[node name="Actions" type="Node" parent="." unique_id=1479853885]
+
+[node name="ImportModel" type="Node" parent="Actions" unique_id=1980806415 node_paths=PackedStringArray("ToBeAddedTo")]
+script = ExtResource("21_trbmf")
+ToBeAddedTo = NodePath("../..")
+
+[node name="SaveModel" type="Node" parent="Actions" unique_id=1239779041 node_paths=PackedStringArray("ToBeAddedTo", "FieldsToSave")]
+script = ExtResource("23_pguem")
+ToBeAddedTo = NodePath("../..")
+FieldsToSave = NodePath("../../Panels")
+
+[node name="SaveDialogue" type="FileDialog" parent="Actions/SaveModel" unique_id=931306039]
+oversampling_override = 1.0
+position = Vector2i(0, 36)
+size = Vector2i(1058, 360)
+access = 2
+filters = PackedStringArray("*.gmp")
+show_hidden_files = true
+use_native_dialog = true
+
+[node name="BoneAutoRename" type="Node" parent="Actions" unique_id=1414143467]
+script = ExtResource("24_bbu36")
 
 [node name="Background" type="ColorRect" parent="." unique_id=217470257]
 anchors_preset = 15
@@ -1385,13 +1427,15 @@ popup/item_3/id = 2
 [node name="Model" type="MenuButton" parent="Toolbar/Options" unique_id=658334072]
 layout_mode = 2
 text = "Model"
-item_count = 3
+item_count = 4
 popup/item_0/text = "Import"
 popup/item_0/id = 0
-popup/item_1/id = 0
-popup/item_1/separator = true
-popup/item_2/text = "Compile"
-popup/item_2/id = 1
+popup/item_1/text = "Save"
+popup/item_1/id = 2
+popup/item_2/id = 0
+popup/item_2/separator = true
+popup/item_3/text = "Compile"
+popup/item_3/id = 1
 
 [node name="Help" type="MenuButton" parent="Toolbar/Options" unique_id=1755920162]
 layout_mode = 2
@@ -1690,6 +1734,11 @@ horizontal_scroll_mode = 0
 layout_mode = 2
 size_flags_horizontal = 3
 text = "(c) 2026 Amaxivermis
+
+Files: MessagePack/*
+Comment: MsgPack C#
+Copyright:  Copyright (c) 2017 Yoshifumi Kawai and contributors
+License: MIT
 
 Files: MIConvexHull/*
 Comment: MIConvexHull
@@ -4029,24 +4078,26 @@ License: Zlib
  3. This notice may not be removed or altered from any source distribution."
 autowrap_mode = 3
 
-[node name="Actions" type="Node" parent="." unique_id=1479853885]
-
-[node name="ImportModel" type="Node" parent="Actions" unique_id=1980806415 node_paths=PackedStringArray("ToBeAddedTo")]
-script = ExtResource("21_trbmf")
-ToBeAddedTo = NodePath("../../reference_male2/reference_male/Skeleton3D/Repose")
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1818482531]
 environment = SubResource("Environment_5qyes")
 
 [connection signal="file_selected" from="ModelSearch" to="Actions/ImportModel" method="Import"]
 [connection signal="close_requested" from="Settings" to="." method="_on_settings_close_requested"]
+[connection signal="ProjectFile" from="Actions/ImportModel" to="Actions/SaveModel" method="OpenFile"]
+[connection signal="PushError" from="Actions/ImportModel" to="." method="show_error"]
+[connection signal="PushWarning" from="Actions/ImportModel" to="." method="show_warning"]
+[connection signal="PushError" from="Actions/SaveModel" to="." method="show_error"]
+[connection signal="PushWarning" from="Actions/SaveModel" to="." method="show_warning"]
+[connection signal="file_selected" from="Actions/SaveModel/SaveDialogue" to="Actions/SaveModel" method="CreateFile"]
+[connection signal="bone_renamed" from="Actions/BoneAutoRename" to="Panels/Control/TabContainer/Skeleton/Skeleton" method="update_tree"]
+[connection signal="bone_renamed" from="Actions/BoneAutoRename" to="Panels/Control/TabContainer/Collisions/Collisions" method="update_tree"]
 [connection signal="bone_renamed" from="Panels/Control/TabContainer/Skeleton/Skeleton" to="Panels/Control/TabContainer/Collisions/Collisions" method="update_tree"]
 [connection signal="transform_begin" from="Panels/Control/TabContainer/Skeleton/Skeleton/Gizmo3D" to="Panels/Control/TabContainer/Skeleton/Skeleton" method="_on_gizmo_3d_transform_begin"]
 [connection signal="transform_changed" from="Panels/Control/TabContainer/Skeleton/Skeleton/Gizmo3D" to="Panels/Control/TabContainer/Skeleton/Skeleton" method="_on_gizmo_3d_transform_changed"]
 [connection signal="transform_end" from="Panels/Control/TabContainer/Skeleton/Skeleton/Gizmo3D" to="Panels/Control/TabContainer/Skeleton/Skeleton" method="_on_gizmo_3d_transform_end"]
 [connection signal="item_edited" from="Panels/Control/TabContainer/Skeleton/Skeleton/Bones/Tree" to="Panels/Control/TabContainer/Skeleton/Skeleton" method="_on_tree_item_edited"]
 [connection signal="item_selected" from="Panels/Control/TabContainer/Skeleton/Skeleton/Bones/Tree" to="Panels/Control/TabContainer/Skeleton/Skeleton" method="_on_tree_item_selected"]
-[connection signal="pressed" from="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming/VBoxContainer/Rename/Button" to="Panels/Control/TabContainer/Skeleton/Skeleton" method="_toggle_rename"]
+[connection signal="pressed" from="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming/VBoxContainer/Rename/Button" to="Actions/BoneAutoRename" method="_toggle_rename"]
 [connection signal="pressed" from="Panels/Control/TabContainer/Skeleton/Skeleton/Renaming/VBoxContainer/Repose/Button" to="Panels/Control/TabContainer/Skeleton/Skeleton" method="_toggle_repose"]
 [connection signal="pressed" from="Panels/Control/TabContainer/Skeleton/Skeleton/Editing/VBoxContainer/RelativeRotationEditing/CheckBox" to="Panels/Control/TabContainer/Skeleton/Skeleton" method="adjust_gizmo_transform"]
 [connection signal="value_changed" from="Panels/Control/TabContainer/Mesh/Mesh/Offsets/VBoxContainer/Scale/SpinBox" to="Panels/Control/TabContainer/Mesh/Mesh" method="_on_scale"]
@@ -4069,6 +4120,6 @@ environment = SubResource("Environment_5qyes")
 [connection signal="compile_model" from="Toolbar/Options" to="." method="export_model"]
 [connection signal="import_model" from="Toolbar/Options" to="." method="_prompt_model"]
 [connection signal="open_settings" from="Toolbar/Options" to="." method="_show_settings"]
-[connection signal="PushError" from="Actions/ImportModel" to="." method="show_error"]
+[connection signal="save_file" from="Toolbar/Options" to="Actions/SaveModel" method="Save"]
 
 [editable path="male_07_reference2"]

@@ -3,6 +3,7 @@ extends HBoxContainer
 signal import_model
 signal compile_model
 signal open_settings
+signal save_file
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -24,6 +25,8 @@ func model_option_pressed(id):
 		import_model.emit()
 	elif id == 1:
 		compile_model.emit()
+	elif id == 2:
+		save_file.emit()
 
 func editor_option_pressed(id):
 	print("Editor press: " + str(id))

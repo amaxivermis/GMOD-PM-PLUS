@@ -63,8 +63,8 @@ func prompt_texture():
 	$Texture/TextureOpen.popup_centered()
 
 func texture_change(path: String):
-	var image = Image.new().load_from_file(path)
-	var texture = ImageTexture.new().create_from_image(image)
+	var image = Image.load_from_file(path)
+	var texture = ImageTexture.create_from_image(image)
 	texture.resource_name = make_path_acceptable(path).validate_filename()
 	print(texture.resource_name)
 	
@@ -73,4 +73,5 @@ func texture_change(path: String):
 
 # i need to make sure users don't get pissed off with me because their name got leaked
 func make_path_acceptable(path: String):
+	@warning_ignore("integer_division")
 	return path.substr(path.length() / 3, path.length()).replacen(" ", "").get_basename()

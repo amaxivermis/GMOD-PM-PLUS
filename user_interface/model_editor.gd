@@ -22,7 +22,13 @@ func _input(event: InputEvent) -> void:
 		undo_manager.undo()
 
 func _prompt_model() -> void:
-	$ModelSearch.popup_centered()
+	
+	if get_node("/root/SkeletonManager").SkeletonInstance != null:
+		$ImportOverride.popup_centered()
+		await $ImportOverride.confirmed
+		$ModelSearch.popup_centered()
+	else:
+		$ModelSearch.popup_centered()
 
 func _show_settings() -> void:
 	$Settings.popup_centered()

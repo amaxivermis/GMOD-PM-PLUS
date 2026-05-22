@@ -1,48 +1,12 @@
 extends VBoxContainer
 
 signal bone_renamed
-
 @onready var undo_redo: UndoRedo = UndoRedo.new()
 var skeleton: Skeleton3D
 var bone_mappings = []
 var current_rotated = -1
 
 var bones_display: MultiMeshInstance3D
-
-#these are used to rename everything
-var arm_bones = [
-	"hand",
-	"clavicle",
-	"shoulder",
-	"arm",
-]
-
-# the reason the toe isn't included is because there should not be that many, so we just check for the child on the foot
-var leg_bones = [
-	"leg",
-	"thigh",
-	"calf",
-	"knee",
-	"foot"
-]
-
-var spine_bones = [
-	"neck",
-	"spine",
-	"pelvis",
-	"bust",
-	"hip",
-	"waist",
-	"chest",
-	"head",
-	"torso"
-]
-
-var banned_terms = [
-	"end_",
-	"_end",
-	"_sub"
-]
 
 func _ready() -> void:
 	visible = false
@@ -52,10 +16,10 @@ func set_skeleton(imported_skeleton):
 	visible = true
 	skeleton = imported_skeleton
 	
-	generate_bone_gizmos(skeleton)
+	generate_bone_gizmos()
 	update_tree()
 
-func generate_bone_gizmos(skeleton: Skeleton3D):
+func generate_bone_gizmos():
 	
 	var bone_mesh: ArrayMesh = load("res://collisions/bone.obj")
 	
@@ -229,24 +193,25 @@ func _toggle_repose() -> void:
 	#setup_foot_ik(skeleton, true)
 
 func setup_arm_ik(right: bool):
-	var ArmIk = SkeletonIK3D.new()
-	ArmIk.root_bone = "ValveBiped.Bip01_L_Clavicle"
+	var ArmIk = FABRIK3D.new()
+	ArmIk.setting_count = 1
+	ArmIk.set_root_bone_name(0, "ValveBiped.Bip01_L_Clavicle")
 	
-	if skeleton.find_bone(ArmIk.root_bone) == -1:
-		ArmIk.root_bone = "ValveBiped.Bip01_L_UpperArm"
+	if skeleton.find_bone(ArmIk.get_root_bone_name(0)) == -1:
+		ArmIk.set_root_bone_name(0, "ValveBiped.Bip01_L_UpperArm")
 	
-	ArmIk.tip_bone = "ValveBiped.Bip01_L_Hand"
+	ArmIk.set_end_bone_name(0, "ValveBiped.Bip01_L_Hand")
 	ArmIk.override_tip_basis = false
 	
 	if right:
-		ArmIk.root_bone = ArmIk.root_bone.replacen("_L_", "_R_")
-		ArmIk.tip_bone = ArmIk.tip_bone.replacen("_L_", "_R_")
+		ArmIk.set_root_bone_name(0, ArmIk.get_root_bone_name(0).replacen("_L_", "_R_"))
+		ArmIk.set_end_bone_name(0, ArmIk.get_end_bone_name(0).replacen("_L_", "_R_"))
 	
 	var ArmPos = Node3D.new()
 	skeleton.add_child(ArmIk)
 	add_child(ArmPos)
 	
-	ArmIk.target_node = ArmPos.get_path()
+	ArmIk.set_target_node(0, ArmPos.get_path())
 	ArmPos.global_position = skeleton.get_bone_global_pose(skeleton.find_bone(ArmIk.root_bone)).origin + skeleton.global_basis.x * (-10.0 if right else 10.0)
 	
 	ArmIk.start(true)
@@ -272,20 +237,20 @@ func setup_arm_ik(right: bool):
 	ArmIk.queue_free()
 
 func setup_leg_ik(right: bool):
-	var legIk = SkeletonIK3D.new()
-	legIk.root_bone = "ValveBiped.Bip01_L_Thigh"
-	legIk.tip_bone = "ValveBiped.Bip01_L_Foot"
-	legIk.override_tip_basis = false
+	var legIk = FABRIK3D.new()
+	legIk.setting_count = 1
+	legIk.set_root_bone_name(0, "ValveBiped.Bip01_L_Thigh")
+	legIk.set_end_bone_name(0, "ValveBiped.Bip01_L_Foot")
 	
 	if right:
-		legIk.root_bone = legIk.root_bone.replacen("_L_", "_R_")
-		legIk.tip_bone = legIk.tip_bone.replacen("_L_", "_R_")
+		legIk.set_root_bone_name(0, legIk.get_root_bone_name(0).replacen("_L_", "_R_"))
+		legIk.set_end_bone_name(0, legIk.get_end_bone_name(0).replacen("_L_", "_R_"))
 	
 	var legPos = Node3D.new()
 	skeleton.add_child(legIk)
 	add_child(legPos)
 	
-	legIk.target_node = legPos.get_path()
+	legIk.set_target_node(0, legPos.get_path())
 	legPos.global_position = skeleton.get_bone_global_pose(skeleton.find_bone(legIk.root_bone)).origin + skeleton.global_basis.y * -10.0
 	legPos.rotation_degrees = Vector3(-90.0, -90.0, 0.0)
 	
@@ -312,7 +277,7 @@ func setup_leg_ik(right: bool):
 	legPos.queue_free()
 	legIk.queue_free()
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if skeleton == null:
 		return
 	
@@ -357,419 +322,6 @@ func _process(delta: float) -> void:
 	for i in range(0, bones_needed.size()):
 		bones_display.multimesh.set_instance_transform(i, bones_needed[i])
 		bones_display.multimesh.set_instance_color(i, colours[i])
-
-func _toggle_rename() -> void:
-	
-	# find bones to rename for the arms
-	var left_done = false
-	var right_done = false
-	
-	var not_renamed = []
-	
-	for i in range(0, skeleton.get_bone_count()):
-		var bone_name = get_bone_name_formated(skeleton, i)
-		
-		
-		if bone_name.contains("finger") or not bone_has_array_term(bone_name, arm_bones) or bone_has_array_term(bone_name, banned_terms):
-			continue
-		
-		# check what side the bone is
-		var side = get_bone_side(bone_name)
-		
-		#print(bone_name, side)
-		
-		if side == 0:
-			continue
-		
-		if side == 1 and right_done:
-			continue
-		
-		if side == -1 and left_done:
-			continue
-		
-		var highest_index = i
-		var lowest_index = i
-		
-		# loop through every parent until we find the highest one
-		var parent = skeleton.get_bone_parent(i)
-		
-		while parent != -1 and bone_has_array_term(get_bone_name_formated(skeleton, parent), arm_bones) and get_bone_side(get_bone_name_formated(skeleton, parent)) == side  and not get_bone_name_formated(skeleton, parent).contains("finger"):
-			highest_index = parent
-			parent = skeleton.get_bone_parent(parent)
-		
-		# now loop through the children
-		var children_should_loop = true
-		while children_should_loop:
-			
-			children_should_loop = false
-			
-			for j in skeleton.get_bone_children(lowest_index):
-				if bone_has_array_term(get_bone_name_formated(skeleton, j), arm_bones) and not bone_has_array_term(get_bone_name_formated(skeleton, j), banned_terms) and not get_bone_name_formated(skeleton, j).contains("finger"):
-					children_should_loop = true
-					lowest_index = j
-					break
-		
-		
-		# now time to count the amount of bones
-		var bone_length = 1
-		var current_bone = lowest_index
-		
-		while current_bone != highest_index:
-			bone_length += 1
-			current_bone = skeleton.get_bone_parent(current_bone)
-		
-		var bone_renaming_pattern = []
-		
-		if bone_length == 3:
-			bone_renaming_pattern = [
-				"ValveBiped.Bip01_X_Hand",
-				"ValveBiped.Bip01_X_Forearm",
-				"ValveBiped.Bip01_X_UpperArm"
-			]
-		elif bone_length == 4:
-			bone_renaming_pattern = [
-				"ValveBiped.Bip01_X_Hand",
-				"ValveBiped.Bip01_X_Forearm",
-				"ValveBiped.Bip01_X_UpperArm",
-				"ValveBiped.Bip01_X_Clavicle"
-			]
-		else:
-			var warning = "Arm bones (" + ("Right" if side == 1 else "Left") + ")"
-			warning += ", too many or few bones compared to the list, rename some bones if there's too many"
-			not_renamed.append(warning)
-		
-		print(bone_length)
-		
-		if side == 1:
-			right_done = true
-		else:
-			left_done = true
-		
-		if bone_renaming_pattern == []:
-			continue
-		
-		
-		
-		var current_index = lowest_index
-		
-		for j in range(0, bone_length):
-			
-			var renaming = bone_renaming_pattern[j]
-			renaming = renaming.replacen("_X_", "_R_" if side == 1 else "_L_")
-			
-			
-			skeleton.set_bone_name(current_index, renaming)
-			current_index = skeleton.get_bone_parent(current_index)
-	
-	# time for the legs
-	left_done = false
-	right_done = false
-	
-	for i in range(0, skeleton.get_bone_count()):
-		var bone_name = get_bone_name_formated(skeleton, i)
-		
-		
-		if not bone_has_array_term(bone_name, leg_bones) or bone_has_array_term(bone_name, banned_terms):
-			continue
-		
-		# check what side the bone is
-		var side = get_bone_side(bone_name)
-		
-		if side == 0:
-			continue
-		
-		if side == 1 and right_done:
-			continue
-		
-		if side == -1 and left_done:
-			continue
-		
-		var highest_index = i
-		var lowest_index = i
-		
-		# loop through every parent until we find the highest one
-		var parent = skeleton.get_bone_parent(i)
-		
-		while parent != -1 and bone_has_array_term(get_bone_name_formated(skeleton, parent), leg_bones) and get_bone_side(get_bone_name_formated(skeleton, parent)):
-			highest_index = parent
-			parent = skeleton.get_bone_parent(parent)
-		
-		# now loop through the children
-		var children_should_loop = true
-		while children_should_loop:
-			
-			children_should_loop = false
-			
-			for j in skeleton.get_bone_children(lowest_index):
-				if bone_has_array_term(get_bone_name_formated(skeleton, j), leg_bones) and not bone_has_array_term(get_bone_name_formated(skeleton, j), banned_terms):
-					children_should_loop = true
-					lowest_index = j
-					break
-		
-		
-		# now time to count the amount of bones
-		var bone_length = 1
-		var current_bone = lowest_index
-		
-		while current_bone != highest_index:
-			bone_length += 1
-			current_bone = skeleton.get_bone_parent(current_bone)
-		
-		var bone_renaming_pattern = []
-		
-		if bone_length == 3:
-			bone_renaming_pattern = [
-				"ValveBiped.Bip01_X_Foot",
-				"ValveBiped.Bip01_X_Calf",
-				"ValveBiped.Bip01_X_Thigh",
-			]
-		else:
-			var warning = "Leg bones (" + ("Right" if side == 1 else "Left") + ")"
-			warning += ", too many or few bones compared to the list, rename some bones if there's too many"
-			not_renamed.append(warning)
-		
-		if side == 1:
-			right_done = true
-		else:
-			left_done = true
-		
-		if bone_renaming_pattern == []:
-			continue
-		
-		var current_index = lowest_index
-		
-		for j in range(0, bone_length):
-			
-			var renaming = bone_renaming_pattern[j]
-			renaming = renaming.replacen("_X_", "_R_" if side == 1 else "_L_")
-			
-			
-			skeleton.set_bone_name(current_index, renaming)
-			current_index = skeleton.get_bone_parent(current_index)
-		
-		# check for a toe bone
-		for j in skeleton.get_bone_children(lowest_index):
-			var child_name = get_bone_name_formated(skeleton, j)
-			
-			if child_name.contains("toe") and not bone_has_array_term(child_name, banned_terms):
-				
-				var renaming = "ValveBiped.Bip01_X_Toe0"
-				renaming = renaming.replacen("_X_", "_R_" if side == 1 else "_L_")
-				
-				skeleton.set_bone_name(j,renaming)
-				break
-	
-	# fingers are renamed a bit differently, and they have an option which impacts them
-	rename_finger_bones()
-	# time for the spine, but this is done differently unlike most other stuff
-	rename_spine_bones(not_renamed)
-	
-	if not_renamed != []:
-		var message = "The following bones were not named: \n"
-		
-		for i in not_renamed:
-			message += "\n\n" + i
-		
-		ModelEditor.show_warning(message)
-	
-	update_tree()
-	bone_renamed.emit()
-
-func rename_finger_bones():
-	for side in range(0, 2):
-		var hand = "ValveBiped.Bip01_R_Hand" if side == 0 else "ValveBiped.Bip01_L_Hand"
-		var hand_index = skeleton.find_bone(hand)
-		
-		if hand_index == -1:
-			return
-		
-		# check for the fingers, and sort them later
-		var start_fingers = []
-		
-		for j in skeleton.get_bone_children(hand_index):
-			var finger_name = skeleton.get_bone_name(j)
-			
-			if bone_has_array_term(finger_name, banned_terms):
-				continue
-			
-			start_fingers.append(j)
-		
-		start_fingers.sort_custom(sort_finger_bones)
-		
-		var first_renaming = []
-		var finger_count = start_fingers.size()
-		
-		if PropertySetting.settings["HasThumbs"]:
-			first_renaming.append("ValveBiped.Bip01_X_Finger0")
-			finger_count -= 1
-		
-		if finger_count == 1:
-			first_renaming.append_array([
-				"ValveBiped.Bip01_X_Finger2"
-			])
-		elif finger_count == 2:
-			first_renaming.append_array([
-				"ValveBiped.Bip01_X_Finger1",
-				"ValveBiped.Bip01_X_Finger3"
-			])
-		elif finger_count == 3:
-			first_renaming.append_array([
-				"ValveBiped.Bip01_X_Finger1",
-				"ValveBiped.Bip01_X_Finger2",
-				"ValveBiped.Bip01_X_Finger3"
-			])
-		elif finger_count == 4:
-			first_renaming.append_array([
-				"ValveBiped.Bip01_X_Finger1",
-				"ValveBiped.Bip01_X_Finger2",
-				"ValveBiped.Bip01_X_Finger3",
-				"ValveBiped.Bip01_X_Finger4"
-			])
-		
-		if first_renaming == []:
-			return
-		
-		# now we count the amount of bones
-		
-		for j in start_fingers:
-			var bones_found = [j]
-			
-			for k in bones_found:
-				for l in skeleton.get_bone_children(k):
-					if bone_has_array_term(skeleton.get_bone_name(l), banned_terms):
-						continue
-					
-					bones_found.append(l)
-					continue
-			
-			var additional_numbers = [""]
-			
-			if bones_found.size() == 2:
-				additional_numbers.append("2")
-			elif bones_found.size() == 3:
-				additional_numbers.append("1")
-				additional_numbers.append("2")
-			
-			# time to rename
-			
-			for k in bones_found:
-				var bone_rename = first_renaming[start_fingers.find(j)] + additional_numbers[bones_found.find(k)]
-				bone_rename = bone_rename.replace("_X_", "_R_" if side == 0 else "_L_")
-				skeleton.set_bone_name(k, bone_rename)
-
-func rename_spine_bones(not_renamed: Array = []):
-	var spine_indices = []
-	
-	for i in range(0, skeleton.get_bone_count()):
-		var bone_name = get_bone_name_formated(skeleton, i)
-		
-		if bone_has_array_term(bone_name, spine_bones) and get_bone_side(bone_name) == 0 and not bone_has_array_term(bone_name, banned_terms):
-			spine_indices.insert(0, i)
-		
-	var bone_renaming_pattern = []
-	
-	# sort the spines by height
-	spine_indices.sort_custom(sort_spine_bones)
-	
-	if spine_indices.size() == 2:
-		bone_renaming_pattern = [
-			"ValveBiped.Bip01_Pelvis",
-			"ValveBiped.Bip01_Head1"
-		]
-	elif spine_indices.size() == 3:
-		bone_renaming_pattern = [
-			"ValveBiped.Bip01_Pelvis",
-			"ValveBiped.Bip01_Spine2",
-			"ValveBiped.Bip01_Head1"
-		]
-	elif spine_indices.size() == 4:
-		bone_renaming_pattern = [
-			"ValveBiped.Bip01_Pelvis",
-			"ValveBiped.Bip01_Spine2",
-			"ValveBiped.Bip01_Neck1",
-			"ValveBiped.Bip01_Head1"
-		]
-	elif spine_indices.size() == 5:
-		bone_renaming_pattern = [
-			"ValveBiped.Bip01_Pelvis",
-			"ValveBiped.Bip01_Spine",
-			"ValveBiped.Bip01_Spine2",
-			"ValveBiped.Bip01_Neck1",
-			"ValveBiped.Bip01_Head1"
-		]
-	elif spine_indices.size() == 6:
-		bone_renaming_pattern = [
-			"ValveBiped.Bip01_Pelvis",
-			"ValveBiped.Bip01_Spine",
-			"ValveBiped.Bip01_Spine1",
-			"ValveBiped.Bip01_Spine2",
-			"ValveBiped.Bip01_Neck1",
-			"ValveBiped.Bip01_Head1",
-		]
-	elif spine_indices.size() == 7:
-		bone_renaming_pattern = [
-			"ValveBiped.Bip01_Pelvis",
-			"ValveBiped.Bip01_Spine",
-			"ValveBiped.Bip01_Spine1",
-			"ValveBiped.Bip01_Spine2",
-			"ValveBiped.Bip01_Spine4",
-			"ValveBiped.Bip01_Neck1",
-			"ValveBiped.Bip01_Head1",
-		]
-	else:
-		var warning = "Spine bones"
-		warning += ", too many or few bones compared to the list, rename some bones if there's too many"
-		not_renamed.append(warning)
-	
-	if bone_renaming_pattern != []:
-		
-		for j in range(0, spine_indices.size()):
-			skeleton.set_bone_name(spine_indices[j], bone_renaming_pattern[j])
-
-func sort_finger_bones(a, b):
-	var a_zed = (skeleton.global_transform * skeleton.get_bone_global_pose(a)).origin.z
-	var b_zed = (skeleton.global_transform * skeleton.get_bone_global_pose(b)).origin.z
-	
-	return a_zed > b_zed
-
-func sort_spine_bones(a, b):
-	var a_height = (skeleton.global_transform * skeleton.get_bone_global_pose(a)).origin.y
-	var b_height = (skeleton.global_transform * skeleton.get_bone_global_pose(b)).origin.y
-	
-	var a_children = skeleton.get_bone_children(a)
-	for i in a_children:
-		a_height += skeleton.get_bone_global_pose(a).origin.y / (a_children.size() / 4.0)
-	
-	var b_children = skeleton.get_bone_children(b)
-	for i in b_children:
-		b_height += skeleton.get_bone_global_pose(b).origin.y / (b_children.size() / 4.0)
-	
-	return a_height < b_height
-
-func get_bone_side(bone_name) -> int:
-	if bone_name.contains("right") or bone_name.begins_with("r_") or bone_name.ends_with("_r"):
-		return 1
-	elif bone_name.contains("left") or bone_name.begins_with("l_") or bone_name.ends_with("_l"):
-		return -1
-	
-	return 0
-
-func get_bone_name_formated(skeleton: Skeleton3D, index):
-	var bone_name = skeleton.get_bone_name(index)
-	# converting to snake case since it's easier
-	#bone_name = bone_name.to_pascal_case()
-	bone_name = bone_name.remove_chars("0123456789_-., ")
-	bone_name = bone_name.validate_filename()
-	bone_name = bone_name.to_snake_case()
-	print(bone_name)
-	return bone_name
-
-func bone_has_array_term(string: String, array: PackedStringArray) -> bool:
-	for i in array:
-		if string.contains(i):
-			return true
-	
-	return false
 
 # just some ui stuff
 var target_transform: Transform3D = Transform3D.IDENTITY

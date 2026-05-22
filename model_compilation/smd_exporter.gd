@@ -231,6 +231,7 @@ static func generate_collisions_smd_data(skeleton: Skeleton3D, bones: Array[SMDB
 			if j % 3 == 0:
 				data += "phy\n"
 			
+			@warning_ignore("integer_division")
 			var triangle_index = (2 - (j % 3)) + ((j / 3) * 3)
 			triangle_index = mesh_data[Mesh.ARRAY_INDEX][triangle_index]
 			
