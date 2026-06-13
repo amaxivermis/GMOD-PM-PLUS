@@ -22,7 +22,6 @@
 [ext_resource type="Script" uid="uid://bfwqnlivm84l7" path="res://user_interface/materials/groups.gd" id="16_iopv7"]
 [ext_resource type="Texture2D" uid="uid://dqe46enaw0840" path="res://user_interface/icons/material_icon.png" id="17_lan5r"]
 [ext_resource type="Script" uid="uid://b4iocrsyle3ww" path="res://ImportModel.cs" id="21_trbmf"]
-[ext_resource type="Script" uid="uid://cql0qrv7iawxk" path="res://SaveModel.cs" id="23_pguem"]
 [ext_resource type="Script" uid="uid://bu6qx4s7s2l27" path="res://bone_auto_renaming.gd" id="24_bbu36"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sdunm"]
@@ -689,20 +688,6 @@ dialog_autowrap = true
 script = ExtResource("21_trbmf")
 ToBeAddedTo = NodePath("../..")
 
-[node name="SaveModel" type="Node" parent="Actions" unique_id=1239779041 node_paths=PackedStringArray("ToBeAddedTo", "FieldsToSave")]
-script = ExtResource("23_pguem")
-ToBeAddedTo = NodePath("../..")
-FieldsToSave = NodePath("../../Panels")
-
-[node name="SaveDialogue" type="FileDialog" parent="Actions/SaveModel" unique_id=931306039]
-oversampling_override = 1.0
-position = Vector2i(0, 36)
-size = Vector2i(1058, 360)
-access = 2
-filters = PackedStringArray("*.gmp")
-show_hidden_files = true
-use_native_dialog = true
-
 [node name="BoneAutoRename" type="Node" parent="Actions" unique_id=1414143467]
 script = ExtResource("24_bbu36")
 
@@ -734,9 +719,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-current_tab = 0
+current_tab = 1
 
 [node name="Skeleton" type="ScrollContainer" parent="Panels/Control/TabContainer" unique_id=278885828]
+visible = false
 layout_mode = 2
 horizontal_scroll_mode = 0
 metadata/_tab_index = 0
@@ -898,7 +884,6 @@ size_flags_horizontal = 10
 text = "On"
 
 [node name="Mesh" type="ScrollContainer" parent="Panels/Control/TabContainer" unique_id=955358137]
-visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
@@ -1432,6 +1417,7 @@ popup/item_0/text = "Import"
 popup/item_0/id = 0
 popup/item_1/text = "Save"
 popup/item_1/id = 2
+popup/item_1/disabled = true
 popup/item_2/id = 0
 popup/item_2/separator = true
 popup/item_3/text = "Compile"
@@ -4083,12 +4069,7 @@ environment = SubResource("Environment_5qyes")
 
 [connection signal="file_selected" from="ModelSearch" to="Actions/ImportModel" method="Import"]
 [connection signal="close_requested" from="Settings" to="." method="_on_settings_close_requested"]
-[connection signal="ProjectFile" from="Actions/ImportModel" to="Actions/SaveModel" method="OpenFile"]
 [connection signal="PushError" from="Actions/ImportModel" to="." method="show_error"]
-[connection signal="PushWarning" from="Actions/ImportModel" to="." method="show_warning"]
-[connection signal="PushError" from="Actions/SaveModel" to="." method="show_error"]
-[connection signal="PushWarning" from="Actions/SaveModel" to="." method="show_warning"]
-[connection signal="file_selected" from="Actions/SaveModel/SaveDialogue" to="Actions/SaveModel" method="CreateFile"]
 [connection signal="bone_renamed" from="Actions/BoneAutoRename" to="Panels/Control/TabContainer/Skeleton/Skeleton" method="update_tree"]
 [connection signal="bone_renamed" from="Actions/BoneAutoRename" to="Panels/Control/TabContainer/Collisions/Collisions" method="update_tree"]
 [connection signal="bone_renamed" from="Panels/Control/TabContainer/Skeleton/Skeleton" to="Panels/Control/TabContainer/Collisions/Collisions" method="update_tree"]
@@ -4120,6 +4101,5 @@ environment = SubResource("Environment_5qyes")
 [connection signal="compile_model" from="Toolbar/Options" to="." method="export_model"]
 [connection signal="import_model" from="Toolbar/Options" to="." method="_prompt_model"]
 [connection signal="open_settings" from="Toolbar/Options" to="." method="_show_settings"]
-[connection signal="save_file" from="Toolbar/Options" to="Actions/SaveModel" method="Save"]
 
 [editable path="male_07_reference2"]

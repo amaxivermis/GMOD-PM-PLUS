@@ -21,6 +21,7 @@ config/icon="uid://cqjw4nykhoi06"
 [autoload]
 
 SkeletonManager="*uid://dmn8oqyokjw2"
+LoadManager="*uid://5ecd34migvcs"
 
 [display]
 

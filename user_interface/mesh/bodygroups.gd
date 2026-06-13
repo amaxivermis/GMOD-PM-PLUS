@@ -2,14 +2,14 @@ class_name BodygroupManager extends FoldableContainer
 
 # these classes are mainly for keeping track of where the materials belong
 class BodygroupInfo:
-	var bodygroup_index: int
-	var mesh_index: int
+	@export_storage var bodygroup_index: int
+	@export_storage var mesh_index: int
 	# we get the meshes here, since they're easier to do this way
-	var mesh_instance: MeshInstance3D
-	var surface_index: int
+	@export_storage var mesh_instance: MeshInstance3D
+	@export_storage var surface_index: int
 
 @onready var list: ItemList = $VBoxContainer/GroupList
-@onready var tree = $VBoxContainer/Tree
+@onready var tree: Control = $VBoxContainer/Tree
 
 var tree_groups: Dictionary[TreeItem, BodygroupInfo]
 var tree_groups_mesh_count: Array[int] = []

@@ -2,7 +2,7 @@ class_name ParameterList extends VBoxContainer
 
 #This class is different, it contains sets of properties
 static var list: Array[ParameterList] = []
-var parameters: Dictionary = {}
+@export_storage var parameters: Dictionary = {}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
